@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ThemedButton">
+        <attr name="text" format="string"/>
+        <attr name="textColor" format="integer"/>
+        <attr name="backgroundColor" format="integer" />
+        <attr name="defaultBg" format="integer" />
+        <attr name="defaultTextColor" format="integer" />
+        <attr name="btnCornerRadius" format="dimension" />
+        <attr name="icon" format="reference" />
+        <attr name="circularCornerRadius" format="boolean" />
+        <attr name="iconColor" format="integer" />
+    </declare-styleable>
+</resources>

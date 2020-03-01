@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+        android:id="@+id/btns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:circularCornerRadius="true"
+        app:layout_constraintBottom_toTopOf="@+id/toggleGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:text="CONTINUE" />
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
+        android:id="@+id/toggleGroup"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMultipleChoice"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnTyped"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMemory"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
+        android:id="@+id/weekdays"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleGroup">
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMemory232"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:circularCornerRadius="true"
+            app:text="S" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMultipleChoice22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:btnCornerRadius="10dp"
+            app:circularCornerRadius="true"
+            app:text="M" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnTyped22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:circularCornerRadius="true"
+            app:text="T" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMemory22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:circularCornerRadius="true"
+            app:text="W" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMemory21332"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:circularCornerRadius="true"
+            app:text="T" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMemory2332"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:backgroundColor="@color/lightGray"
+            app:circularCornerRadius="true"
+            app:text="F" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMemory231342"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:circularCornerRadius="true"
+            app:text="S" />
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekdays">
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMultipleChoice2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:circularCornerRadius="true"
+            app:text="5:30PM" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnTyped2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:circularCornerRadius="true"
+            app:text="7:30PM" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMemory2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:circularCornerRadius="true"
+            app:text="8:00PM" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMemory23"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:circularCornerRadius="true"
+            app:text="9:00PM" />
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
