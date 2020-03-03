@@ -1,10 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.flexbox.FlexboxLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:justifyContent="space_evenly"
+    app:flexDirection="column"
     tools:context=".MainActivity">
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        app:justifyContent="center"
+        app:layout_constraintBottom_toTopOf="@+id/tags"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMultipleChoice"
+            android:layout_width="110dp"
+            android:layout_height="145dp"
+            android:layout_margin="5dp"
+            app:padding="10dp"
+            app:iconPadding="50dp"
+            app:textPaddingVertical="13dp"
+            app:highlightBackgroundColor="@color/sapphire"
+            app:btnCornerRadius="10dp"
+            app:icon="@drawable/ic_check_circle_outline_24px"
+            app:iconGravity="top|center"
+            app:text="Multiple choice"
+            app:textGravity="bottom|center" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnTyped"
+            android:layout_width="110dp"
+            android:layout_height="145dp"
+            android:layout_margin="5dp"
+            app:padding="10dp"
+            app:iconPadding="50dp"
+            app:textPaddingVertical="13dp"
+            app:highlightBackgroundColor="@color/sapphire"
+            app:btnCornerRadius="10dp"
+            app:icon="@drawable/ic_spellcheck_24px"
+            app:iconGravity="top|center"
+            app:text="Typewriter mode"
+            app:textGravity="bottom|center"/>
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMemory"
+            android:layout_width="110dp"
+            android:layout_height="145dp"
+            android:layout_margin="5dp"
+            app:padding="10dp"
+            app:iconPadding="50dp"
+            app:textPaddingVertical="13dp"
+            app:highlightBackgroundColor="@color/sapphire"
+            app:btnCornerRadius="10dp"
+            app:icon="@drawable/ic_brain"
+            app:iconGravity="top|center"
+            app:text="Memory mode"
+            app:textGravity="bottom|center"/>
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
         android:id="@+id/tags"
@@ -23,8 +83,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="android" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -34,8 +94,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="kotlin" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -45,8 +105,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="java" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -56,8 +116,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="view" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -67,8 +127,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="jetpack" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -78,8 +138,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="dart" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -89,8 +149,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="reactivex" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -100,8 +160,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="null-safety" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -111,8 +171,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="0dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="0dp"
             app:text="android" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -122,8 +182,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="kotlin" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -133,8 +193,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="java" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -144,8 +204,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="view" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -155,8 +215,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="jetpack" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -166,8 +226,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="dart" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -177,8 +237,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="reactivex" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -188,8 +248,8 @@
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
-            app:paddingHorizontal="12dp"
-            app:paddingVertical="3dp"
+            app:textPaddingHorizontal="12dp"
+            app:textPaddingVertical="3dp"
             app:text="null-safety" />
 
     </nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
@@ -260,40 +320,40 @@
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMultipleChoice22"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:text="M" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnTyped22"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:text="T" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMemory22"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:text="W" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMemory21332"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:text="T" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMemory2332"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_margin="2dp"
             app:circularCornerRadius="true"
             app:text="F" />
@@ -314,10 +374,11 @@
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMultipleChoice2"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_margin="2dp"
-            app:paddingHorizontal="18dp"
-            app:paddingVertical="7dp"
+            android:layout_height="38dp"
+            android:layout_margin="4dp"
+            app:textSize="17sp"
+            app:textPaddingHorizontal="14dp"
+            app:textPaddingVertical="7dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
             app:text="5:30PM" />
@@ -325,10 +386,11 @@
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnTyped2"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_margin="2dp"
-            app:paddingHorizontal="18dp"
-            app:paddingVertical="7dp"
+            android:layout_height="38dp"
+            android:layout_margin="4dp"
+            app:textSize="17sp"
+            app:textPaddingHorizontal="14dp"
+            app:textPaddingVertical="7dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
             app:text="7:30PM" />
@@ -336,10 +398,11 @@
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMemory2"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_margin="2dp"
-            app:paddingHorizontal="18dp"
-            app:paddingVertical="7dp"
+            android:layout_height="38dp"
+            android:layout_margin="4dp"
+            app:textSize="17sp"
+            app:textPaddingHorizontal="14dp"
+            app:textPaddingVertical="7dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
             app:text="8:00PM" />
@@ -347,14 +410,15 @@
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMemory23"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_margin="2dp"
-            app:paddingHorizontal="18dp"
-            app:paddingVertical="7dp"
+            android:layout_height="38dp"
+            android:layout_margin="4dp"
+            app:textSize="17sp"
+            app:textPaddingHorizontal="14dp"
+            app:textPaddingVertical="7dp"
             app:circularCornerRadius="true"
             app:highlightBackgroundColor="@color/sapphire"
             app:text="9:00PM" />
 
     </nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.flexbox.FlexboxLayout>

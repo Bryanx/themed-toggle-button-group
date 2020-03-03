@@ -11,11 +11,8 @@ import android.graphics.PorterDuff
 import android.os.Build
 import android.speech.tts.TextToSpeech
 import android.util.TypedValue
-import android.view.KeyEvent
+import android.view.*
 import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.MenuItem
-import android.view.View
-import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -23,6 +20,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import java.lang.Integer.parseInt
@@ -182,6 +180,13 @@ val Int.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).to
 
 val Float.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
+var CardView.contentPaddingHorizontal: Float
+    get() = this.contentPaddingTop.toFloat()
+    set(padding) { this.setContentPadding(padding.dp, this.contentPaddingTop, padding.dp, this.contentPaddingBottom) }
+
+var CardView.contentPaddingVertical: Float
+    get() = this.contentPaddingTop.toFloat()
+    set(padding) { this.setContentPadding(this.contentPaddingLeft, padding.toInt(), this.contentPaddingRight, padding.toInt()+3) }
 
 var TextView.paddingHorizontal: Float
     get() { return this.paddingStart.toFloat() }

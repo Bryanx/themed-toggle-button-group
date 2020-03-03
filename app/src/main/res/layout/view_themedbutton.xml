@@ -12,8 +12,6 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
-        android:padding="0dp"
-        android:shape="oval"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="false">
@@ -22,7 +20,6 @@
             android:id="@+id/cbIcon"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:visibility="gone" />
@@ -30,8 +27,7 @@
         <TextView
             android:id="@+id/cbText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_height="wrap_content"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -40,8 +36,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
-        android:padding="0dp"
-        android:shape="oval"
         android:visibility="gone"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
@@ -51,7 +45,6 @@
             android:id="@+id/cbIconHighlight"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:visibility="gone" />
@@ -59,7 +52,6 @@
         <TextView
             android:id="@+id/cbTextHighlight"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_height="wrap_content" />
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

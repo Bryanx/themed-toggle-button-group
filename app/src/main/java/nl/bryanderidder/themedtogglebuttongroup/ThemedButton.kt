@@ -7,6 +7,7 @@ import android.view.*
 import android.widget.*
 import androidx.core.view.*
 import kotlinx.android.synthetic.main.view_themedbutton.view.*
+import java.util.*
 
 /**
  * Custom button with rounded corners.
@@ -33,6 +34,13 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
             cbTextHighlight?.text = text
         }
 
+    var textSize: Float
+        get() = cbText.textSize
+        set(size) {
+            cbText?.textSize = size.dp.toFloat()
+            cbTextHighlight?.textSize = size.dp.toFloat()
+        }
+
     var cornerRadius: Float
         get() = cbCardView.radius
         set(cornerRadius) {
@@ -54,18 +62,39 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
             cbCardViewHighlight.layoutParams.width = btnWidth
         }
 
-    var paddingHorizontal: Float
+    var padding: Float
+        get() = 0F
+        set(padding) {
+            cbCardView.setContentPadding(padding.toInt(),padding.toInt(),padding.toInt(),padding.toInt())
+            cbCardViewHighlight.setContentPadding(padding.toInt(),padding.toInt(),padding.toInt(),padding.toInt())
+        }
+
+    var textPaddingHorizontal: Float
         get() = cbText.paddingHorizontal
         set(padding) {
             cbText.paddingHorizontal = padding
             cbTextHighlight.paddingHorizontal = padding
         }
 
-    var paddingVertical: Float
+    var textPaddingVertical: Float
         get() = cbText.paddingVertical
         set(padding) {
             cbText.paddingVertical = padding
             cbTextHighlight.paddingVertical = padding
+        }
+
+    var paddingHorizontal: Float
+        get() = cbCardView.contentPaddingHorizontal
+        set(padding) {
+            cbCardView.contentPaddingHorizontal = padding
+            cbCardViewHighlight.contentPaddingHorizontal = padding
+        }
+
+    var paddingVertical: Float
+        get() = cbCardView.contentPaddingVertical
+        set(padding) {
+            cbCardView.contentPaddingVertical = padding
+            cbCardViewHighlight.contentPaddingVertical = padding
         }
 
     var btnBackgroundColor: Int
@@ -88,6 +117,43 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
             cbIconHighlight.setPadding(padding.dp)
         }
 
+    var iconGravity: Int
+        get() = (cbIcon.layoutParams as FrameLayout.LayoutParams).gravity
+        set(position) {
+            cbIcon.layoutParams = FrameLayout.LayoutParams(
+                cbIcon.layoutParams.width,
+                cbIcon.layoutParams.height,
+                position
+            )
+            cbIconHighlight.layoutParams = FrameLayout.LayoutParams(
+                cbIconHighlight.layoutParams.width,
+                cbIconHighlight.layoutParams.height,
+                position
+            )
+        }
+
+    var textGravity: Int
+        get() = (cbText.layoutParams as FrameLayout.LayoutParams).gravity
+        set(position) {
+            cbText.layoutParams = FrameLayout.LayoutParams(
+                cbText.layoutParams.width,
+                cbText.layoutParams.height,
+                position
+            )
+            cbTextHighlight.layoutParams = FrameLayout.LayoutParams(
+                cbTextHighlight.layoutParams.width,
+                cbTextHighlight.layoutParams.height,
+                position
+            )
+        }
+
+    var textAlign: Int
+        get() = cbText.textAlignment
+        set(alignment) {
+            cbText.textAlignment = alignment
+            cbTextHighlight.textAlignment = alignment
+        }
+
     var iconColor: Int
         get() = cbIcon.solidColor
         set(iconColor) = cbIcon.setTintColor(iconColor)
@@ -106,9 +172,16 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         this.cornerRadius = styledAttrs.getDimension(R.styleable.ThemedButton_btnCornerRadius, defaultCornerRadius)
         this.paddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_paddingHorizontal, 0F)
         this.paddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_paddingVertical, 0F)
-        this.iconPadding = styledAttrs.getDimension(R.styleable.ThemedButton_iconPadding, 25F)
+        this.textPaddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_textPaddingHorizontal, 0F)
+        this.textPaddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_textPaddingVertical, 0F)
+        this.iconPadding = styledAttrs.getDimension(R.styleable.ThemedButton_iconPadding, 0F)
+        this.padding = styledAttrs.getDimension(R.styleable.ThemedButton_padding, 0F)
         this.iconColor = styledAttrs.getInt(R.styleable.ThemedButton_iconColor, defaultTextColor)
+        this.iconGravity = styledAttrs.getInt(R.styleable.ThemedButton_iconGravity, Gravity.CENTER)
         this.text = styledAttrs.getString(R.styleable.ThemedButton_text) ?: ""
+        this.textSize = styledAttrs.getDimension(R.styleable.ThemedButton_textSize, 15F.px)
+        this.textGravity = styledAttrs.getInt(R.styleable.ThemedButton_textGravity, Gravity.CENTER)
+        this.textAlign = styledAttrs.getInt(R.styleable.ThemedButton_textAlignment, View.TEXT_ALIGNMENT_CENTER)
         this.circularCornerRadius = styledAttrs.getBoolean(R.styleable.ThemedButton_circularCornerRadius, false)
         styledAttrs.getDrawable(R.styleable.ThemedButton_icon)?.let { this.icon = it }
         styledAttrs.recycle()
