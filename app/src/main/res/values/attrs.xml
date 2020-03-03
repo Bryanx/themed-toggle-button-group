@@ -3,15 +3,14 @@
     <declare-styleable name="ThemedButton">
         <attr name="text" format="string"/>
         <attr name="textSize" format="dimension"/>
-        <attr name="textColor" format="integer"/>
-        <attr name="backgroundColor" format="integer" />
-        <attr name="highlightBackgroundColor" format="integer" />
-        <attr name="defaultBg" format="integer" />
-        <attr name="highLightTextColor" format="integer" />
+        <attr name="textColor" format="color"/>
+        <attr name="backgroundColor" format="color" />
+        <attr name="highlightBackgroundColor" format="color" />
+        <attr name="highLightTextColor" format="color" />
         <attr name="btnCornerRadius" format="dimension" />
         <attr name="icon" format="reference" />
         <attr name="circularCornerRadius" format="boolean" />
-        <attr name="iconColor" format="integer" />
+        <attr name="iconColor" format="color" />
         <attr name="paddingHorizontal" format="dimension" />
         <attr name="paddingVertical" format="dimension" />
         <attr name="textPaddingHorizontal" format="dimension" />

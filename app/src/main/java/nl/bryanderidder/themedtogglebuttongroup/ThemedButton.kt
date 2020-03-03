@@ -165,10 +165,10 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
 
     private fun getStyledAttributes(attrs: AttributeSet) {
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButton)
-        this.defaultBgColor = styledAttrs.getInt(R.styleable.ThemedButton_backgroundColor, defaultBgColor)
-        this.highlightBgColor = styledAttrs.getInt(R.styleable.ThemedButton_highlightBackgroundColor, highlightBgColor)
-        this.highLightTextColor = styledAttrs.getInt(R.styleable.ThemedButton_highLightTextColor, highLightTextColor)
-        this.defaultTextColor = styledAttrs.getInt(R.styleable.ThemedButton_textColor, defaultTextColor)
+        this.defaultBgColor = styledAttrs.getColor(R.styleable.ThemedButton_backgroundColor, defaultBgColor)
+        this.highlightBgColor = styledAttrs.getColor(R.styleable.ThemedButton_highlightBackgroundColor, highlightBgColor)
+        this.highLightTextColor = styledAttrs.getColor(R.styleable.ThemedButton_highLightTextColor, highLightTextColor)
+        this.defaultTextColor = styledAttrs.getColor(R.styleable.ThemedButton_textColor, defaultTextColor)
         this.cornerRadius = styledAttrs.getDimension(R.styleable.ThemedButton_btnCornerRadius, defaultCornerRadius)
         this.paddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_paddingHorizontal, 0F)
         this.paddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_paddingVertical, 0F)
@@ -176,7 +176,7 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         this.textPaddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_textPaddingVertical, 0F)
         this.iconPadding = styledAttrs.getDimension(R.styleable.ThemedButton_iconPadding, 0F)
         this.padding = styledAttrs.getDimension(R.styleable.ThemedButton_padding, 0F)
-        this.iconColor = styledAttrs.getInt(R.styleable.ThemedButton_iconColor, defaultTextColor)
+        this.iconColor = styledAttrs.getColor(R.styleable.ThemedButton_iconColor, defaultTextColor)
         this.iconGravity = styledAttrs.getInt(R.styleable.ThemedButton_iconGravity, Gravity.CENTER)
         this.text = styledAttrs.getString(R.styleable.ThemedButton_text) ?: ""
         this.textSize = styledAttrs.getDimension(R.styleable.ThemedButton_textSize, 15F.px)
