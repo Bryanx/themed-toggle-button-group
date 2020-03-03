@@ -179,3 +179,14 @@ val Int.px: Int get() = (this * Resources.getSystem().displayMetrics.density).to
 val Float.px: Float get() = this * Resources.getSystem().displayMetrics.density
 
 val Int.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+
+val Float.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+
+
+var TextView.paddingHorizontal: Float
+    get() { return this.paddingStart.toFloat() }
+    set(padding) { this.setPadding(padding.toInt(), this.paddingTop, padding.toInt(), this.paddingBottom) }
+
+var TextView.paddingVertical: Float
+    get() { return this.paddingStart.toFloat() }
+    set(padding) { this.setPadding(this.paddingStart, padding.toInt(), this.paddingEnd, padding.toInt()) }

@@ -4,11 +4,19 @@
         <attr name="text" format="string"/>
         <attr name="textColor" format="integer"/>
         <attr name="backgroundColor" format="integer" />
+        <attr name="highlightBackgroundColor" format="integer" />
         <attr name="defaultBg" format="integer" />
-        <attr name="defaultTextColor" format="integer" />
+        <attr name="highLightTextColor" format="integer" />
         <attr name="btnCornerRadius" format="dimension" />
         <attr name="icon" format="reference" />
         <attr name="circularCornerRadius" format="boolean" />
         <attr name="iconColor" format="integer" />
+        <attr name="paddingHorizontal" format="dimension" />
+        <attr name="paddingVertical" format="dimension" />
+        <attr name="iconPadding" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="ThemedButtonGroup">
+<!--        <attr name="android:layout_height" format="dimension"/>-->
+<!--        <attr name="android:layout_width" format="dimension"/>-->
     </declare-styleable>
 </resources>

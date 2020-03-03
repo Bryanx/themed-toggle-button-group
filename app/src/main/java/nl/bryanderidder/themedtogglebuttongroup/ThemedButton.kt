@@ -2,14 +2,10 @@ package nl.bryanderidder.themedtogglebuttongroup
 
 import android.content.*
 import android.graphics.drawable.*
-import android.os.*
 import android.util.*
 import android.view.*
-import android.view.animation.*
 import android.widget.*
-import androidx.annotation.*
-import androidx.cardview.widget.*
-import androidx.core.animation.*
+import androidx.core.view.*
 import kotlinx.android.synthetic.main.view_themedbutton.view.*
 
 /**
@@ -18,122 +14,106 @@ import kotlinx.android.synthetic.main.view_themedbutton.view.*
  */
 class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attrs) {
     private val defaultCornerRadius: Float = 22F
-    private val defaultText: String = "CLICK"
-    private val tvTextHighlight: TextView
-    private val cardViewHighlight: CardView
-    private val ivIconHighlight: ImageView
-    private val tvText: TextView
-    private val cardView: CardView
-    private val ivIcon: ImageView
     private var circularCornerRadius: Boolean = false
 
-    val defaultTextColor: Int = ctx.color(R.color.darkGray)
-    val defaultBackgroundColor: Int = ctx.color(R.color.lightGray)
+    var defaultBgColor: Int = ctx.color(R.color.lightGray)
+    var highlightBgColor: Int = ctx.color(R.color.colorPrimary)
+
+    var defaultTextColor: Int = ctx.color(R.color.darkGray)
+    var highLightTextColor: Int = ctx.color(android.R.color.white)
 
     var textColor: Int
-        get() = tvText.currentTextColor
-        set(textColor) = tvText.setTextColor(textColor)
+        get() = cbText.currentTextColor
+        set(textColor) = cbText.setTextColor(textColor)
 
     var text: String
-        get() = tvText.string
+        get() = cbText.string
         set(text) {
-            tvText.text = text
-            tvTextHighlight.text = text
+            cbText?.text = text
+            cbTextHighlight?.text = text
         }
 
     var cornerRadius: Float
-        get() = cardView.radius
+        get() = cbCardView.radius
         set(cornerRadius) {
-            cardView.radius = cornerRadius
-            cardViewHighlight.radius = cornerRadius
+            cbCardView.radius = cornerRadius
+            cbCardViewHighlight.radius = cornerRadius
         }
 
     var btnHeight: Int
-        get() = cardView.height
-        set(btnHeight) {
-            if (btnHeight == -2) cardView.layoutParams.height = 150.dp
-            cardView.layoutParams.height = btnHeight.dp
+        get() = cbCardView.height
+        set(height) {
+            cbCardView.layoutParams.height = height.dp
+            cbCardViewHighlight.layoutParams.height = height.dp
         }
 
     var btnWidth: Int
-        get() = cardView.width
+        get() = cbCardView.width
         set(btnWidth) {
-            cardView.layoutParams.width = btnWidth
-            cardViewHighlight.layoutParams.width = btnWidth
+            cbCardView.layoutParams.width = btnWidth
+            cbCardViewHighlight.layoutParams.width = btnWidth
         }
 
-    var paddingHorizontal: Int
-        get() = cbText.paddingStart
-        set(paddingHorizontal) {
-            cbText.setPadding(
-                paddingHorizontal.px,
-                cbText.paddingTop,
-                paddingHorizontal.px,
-                cbText.paddingBottom
-            )
-            cbTextHighlight.setPadding(
-                paddingHorizontal.px,
-                cbText.paddingTop,
-                paddingHorizontal.px,
-                cbText.paddingBottom
-            )
+    var paddingHorizontal: Float
+        get() = cbText.paddingHorizontal
+        set(padding) {
+            cbText.paddingHorizontal = padding
+            cbTextHighlight.paddingHorizontal = padding
+        }
+
+    var paddingVertical: Float
+        get() = cbText.paddingVertical
+        set(padding) {
+            cbText.paddingVertical = padding
+            cbTextHighlight.paddingVertical = padding
         }
 
     var btnBackgroundColor: Int
-        get() = cardView.cardBackgroundColor.defaultColor
-        set(btnBackgroundColor) = cardView.setCardBackgroundColor(btnBackgroundColor)
+        get() = cbCardView.cardBackgroundColor.defaultColor
+        set(btnBackgroundColor) = cbCardView.setCardBackgroundColor(btnBackgroundColor)
 
     var icon: Drawable
-        get() = ivIcon.background
+        get() = cbIcon.background
         set(icon) {
-            ivIcon.setImageDrawable(icon)
-            ivIcon.visibility = VISIBLE
-            ivIconHighlight.setImageDrawable(icon)
-            ivIconHighlight.visibility = VISIBLE
+            cbIcon.setImageDrawable(icon)
+            cbIcon.visibility = VISIBLE
+            cbIconHighlight.setImageDrawable(icon.constantState?.newDrawable())
+            cbIconHighlight.visibility = VISIBLE
+        }
+
+    var iconPadding: Float
+        get() = cbIcon.paddingStart.toFloat()
+        set(padding) {
+            cbIcon.setPadding(padding.dp)
+            cbIconHighlight.setPadding(padding.dp)
         }
 
     var iconColor: Int
-        get() = ivIcon.solidColor
-        set(iconColor) = ivIcon.setTintColor(iconColor)
+        get() = cbIcon.solidColor
+        set(iconColor) = cbIcon.setTintColor(iconColor)
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_themedbutton, this)
-        tvText = findViewById(R.id.cbText)
-        cardView = findViewById(R.id.cbCardView)
-        ivIcon = findViewById(R.id.cbIcon)
-        tvTextHighlight = findViewById(R.id.cbTextHighlight)
-        cardViewHighlight = findViewById(R.id.cbCardViewHighlight)
-        ivIconHighlight = findViewById(R.id.cbIconHighlight)
-        handleStyledAttributes(attrs)
+        getStyledAttributes(attrs)
     }
 
-    private fun handleStyledAttributes(attrs: AttributeSet) {
+    private fun getStyledAttributes(attrs: AttributeSet) {
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButton)
-        this.btnBackgroundColor = styledAttrs.getInt(R.styleable.ThemedButton_backgroundColor, defaultBackgroundColor)
-        this.textColor = styledAttrs.getInt(R.styleable.ThemedButton_textColor, defaultTextColor)
+        this.defaultBgColor = styledAttrs.getInt(R.styleable.ThemedButton_backgroundColor, defaultBgColor)
+        this.highlightBgColor = styledAttrs.getInt(R.styleable.ThemedButton_highlightBackgroundColor, highlightBgColor)
+        this.highLightTextColor = styledAttrs.getInt(R.styleable.ThemedButton_highLightTextColor, highLightTextColor)
+        this.defaultTextColor = styledAttrs.getInt(R.styleable.ThemedButton_textColor, defaultTextColor)
         this.cornerRadius = styledAttrs.getDimension(R.styleable.ThemedButton_btnCornerRadius, defaultCornerRadius)
+        this.paddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_paddingHorizontal, 0F)
+        this.paddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_paddingVertical, 0F)
+        this.iconPadding = styledAttrs.getDimension(R.styleable.ThemedButton_iconPadding, 25F)
         this.iconColor = styledAttrs.getInt(R.styleable.ThemedButton_iconColor, defaultTextColor)
-        this.text = styledAttrs.getString(R.styleable.ThemedButton_text) ?: defaultText
-        this.circularCornerRadius = (styledAttrs.getBoolean(R.styleable.ThemedButton_circularCornerRadius, false))
+        this.text = styledAttrs.getString(R.styleable.ThemedButton_text) ?: ""
+        this.circularCornerRadius = styledAttrs.getBoolean(R.styleable.ThemedButton_circularCornerRadius, false)
         styledAttrs.getDrawable(R.styleable.ThemedButton_icon)?.let { this.icon = it }
         styledAttrs.recycle()
-    }
-
-    fun animateBg(bgColor: Int, x: Float, y: Float) = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
-            val reveal = ViewAnimationUtils.createCircularReveal(
-                cardViewHighlight,
-                x.toInt(),
-                y.toInt(),
-                0.toFloat(),
-                (cardView.width.coerceAtLeast(cardView.height)).toFloat()
-            )
-            reveal.interpolator = AccelerateDecelerateInterpolator()
-            reveal.duration = 400
-            reveal.doOnStart { cardViewHighlight.visibility = View.VISIBLE }
-            reveal.start()
-        }
-        else -> cardView.setCardBackgroundColor(bgColor)
+        setPadding(0,0,0,0)
+        btnBackgroundColor = defaultBgColor
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
