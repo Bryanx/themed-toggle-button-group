@@ -14,9 +14,9 @@
         android:foreground="?attr/selectableItemBackground"
         android:padding="0dp"
         android:shape="oval"
-        app:cardElevation=".5dp"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="false">
 
         <ImageView
             android:id="@+id/cbIcon"
@@ -43,9 +43,9 @@
         android:padding="0dp"
         android:shape="oval"
         android:visibility="gone"
-        app:cardElevation=".5dp"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="false">
 
         <ImageView
             android:id="@+id/cbIconHighlight"

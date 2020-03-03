@@ -189,4 +189,4 @@ var TextView.paddingHorizontal: Float
 
 var TextView.paddingVertical: Float
     get() { return this.paddingStart.toFloat() }
-    set(padding) { this.setPadding(this.paddingStart, padding.toInt(), this.paddingEnd, padding.toInt()) }
+    set(padding) { this.setPadding(this.paddingStart, padding.toInt(), this.paddingEnd, padding.toInt()+3) }
