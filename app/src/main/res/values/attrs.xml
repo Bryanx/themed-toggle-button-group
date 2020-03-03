@@ -16,7 +16,6 @@
         <attr name="iconPadding" format="dimension" />
     </declare-styleable>
     <declare-styleable name="ThemedButtonGroup">
-<!--        <attr name="android:layout_height" format="dimension"/>-->
-<!--        <attr name="android:layout_width" format="dimension"/>-->
+        <attr name="selectableAmount" format="integer"/>
     </declare-styleable>
 </resources>

@@ -190,3 +190,6 @@ var TextView.paddingHorizontal: Float
 var TextView.paddingVertical: Float
     get() { return this.paddingStart.toFloat() }
     set(padding) { this.setPadding(this.paddingStart, padding.toInt(), this.paddingEnd, padding.toInt()+3) }
+
+fun <T> MutableList<T>.enqueue(item: T) = this.add(this.count(), item)
+fun <T> MutableList<T>.dequeue(): T? = if (this.count() > 0) this.removeAt(0) else null

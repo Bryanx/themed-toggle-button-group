@@ -17,18 +17,19 @@ import kotlinx.android.synthetic.main.view_themedbutton.view.*
  */
 class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, attrs) {
 
-//    private var declaredHeight: Float
-//    private var declaredWidth: Float
     private var buttons = listOf<ThemedButton>()
     var animator: Animator = AnimatorSet()
+    var selectableAmount: Int = 1
+    var selectedStack = mutableListOf<ThemedButton>()
 
     init {
         styleSelectedBtns()
         styleDeSelectedBtns()
-//        val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButtonGroup)
-//        this.declaredHeight = styledAttrs.getDimension(R.styleable.ThemedButtonGroup_android_layout_height, 22F)
-//        this.declaredWidth = styledAttrs.getDimension(R.styleable.ThemedButtonGroup_android_layout_width, 22F)
-//        styledAttrs.recycle()
+        val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButtonGroup)
+        styledAttrs.getInt(R.styleable.ThemedButtonGroup_selectableAmount, -1).also {
+            if (it != -1) this.selectableAmount = it
+        }
+        styledAttrs.recycle()
     }
 
     private fun addListener(btn: ThemedButton) {
@@ -38,9 +39,13 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
             if (!btn.isSelected) {
                 animators += selectButton(btn, event.x, event.y, true)
                 styleSelected(btn)
+                selectedStack.enqueue(btn)
             }
-            buttons.filter { it.isSelected && it != btn }.forEach {
-                animators += selectButton(it, (it.width/2).toFloat(), (it.height/2).toFloat(), false)
+            if (buttons.count { it.isSelected } > selectableAmount)
+            {
+                val dequeuedBtn = selectedStack.dequeue()!!
+                animators += selectButton(dequeuedBtn, (dequeuedBtn.width/2).toFloat(), (dequeuedBtn.height/2).toFloat(), false)
+
             }
             if (animators.size > 1) animators[1].duration = animators[0].duration / 2
             val set = AnimatorSet()
