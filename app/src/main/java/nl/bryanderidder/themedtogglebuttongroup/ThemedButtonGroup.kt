@@ -96,8 +96,8 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
     }
 
     private fun styleSelected(btn: ThemedButton) {
-        btn.cbTextHighlight.setTextColor(btn.highLightTextColor)
-        btn.cbIconHighlight.setTintColor(btn.highLightTextColor)
+        btn.cbTextHighlight.setTextColor(btn.defaultHighLightTextColor)
+        btn.cbIconHighlight.setTintColor(btn.defaultHighLightTextColor)
         btn.cbCardViewHighlight.setCardBackgroundColor(btn.highlightBgColor)
     }
 

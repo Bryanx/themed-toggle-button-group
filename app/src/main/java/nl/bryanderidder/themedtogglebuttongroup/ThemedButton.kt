@@ -20,12 +20,16 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     var defaultBgColor: Int = ctx.color(R.color.lightGray)
     var highlightBgColor: Int = ctx.color(R.color.colorPrimary)
 
-    var defaultTextColor: Int = ctx.color(R.color.darkGray)
-    var highLightTextColor: Int = ctx.color(android.R.color.white)
+    var defaultTextColor: Int = R.color.darkGray
+    var defaultHighLightTextColor: Int = ctx.color(android.R.color.white)
 
     var textColor: Int
         get() = cbText.currentTextColor
         set(textColor) = cbText.setTextColor(textColor)
+
+    var highLightTextColor: Int
+        get() = cbTextHighlight.currentTextColor
+        set(textColor) = cbTextHighlight.setTextColor(textColor)
 
     var text: String
         get() = cbText.string
@@ -161,13 +165,16 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     init {
         LayoutInflater.from(context).inflate(R.layout.view_themedbutton, this)
         getStyledAttributes(attrs)
+        setPadding(0,0,0,0)
+        btnBackgroundColor = defaultBgColor
+        textColor = defaultTextColor
     }
 
     private fun getStyledAttributes(attrs: AttributeSet) {
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButton)
         this.defaultBgColor = styledAttrs.getColor(R.styleable.ThemedButton_backgroundColor, defaultBgColor)
         this.highlightBgColor = styledAttrs.getColor(R.styleable.ThemedButton_highlightBackgroundColor, highlightBgColor)
-        this.highLightTextColor = styledAttrs.getColor(R.styleable.ThemedButton_highLightTextColor, highLightTextColor)
+        this.defaultHighLightTextColor = styledAttrs.getColor(R.styleable.ThemedButton_highLightTextColor, defaultHighLightTextColor)
         this.defaultTextColor = styledAttrs.getColor(R.styleable.ThemedButton_textColor, defaultTextColor)
         this.cornerRadius = styledAttrs.getDimension(R.styleable.ThemedButton_btnCornerRadius, defaultCornerRadius)
         this.paddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_paddingHorizontal, 0F)
@@ -185,8 +192,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         this.circularCornerRadius = styledAttrs.getBoolean(R.styleable.ThemedButton_circularCornerRadius, false)
         styledAttrs.getDrawable(R.styleable.ThemedButton_icon)?.let { this.icon = it }
         styledAttrs.recycle()
-        setPadding(0,0,0,0)
-        btnBackgroundColor = defaultBgColor
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
