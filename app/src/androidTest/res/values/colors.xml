@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#733fed</color>
+    <color name="colorPrimaryDark">#33333d</color>
+    <color name="colorAccent">#FF1D69</color>
+    <color name="lightGray">#ebebeb</color>
+    <color name="darkGray">#5e5e5e</color>
+    <color name="denim">#5e6fed</color>
+    <color name="lavender">#ffdc7d</color>
+    <color name="sapphire">#733fed</color>
+</resources>
