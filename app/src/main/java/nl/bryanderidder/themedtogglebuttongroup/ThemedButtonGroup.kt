@@ -1,18 +1,25 @@
 package nl.bryanderidder.themedtogglebuttongroup
 
-import android.animation.*
-import android.content.*
-import android.os.*
-import android.util.*
-import android.view.*
-import android.view.animation.*
-import androidx.core.animation.*
-import com.google.android.flexbox.*
-import kotlinx.android.synthetic.main.view_themedbutton.view.*
-
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.content.Context
+import android.os.Build
+import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewAnimationUtils
+import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.core.animation.doOnEnd
+import androidx.core.animation.doOnStart
+import com.google.android.flexbox.FlexboxLayout
 
 /**
- * Group of buttons, only allowed to select one at a time.
+ * A group of customisable [ThemedButton]'s,
+ * The user is limited to select a [selectableAmount] at a time.
+ * When the user selects too many items, the first selected Button is deselected
+ * by removing it from the [selectQueue].
+ *
  * @author Bryan de Ridder
  */
 class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, attrs) {
@@ -20,7 +27,7 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
     private var buttons = listOf<ThemedButton>()
     var animator: Animator = AnimatorSet()
     var selectableAmount: Int = 1
-    var selectedStack = mutableListOf<ThemedButton>()
+    var selectQueue = mutableListOf<ThemedButton>()
 
     init {
         styleSelectedBtns()
@@ -39,11 +46,11 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
             if (!btn.isSelected) {
                 animators += selectButton(btn, event.x, event.y, true)
                 styleSelected(btn)
-                selectedStack.enqueue(btn)
+                selectQueue.enqueue(btn)
             }
             if (buttons.count { it.isSelected } > selectableAmount)
             {
-                val dequeuedBtn = selectedStack.dequeue()!!
+                val dequeuedBtn = selectQueue.dequeue()!!
                 animators += selectButton(dequeuedBtn, (dequeuedBtn.width/2).toFloat(), (dequeuedBtn.height/2).toFloat(), false)
 
             }
@@ -84,7 +91,7 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
                 btn.isSelected = selected
                 animator.duration = 400
             }
-            else -> cbCardView.setCardBackgroundColor(btn.highlightBgColor)
+            else -> btn.cbCardView.setCardBackgroundColor(btn.highlightBgColor)
         }
         return animator
     }

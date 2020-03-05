@@ -78,14 +78,6 @@ fun Button.setBackgroundTint(color: Int) {
     }
 }
 
-fun Activity?.setStatusBarColor(color: Int) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        val window = (this as MainActivity).window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = this.color(color)
-    }
-}
-
 // Returns a color
 fun Context.color(id: Int): Int {
     return ContextCompat.getColor(this, id)
