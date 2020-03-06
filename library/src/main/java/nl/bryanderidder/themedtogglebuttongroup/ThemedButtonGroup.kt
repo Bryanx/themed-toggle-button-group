@@ -18,16 +18,16 @@ import com.google.android.flexbox.FlexboxLayout
  * A group of customisable [ThemedButton]'s,
  * The user is limited to select a [selectableAmount] at a time.
  * When the user selects too many items, the first selected Button is deselected
- * by removing it from the [selectQueue].
+ * by removing it from the [selectedButtons].
  *
  * @author Bryan de Ridder
  */
 class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, attrs) {
 
-    private var buttons = listOf<ThemedButton>()
+    var buttons = listOf<ThemedButton>()
     var animator: Animator = AnimatorSet()
     var selectableAmount: Int = 1
-    var selectQueue = mutableListOf<ThemedButton>()
+    var selectedButtons = mutableListOf<ThemedButton>()
 
     init {
         styleSelectedBtns()
@@ -46,11 +46,11 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
             if (!btn.isSelected) {
                 animators += selectButton(btn, event.x, event.y, true)
                 styleSelected(btn)
-                selectQueue.enqueue(btn)
+                selectedButtons.enqueue(btn)
             }
             if (buttons.count { it.isSelected } > selectableAmount)
             {
-                val dequeuedBtn = selectQueue.dequeue()!!
+                val dequeuedBtn = selectedButtons.dequeue()!!
                 animators += selectButton(dequeuedBtn, (dequeuedBtn.width/2).toFloat(), (dequeuedBtn.height/2).toFloat(), false)
 
             }

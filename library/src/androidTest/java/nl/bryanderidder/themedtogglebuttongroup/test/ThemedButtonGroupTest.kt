@@ -7,8 +7,10 @@ import androidx.test.filters.FlakyTest
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
+import junit.framework.Assert.assertNotNull
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
-import org.junit.Assert
+import org.hamcrest.Matchers.`is`
+import org.junit.Assert.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,15 +27,15 @@ class ThemedButtonGroupTest {
     @FlakyTest
     @Throws(Throwable::class)
     fun testLoadFromLayoutXml() {
-        val layout = createLayout(R.layout.activity_simple)
-        Assert.assertNotNull(layout)
+        val buttonGroup = createLayout(R.layout.activity_simple)
+        assertNotNull(buttonGroup)
+        assertThat(buttonGroup.buttons.size, `is`(3))
+        assertThat(buttonGroup.childCount, `is`(3))
+
     }
 
     @Throws(Throwable::class)
-    private fun createLayout(
-        @LayoutRes activityLayoutResId: Int,
-        configuration: Configuration = Configuration.EMPTY
-    ): ThemedButtonGroup {
+    private fun createLayout(@LayoutRes activityLayoutResId: Int, configuration: Configuration = Configuration.EMPTY): ThemedButtonGroup {
         val activity = activityRule.activity
         activityRule.runOnUiThread {
             activity.setContentView(activityLayoutResId)

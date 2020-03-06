@@ -6,19 +6,19 @@
     android:layout_height="wrap_content">
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-        android:id="@+id/btn530"
+        android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         app:text="5:30PM"/>
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-        android:id="@+id/btn600"
+        android:id="@+id/btn2"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         app:text="6:00PM"/>
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-        android:id="@+id/btn630"
+        android:id="@+id/btn3"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         app:text="6:30PM"/>

@@ -1,2 +1,3 @@
 rootProject.name='ThemedToggleButtonGroup'
-include ':app'
+include ':library'
+include ':demo-toggle-cards'
