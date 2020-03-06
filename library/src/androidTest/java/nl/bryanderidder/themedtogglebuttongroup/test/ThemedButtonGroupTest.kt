@@ -1,15 +1,14 @@
 package nl.bryanderidder.themedtogglebuttongroup.test
 
-import android.view.View
-import androidx.annotation.LayoutRes
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.filters.MediumTest
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import junit.framework.Assert.assertNotNull
+import junit.framework.Assert.assertTrue
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
 import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.isA
 import org.junit.Assert.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -27,35 +26,20 @@ class ThemedButtonGroupTest {
     @FlakyTest
     @Throws(Throwable::class)
     fun testLoadFromLayoutXml() {
-        val buttonGroup = createLayout(R.layout.activity_simple)
+        val buttonGroup = createLayout(R.layout.activity_simple, activityRule)
         assertNotNull(buttonGroup)
+        assertThat(buttonGroup, isA(ThemedButtonGroup::class.java))
         assertThat(buttonGroup.buttons.size, `is`(3))
         assertThat(buttonGroup.childCount, `is`(3))
+        assertTrue(buttonGroup.buttons.all { it.btnBackgroundColor == it.defaultBgColor })
+        assertTrue(buttonGroup.buttons.all { it.textColor == it.defaultTextColor })
+        assertTrue(buttonGroup.buttons.all { !it.isSelected })
 
+        buttonGroup.selectButton(buttonGroup.buttons[0], 0F, 0F, true)
+
+        assertTrue(buttonGroup.buttons[0].isSelected)
+        assertTrue(!buttonGroup.buttons[1].isSelected)
+        assertTrue(!buttonGroup.buttons[2].isSelected)
     }
 
-    @Throws(Throwable::class)
-    private fun createLayout(@LayoutRes activityLayoutResId: Int, configuration: Configuration = Configuration.EMPTY): ThemedButtonGroup {
-        val activity = activityRule.activity
-        activityRule.runOnUiThread {
-            activity.setContentView(activityLayoutResId)
-            val flexboxLayout = activity.findViewById<ThemedButtonGroup>(R.id.themedButtonGroup)
-            configuration.apply(flexboxLayout)
-        }
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        return activity.findViewById<View>(R.id.themedButtonGroup) as ThemedButtonGroup
-    }
-
-    private interface Configuration {
-
-        fun apply(themedButtonGroup: ThemedButtonGroup)
-
-        companion object {
-            val EMPTY: Configuration = object :
-                Configuration {
-                override fun apply(themedButtonGroup: ThemedButtonGroup) = Unit
-            }
-        }
-
-    }
 }

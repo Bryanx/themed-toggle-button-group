@@ -172,7 +172,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         set(iconColor) = cbIcon.setTintColor(iconColor)
 
     init {
-//        LayoutInflater.from(context).inflate(R.layout.empty_view, this)
         layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
         cbCardView.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
         cbCardViewHighlight.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
@@ -180,9 +179,8 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         cbIconHighlight.layoutParams = LayoutParams(80.px,80.px)
         cbText.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
         cbTextHighlight.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
-
         getStyledAttributes(attrs)
-
+        initialiseViews()
         cbCardView.cardElevation = 0F
         cbCardView.preventCornerOverlap = false
         cbCardView.useCompatPadding = false
@@ -191,6 +189,7 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         cbCardViewHighlight.cardElevation = 0F
         cbCardViewHighlight.preventCornerOverlap = false
         cbCardViewHighlight.useCompatPadding = false
+        cbCardViewHighlight.visibility = GONE
 
         cbIcon.adjustViewBounds = true
         cbIcon.scaleType = ImageView.ScaleType.FIT_XY
