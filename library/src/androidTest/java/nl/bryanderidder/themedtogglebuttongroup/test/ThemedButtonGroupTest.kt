@@ -7,8 +7,7 @@ import androidx.test.rule.ActivityTestRule
 import junit.framework.Assert.assertNotNull
 import junit.framework.Assert.assertTrue
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
-import org.hamcrest.Matchers.`is`
-import org.hamcrest.Matchers.isA
+import org.hamcrest.Matchers.*
 import org.junit.Assert.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -29,8 +28,9 @@ class ThemedButtonGroupTest {
         val buttonGroup = createLayout(R.layout.activity_simple, activityRule)
         assertNotNull(buttonGroup)
         assertThat(buttonGroup, isA(ThemedButtonGroup::class.java))
-        assertThat(buttonGroup.buttons.size, `is`(3))
         assertThat(buttonGroup.childCount, `is`(3))
+        assertThat(buttonGroup.buttons, hasSize(3))
+        assertThat(buttonGroup.buttons[0].text, `is`("5:30PM"))
         assertTrue(buttonGroup.buttons.all { it.btnBackgroundColor == it.defaultBgColor })
         assertTrue(buttonGroup.buttons.all { it.textColor == it.defaultTextColor })
         assertTrue(buttonGroup.buttons.all { !it.isSelected })
