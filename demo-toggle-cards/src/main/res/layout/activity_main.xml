@@ -13,8 +13,8 @@
         android:id="@+id/themedButtonGroup"
         android:layout_width="match_parent"
         android:layout_height="155dp"
-        android:paddingStart="32dp"
-        android:paddingEnd="32dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         app:justifyContent="center">
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -22,16 +22,14 @@
             android:layout_width="110dp"
             android:layout_height="145dp"
             android:layout_margin="5dp"
-            app:toggle_backgroundColor="@color/sapphire"
-            app:toggle_btnCornerRadius="10dp"
-            app:toggle_highLightTextColor="@color/sapphire"
-            app:toggle_highlightBackgroundColor="@color/lavender"
+            app:toggle_highLightTextColor="@android:color/white"
+            app:toggle_highlightBackgroundColor="@color/denim"
+            app:toggle_btnCornerRadius="15dp"
             app:toggle_icon="@drawable/ic_check_circle_outline_24px"
             app:toggle_iconGravity="top|center"
             app:toggle_iconPadding="50dp"
             app:toggle_padding="10dp"
             app:toggle_text="Multiple choice"
-            app:toggle_textColor="@color/lavender"
             app:toggle_textGravity="bottom|center"
             app:toggle_textPaddingVertical="13dp" />
 
@@ -40,16 +38,14 @@
             android:layout_width="110dp"
             android:layout_height="145dp"
             android:layout_margin="5dp"
-            app:toggle_backgroundColor="@color/sapphire"
-            app:toggle_btnCornerRadius="10dp"
-            app:toggle_highLightTextColor="@color/sapphire"
-            app:toggle_highlightBackgroundColor="@color/lavender"
+            app:toggle_highLightTextColor="@android:color/white"
+            app:toggle_highlightBackgroundColor="@color/denim"
+            app:toggle_btnCornerRadius="15dp"
             app:toggle_icon="@drawable/ic_spellcheck_24px"
             app:toggle_iconGravity="top|center"
             app:toggle_iconPadding="50dp"
             app:toggle_padding="10dp"
-            app:toggle_text="Typewrite mode"
-            app:toggle_textColor="@color/lavender"
+            app:toggle_text="Spellcheck mode"
             app:toggle_textGravity="bottom|center"
             app:toggle_textPaddingVertical="13dp" />
 
@@ -58,16 +54,14 @@
             android:layout_width="110dp"
             android:layout_height="145dp"
             android:layout_margin="5dp"
-            app:toggle_backgroundColor="@color/sapphire"
-            app:toggle_btnCornerRadius="10dp"
-            app:toggle_highLightTextColor="@color/sapphire"
-            app:toggle_highlightBackgroundColor="@color/lavender"
-            app:toggle_icon="@drawable/ic_brain"
+            app:toggle_highLightTextColor="@android:color/white"
+            app:toggle_highlightBackgroundColor="@color/denim"
+            app:toggle_btnCornerRadius="15dp"
+            app:toggle_icon="@drawable/ic_query_builder_black_24dp"
             app:toggle_iconGravity="top|center"
             app:toggle_iconPadding="50dp"
             app:toggle_padding="10dp"
-            app:toggle_text="Memory mode"
-            app:toggle_textColor="@color/lavender"
+            app:toggle_text="Time challenge"
             app:toggle_textGravity="bottom|center"
             app:toggle_textPaddingVertical="13dp" />
 
@@ -77,7 +71,9 @@
         android:id="@+id/tvText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:textAlignment="center"
+        android:textColor="@color/denim"
         android:text=""/>
 
 </LinearLayout>

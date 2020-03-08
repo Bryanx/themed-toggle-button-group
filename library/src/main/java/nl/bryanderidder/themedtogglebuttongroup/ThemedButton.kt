@@ -186,8 +186,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         cbCardView.cardElevation = 0F
         cbCardView.preventCornerOverlap = false
         cbCardView.useCompatPadding = false
-        cbCardView.isClickable = true
-        cbCardView.isFocusable = true
         cbCardViewHighlight.cardElevation = 0F
         cbCardViewHighlight.preventCornerOverlap = false
         cbCardViewHighlight.useCompatPadding = false
@@ -207,6 +205,11 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
 
         cbCardViewHighlight.addView(cbIconHighlight)
         cbCardViewHighlight.addView(cbTextHighlight)
+    }
+
+    override fun setOnClickListener(l: OnClickListener?) {
+        super.setOnClickListener(l)
+        cbCardView.performClick()
     }
 
     private fun getStyledAttributes(attrs: AttributeSet) {

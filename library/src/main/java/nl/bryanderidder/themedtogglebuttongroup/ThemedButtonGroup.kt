@@ -25,7 +25,7 @@ import com.google.android.flexbox.FlexboxLayout
  */
 class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, attrs) {
 
-    private lateinit var selectListener: (ThemedButton) -> Unit
+    private var selectListener: ((ThemedButton) -> Unit)? = null
     var buttons = listOf<ThemedButton>()
     var animator: Animator = AnimatorSet()
     var selectableAmount: Int = 1
@@ -47,7 +47,7 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
             if (animator.isRunning) return@setOnTouchListener false
             var animators = listOf<Animator>()
             if (!btn.isSelected) {
-                selectListener(btn)
+                selectListener?.invoke(btn)
                 animators += selectButton(btn, event.x, event.y, true)
                 styleSelected(btn)
                 selectedButtons.enqueue(btn)
