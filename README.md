@@ -4,4 +4,4 @@
 A customisable toggle button group for Android.
 
 
-![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/toggle.gif)
+![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/toggle4.gif)
