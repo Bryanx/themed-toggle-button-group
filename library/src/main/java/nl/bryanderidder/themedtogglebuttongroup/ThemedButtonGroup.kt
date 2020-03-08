@@ -2,6 +2,7 @@ package nl.bryanderidder.themedtogglebuttongroup
 
 import android.animation.Animator
 import android.animation.AnimatorSet
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
@@ -24,6 +25,7 @@ import com.google.android.flexbox.FlexboxLayout
  */
 class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, attrs) {
 
+    private lateinit var selectListener: (ThemedButton) -> Unit
     var buttons = listOf<ThemedButton>()
     var animator: Animator = AnimatorSet()
     var selectableAmount: Int = 1
@@ -39,11 +41,13 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
         styledAttrs.recycle()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun addListener(btn: ThemedButton) {
         btn.cbCardView.setOnTouchListener { _, event ->
             if (animator.isRunning) return@setOnTouchListener false
             var animators = listOf<Animator>()
             if (!btn.isSelected) {
+                selectListener(btn)
                 animators += selectButton(btn, event.x, event.y, true)
                 styleSelected(btn)
                 selectedButtons.enqueue(btn)
@@ -72,27 +76,22 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
     }
 
     fun selectButton(btn: ThemedButton, x: Float, y: Float, selected: Boolean): Animator {
-        when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
-                val size = (btn.btnWidth.coerceAtLeast(btn.btnHeight)*1.2).toFloat()
-                animator = ViewAnimationUtils.createCircularReveal(
-                    btn.cbCardViewHighlight,
-                    x.toInt(),
-                    y.toInt(),
-                    if (selected) 0F else size,
-                    if (selected) size else 0F
-                )
-                animator.interpolator = AccelerateDecelerateInterpolator()
-                if (selected) animator.doOnStart { btn.cbCardViewHighlight.visibility = VISIBLE }
-                if (!selected) {
-                    animator.doOnStart { styleDeselected(btn) }
-                    animator.doOnEnd { btn.cbCardViewHighlight.visibility = GONE }
-                }
-                btn.isSelected = selected
-                animator.duration = 400
-            }
-            else -> btn.cbCardView.setCardBackgroundColor(btn.highlightBgColor)
+        val size = (btn.btnWidth.coerceAtLeast(btn.btnHeight) * 1.2).toFloat()
+        animator = ViewAnimationUtils.createCircularReveal(
+            btn.cbCardViewHighlight,
+            x.toInt(),
+            y.toInt(),
+            if (selected) 0F else size,
+            if (selected) size else 0F
+        )
+        animator.interpolator = AccelerateDecelerateInterpolator()
+        if (selected) animator.doOnStart { btn.cbCardViewHighlight.visibility = VISIBLE }
+        if (!selected) {
+            animator.doOnStart { styleDeselected(btn) }
+            animator.doOnEnd { btn.cbCardViewHighlight.visibility = GONE }
         }
+        btn.isSelected = selected
+        animator.duration = 400
         return animator
     }
 
@@ -110,4 +109,8 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
 
     fun styleSelectedBtns() = buttons.filter { it.isSelected }.forEach { styleSelected(it) }
     fun styleDeSelectedBtns() = buttons.filter { !it.isSelected }.forEach { styleDeselected(it) }
+
+    fun onSelect(listener: (ThemedButton) -> Unit) {
+        this.selectListener = listener
+    }
 }

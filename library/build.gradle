@@ -1,6 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.Bryanx'
 
 android {
   compileSdkVersion 29
@@ -11,7 +14,7 @@ android {
   }
 
   defaultConfig {
-    minSdkVersion 19
+    minSdkVersion 21
     targetSdkVersion 29
     versionCode 1
     versionName "1.0"

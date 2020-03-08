@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:layout_weight="1"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
-        android:id="@+id/main"
+        android:id="@+id/themedButtonGroup"
         android:layout_width="match_parent"
         android:layout_height="155dp"
         android:paddingStart="32dp"
@@ -47,7 +48,7 @@
             app:iconGravity="top|center"
             app:iconPadding="50dp"
             app:padding="10dp"
-            app:text="Typewriter mode"
+            app:text="Typewrite mode"
             app:textColor="@color/lavender"
             app:textGravity="bottom|center"
             app:textPaddingVertical="13dp" />
@@ -65,11 +66,18 @@
             app:iconGravity="top|center"
             app:iconPadding="50dp"
             app:padding="10dp"
-            app:text="Memory mode"
+            app:text="@string/app_name"
             app:textColor="@color/lavender"
             app:textGravity="bottom|center"
             app:textPaddingVertical="13dp" />
 
     </nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
+
+    <TextView
+        android:id="@+id/tvText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text=""/>
 
 </LinearLayout>

@@ -32,17 +32,30 @@ class ThemedButtonGroupTest {
     fun testLoadFromLayoutXml() {
         val buttonGroup = createLayout(R.layout.activity_simple, activityRule)
         val button1 = buttonGroup.findViewById<ThemedButton>(R.id.btn1)
+        val buttons = buttonGroup.buttons
         assertNotNull(buttonGroup)
         assertThat(buttonGroup, isA(ThemedButtonGroup::class.java))
         assertThat(buttonGroup.childCount, `is`(3))
         assertThat(button1.text, `is`("5:30PM"))
-        val buttons = buttonGroup.buttons
         assertThat(buttons, hasSize(3))
         assertTrue(buttons.all { it.btnBackgroundColor == it.defaultBgColor })
         assertTrue(buttons.all { it.textColor == it.defaultTextColor })
         assertTrue(buttons.all { !it.isSelected })
         assertTrue(buttons.all { it.cbCardView.visibility == VISIBLE })
         assertTrue(buttons.all { it.cbCardViewHighlight.visibility == GONE })
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testSingleSelection() {
+        val buttonGroup = createLayout(R.layout.activity_single_selection, activityRule)
+        val buttons = buttonGroup.buttons
+
+        buttonGroup.onSelect { btn ->
+            assertThat(btn.text, `is`(buttons.single { it.isSelected }.text))
+        }
+
         //select a single button
         buttonGroup.selectButton(buttons[0], 0F, 0F, true).doOnEnd {
             assertThat(buttons.single { it.isSelected }.name, `is`(buttons[0].name))
