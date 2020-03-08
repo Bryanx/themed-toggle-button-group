@@ -2,6 +2,7 @@ package nl.bryanderidder.themedtogglebuttongroup
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 
 /**
@@ -126,6 +128,7 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         }
 
     var iconPadding: Float
+        @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
         get() = cbIcon.paddingStart.toFloat()
         set(padding) {
             cbIcon.setPadding(padding.dp, padding.dp, padding.dp, padding.dp)
@@ -163,7 +166,9 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         }
 
     var textAlign: Int
+        @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
         get() = cbText.textAlignment
+        @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
         set(alignment) {
             cbText.textAlignment = alignment
             cbTextHighlight.textAlignment = alignment

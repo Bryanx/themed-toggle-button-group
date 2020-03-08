@@ -77,21 +77,25 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
 
     fun selectButton(btn: ThemedButton, x: Float, y: Float, selected: Boolean): Animator {
         val size = (btn.btnWidth.coerceAtLeast(btn.btnHeight) * 1.2).toFloat()
-        animator = ViewAnimationUtils.createCircularReveal(
-            btn.cbCardViewHighlight,
-            x.toInt(),
-            y.toInt(),
-            if (selected) 0F else size,
-            if (selected) size else 0F
-        )
-        animator.interpolator = AccelerateDecelerateInterpolator()
-        if (selected) animator.doOnStart { btn.cbCardViewHighlight.visibility = VISIBLE }
-        if (!selected) {
-            animator.doOnStart { styleDeselected(btn) }
-            animator.doOnEnd { btn.cbCardViewHighlight.visibility = GONE }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            animator = ViewAnimationUtils.createCircularReveal(
+                btn.cbCardViewHighlight,
+                x.toInt(),
+                y.toInt(),
+                if (selected) 0F else size,
+                if (selected) size else 0F
+            )
+            animator.interpolator = AccelerateDecelerateInterpolator()
+            if (selected) animator.doOnStart { btn.cbCardViewHighlight.visibility = VISIBLE }
+            if (!selected) {
+                animator.doOnStart { styleDeselected(btn) }
+                animator.doOnEnd { btn.cbCardViewHighlight.visibility = GONE }
+            }
+            btn.isSelected = selected
+            animator.duration = 400
+        } else {
+            btn.cbCardViewHighlight.visibility = VISIBLE
         }
-        btn.isSelected = selected
-        animator.duration = 400
         return animator
     }
 
