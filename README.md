@@ -1,6 +1,6 @@
 # ThemedToggleButtonGroup
 ![CI](https://github.com/Bryanx/themed-toggle-button-group/workflows/CI/badge.svg)
-![API](https://img.shields.io/static/v1?label=API&message=21%2B&color=blue) \
+![API](https://img.shields.io/static/v1?label=API&message=14%2B&color=blue) \
 A customisable toggle button group for Android.
 
 
