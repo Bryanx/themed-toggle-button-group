@@ -35,7 +35,7 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
         styleSelectedBtns()
         styleDeSelectedBtns()
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButtonGroup)
-        styledAttrs.getInt(R.styleable.ThemedButtonGroup_selectableAmount, -1).also {
+        styledAttrs.getInt(R.styleable.ThemedButtonGroup_toggle_selectableAmount, -1).also {
             if (it != -1) this.selectableAmount = it
         }
         styledAttrs.recycle()

@@ -89,8 +89,6 @@ fun AlertDialog.Builder.setAnimation(styleId: Int): AlertDialog {
     return dialog
 }
 
-fun TextToSpeech.pronounce(text: String?) = this.speak(text, TextToSpeech.QUEUE_FLUSH, null)
-
 // get menu item name
 fun MenuItem.getId(res: Resources): String =
     if (this.itemId == -0x1) "no-id"

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ThemedButton">
-        <attr name="text" format="string"/>
-        <attr name="textSize" format="dimension"/>
-        <attr name="textColor" format="color"/>
-        <attr name="backgroundColor" format="color" />
-        <attr name="highlightBackgroundColor" format="color" />
-        <attr name="highLightTextColor" format="color" />
-        <attr name="btnCornerRadius" format="dimension" />
-        <attr name="icon" format="reference" />
-        <attr name="circularCornerRadius" format="boolean" />
-        <attr name="iconColor" format="color" />
-        <attr name="paddingHorizontal" format="dimension" />
-        <attr name="paddingVertical" format="dimension" />
-        <attr name="textPaddingHorizontal" format="dimension" />
-        <attr name="textPaddingVertical" format="dimension" />
-        <attr name="iconPadding" format="dimension" />
-        <attr name="iconPosition" format="string" />
-        <attr name="padding" format="dimension" />
-        <attr name="iconGravity">
+        <attr name="toggle_text" format="string"/>
+        <attr name="toggle_textSize" format="dimension"/>
+        <attr name="toggle_textColor" format="color"/>
+        <attr name="toggle_backgroundColor" format="color" />
+        <attr name="toggle_highlightBackgroundColor" format="color" />
+        <attr name="toggle_highLightTextColor" format="color" />
+        <attr name="toggle_btnCornerRadius" format="dimension" />
+        <attr name="toggle_icon" format="reference" />
+        <attr name="toggle_circularCornerRadius" format="boolean" />
+        <attr name="toggle_iconColor" format="color" />
+        <attr name="toggle_paddingHorizontal" format="dimension" />
+        <attr name="toggle_paddingVertical" format="dimension" />
+        <attr name="toggle_textPaddingHorizontal" format="dimension" />
+        <attr name="toggle_textPaddingVertical" format="dimension" />
+        <attr name="toggle_iconPadding" format="dimension" />
+        <attr name="toggle_iconPosition" format="string" />
+        <attr name="toggle_padding" format="dimension" />
+        <attr name="toggle_iconGravity">
             <flag name="bottom" value="80" />
             <flag name="center" value="17" />
             <flag name="center_horizontal" value="1" />
@@ -34,7 +34,7 @@
             <flag name="start" value="8388611" />
             <flag name="top" value="48" />
         </attr>
-        <attr name="textGravity">
+        <attr name="toggle_textGravity">
             <flag name="bottom" value="80" />
             <flag name="center" value="17" />
             <flag name="center_horizontal" value="1" />
@@ -50,7 +50,7 @@
             <flag name="start" value="8388611" />
             <flag name="top" value="48" />
         </attr>
-        <attr name="textAlignment">
+        <attr name="toggle_textAlignment">
             <flag name="inherit" value="0" />
             <flag name="gravity" value="1" />
             <flag name="textStart" value="2" />
@@ -61,6 +61,6 @@
         </attr>
     </declare-styleable>
     <declare-styleable name="ThemedButtonGroup">
-        <attr name="selectableAmount" format="integer"/>
+        <attr name="toggle_selectableAmount" format="integer"/>
     </declare-styleable>
 </resources>

@@ -43,15 +43,15 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     var text: String
         get() = cbText.string
         set(text) {
-            cbText?.text = text
-            cbTextHighlight?.text = text
+            cbText.text = text
+            cbTextHighlight.text = text
         }
 
     var textSize: Float
         get() = cbText.textSize
         set(size) {
-            cbText?.textSize = size.dp.toFloat()
-            cbTextHighlight?.textSize = size.dp.toFloat()
+            cbText.textSize = size.dp.toFloat()
+            cbTextHighlight.textSize = size.dp.toFloat()
         }
 
     var cornerRadius: Float
@@ -208,25 +208,25 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
 
     private fun getStyledAttributes(attrs: AttributeSet) {
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButton)
-        this.defaultBgColor = styledAttrs.getColor(R.styleable.ThemedButton_backgroundColor, defaultBgColor)
-        this.highlightBgColor = styledAttrs.getColor(R.styleable.ThemedButton_highlightBackgroundColor, highlightBgColor)
-        this.defaultHighLightTextColor = styledAttrs.getColor(R.styleable.ThemedButton_highLightTextColor, defaultHighLightTextColor)
-        this.defaultTextColor = styledAttrs.getColor(R.styleable.ThemedButton_textColor, defaultTextColor)
-        this.cornerRadius = styledAttrs.getDimension(R.styleable.ThemedButton_btnCornerRadius, 15F.px)
-        this.paddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_paddingHorizontal, 0F)
-        this.paddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_paddingVertical, 0F)
-        this.textPaddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_textPaddingHorizontal, 0F)
-        this.textPaddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_textPaddingVertical, 0F)
-        this.iconPadding = styledAttrs.getDimension(R.styleable.ThemedButton_iconPadding, 0F)
-        this.padding = styledAttrs.getDimension(R.styleable.ThemedButton_padding, 0F)
-        this.iconColor = styledAttrs.getColor(R.styleable.ThemedButton_iconColor, defaultTextColor)
-        this.iconGravity = styledAttrs.getInt(R.styleable.ThemedButton_iconGravity, Gravity.CENTER)
-        this.text = styledAttrs.getString(R.styleable.ThemedButton_text) ?: ""
-        this.textSize = styledAttrs.getDimension(R.styleable.ThemedButton_textSize, 15F.px)
-        this.textGravity = styledAttrs.getInt(R.styleable.ThemedButton_textGravity, Gravity.CENTER)
-        this.textAlign = styledAttrs.getInt(R.styleable.ThemedButton_textAlignment, View.TEXT_ALIGNMENT_CENTER)
-        this.circularCornerRadius = styledAttrs.getBoolean(R.styleable.ThemedButton_circularCornerRadius, false)
-        styledAttrs.getDrawable(R.styleable.ThemedButton_icon)?.let { this.icon = it }
+        this.defaultBgColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_backgroundColor, defaultBgColor)
+        this.highlightBgColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_highlightBackgroundColor, highlightBgColor)
+        this.defaultHighLightTextColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_highLightTextColor, defaultHighLightTextColor)
+        this.defaultTextColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_textColor, defaultTextColor)
+        this.cornerRadius = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_btnCornerRadius, 15F.px)
+        this.paddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_paddingHorizontal, 0F)
+        this.paddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_paddingVertical, 0F)
+        this.textPaddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingHorizontal, 0F)
+        this.textPaddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingVertical, 0F)
+        this.iconPadding = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_iconPadding, 0F)
+        this.padding = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_padding, 0F)
+        this.iconColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_iconColor, defaultTextColor)
+        this.iconGravity = styledAttrs.getInt(R.styleable.ThemedButton_toggle_iconGravity, Gravity.CENTER)
+        this.text = styledAttrs.getString(R.styleable.ThemedButton_toggle_text) ?: ""
+        this.textSize = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_textSize, 15F.px)
+        this.textGravity = styledAttrs.getInt(R.styleable.ThemedButton_toggle_textGravity, Gravity.CENTER)
+        this.textAlign = styledAttrs.getInt(R.styleable.ThemedButton_toggle_textAlignment, View.TEXT_ALIGNMENT_CENTER)
+        this.circularCornerRadius = styledAttrs.getBoolean(R.styleable.ThemedButton_toggle_circularCornerRadius, false)
+        styledAttrs.getDrawable(R.styleable.ThemedButton_toggle_icon)?.let { this.icon = it }
         styledAttrs.recycle()
     }
 

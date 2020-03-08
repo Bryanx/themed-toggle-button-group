@@ -2,7 +2,7 @@
 <nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/themedButtonGroup"
-    app:selectableAmount="2"
+    app:toggle_selectableAmount="2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,18 +10,18 @@
         android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        app:text="5:30PM"/>
+        app:toggle_text="5:30PM"/>
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
         android:id="@+id/btn2"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        app:text="6:00PM"/>
+        app:toggle_text="6:00PM"/>
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
         android:id="@+id/btn3"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        app:text="6:30PM"/>
+        app:toggle_text="6:30PM"/>
 
 </nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>

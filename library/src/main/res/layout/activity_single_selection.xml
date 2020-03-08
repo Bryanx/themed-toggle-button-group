@@ -9,18 +9,18 @@
         android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        app:text="5:30PM"/>
+        app:toggle_text="5:30PM"/>
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
         android:id="@+id/btn2"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        app:text="6:00PM"/>
+        app:toggle_text="6:00PM"/>
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
         android:id="@+id/btn3"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        app:text="6:30PM"/>
+        app:toggle_text="6:30PM"/>
 
 </nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
