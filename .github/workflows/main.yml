@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: macos
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run tests
+      uses: ReactiveCircus/android-emulator-runner@v2.4.0
+      with:
+        api-level: 29
+        script: ./gradlew connectedCheck
+
