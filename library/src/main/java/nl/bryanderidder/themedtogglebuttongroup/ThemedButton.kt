@@ -121,6 +121,8 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
             cbIcon.visibility = VISIBLE
             cbIconHighlight.setImageDrawable(icon.constantState?.newDrawable())
             cbIconHighlight.visibility = VISIBLE
+            cbIcon.layoutParams = LayoutParams(80.px,80.px)
+            cbIconHighlight.layoutParams = LayoutParams(80.px,80.px)
         }
 
     var iconPadding: Float
@@ -175,8 +177,8 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
         cbCardView.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
         cbCardViewHighlight.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
-        cbIcon.layoutParams = LayoutParams(80.px,80.px)
-        cbIconHighlight.layoutParams = LayoutParams(80.px,80.px)
+        cbIcon.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
+        cbIconHighlight.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
         cbText.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
         cbTextHighlight.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
         getStyledAttributes(attrs)
@@ -195,6 +197,7 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         cbIcon.scaleType = ImageView.ScaleType.FIT_XY
         cbIconHighlight.adjustViewBounds = true
         cbIconHighlight.scaleType = ImageView.ScaleType.FIT_XY
+        cbCardView.addRipple()
 
         addView(cbCardView)
         addView(cbCardViewHighlight)
@@ -219,6 +222,7 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         this.textPaddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingVertical, 0F)
         this.iconPadding = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_iconPadding, 0F)
         this.padding = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_padding, 0F)
+        styledAttrs.getDrawable(R.styleable.ThemedButton_toggle_icon)?.let { this.icon = it }
         this.iconColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_iconColor, defaultTextColor)
         this.iconGravity = styledAttrs.getInt(R.styleable.ThemedButton_toggle_iconGravity, Gravity.CENTER)
         this.text = styledAttrs.getString(R.styleable.ThemedButton_toggle_text) ?: ""
@@ -226,7 +230,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         this.textGravity = styledAttrs.getInt(R.styleable.ThemedButton_toggle_textGravity, Gravity.CENTER)
         this.textAlign = styledAttrs.getInt(R.styleable.ThemedButton_toggle_textAlignment, View.TEXT_ALIGNMENT_CENTER)
         this.circularCornerRadius = styledAttrs.getBoolean(R.styleable.ThemedButton_toggle_circularCornerRadius, false)
-        styledAttrs.getDrawable(R.styleable.ThemedButton_toggle_icon)?.let { this.icon = it }
         styledAttrs.recycle()
     }
 

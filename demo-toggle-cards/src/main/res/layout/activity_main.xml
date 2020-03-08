@@ -66,7 +66,7 @@
             app:toggle_iconGravity="top|center"
             app:toggle_iconPadding="50dp"
             app:toggle_padding="10dp"
-            app:toggle_text="@string/app_name"
+            app:toggle_text="Memory mode"
             app:toggle_textColor="@color/lavender"
             app:toggle_textGravity="bottom|center"
             app:toggle_textPaddingVertical="13dp" />

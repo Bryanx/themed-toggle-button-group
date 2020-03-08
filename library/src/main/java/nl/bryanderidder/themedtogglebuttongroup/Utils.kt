@@ -20,6 +20,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.cardview.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
@@ -94,6 +95,12 @@ fun MenuItem.getId(res: Resources): String =
     if (this.itemId == -0x1) "no-id"
     else res.getResourceEntryName(itemId) ?: "error-getting-id"
 
+fun View.addRipple() = with(TypedValue()) {
+    context.theme.resolveAttribute(android.R.attr.selectableItemBackground, this, true);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        foreground = getDrawable(context, resourceId)
+    }
+}
 
 fun ObjectAnimator.onAnimateEnd(args: () -> Unit) {
     this.addListener(object : Animator.AnimatorListener {
