@@ -6,6 +6,7 @@ import androidx.core.animation.doOnEnd
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.filters.MediumTest
+import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import androidx.test.rule.ActivityTestRule
 import junit.framework.Assert.assertNotNull
 import junit.framework.Assert.assertTrue
@@ -51,21 +52,18 @@ class ThemedButtonGroupTest {
     fun testSingleSelection() {
         val buttonGroup = createLayout(R.layout.activity_single_selection, activityRule)
         val buttons = buttonGroup.buttons
-
-        buttonGroup.onSelect { btn ->
-            assertThat(btn.text, `is`(buttons.single { it.isSelected }.text))
-        }
-
-        //select a single button
-        buttonGroup.selectButton(buttons[0], 0F, 0F, true).doOnEnd {
+        runOnUiThread {
+            buttonGroup.setOnSelectListener { btn ->
+                assertThat(btn.text, `is`(buttons.single { it.isSelected }.text))
+            }
+            //select a single button
+            buttonGroup.selectButton(buttons[0], 0F, 0F)
             assertThat(buttons.single { it.isSelected }.name, `is`(buttons[0].name))
-        }
-        //select another button
-        buttonGroup.selectButton(buttons[1], 0F, 0F, true).doOnEnd {
+            //select another button
+            buttonGroup.selectButton(buttons[1], 0F, 0F)
             assertThat(buttons.single { it.isSelected }.name, `is`(buttons[1].name))
-        }
-        //select last button
-        buttonGroup.selectButton(buttons[2], 0F, 0F, true).doOnEnd {
+            //select last button
+            buttonGroup.selectButton(buttons[2], 0F, 0F)
             assertThat(buttons.single { it.isSelected }.name, `is`(buttons[2].name))
         }
     }
@@ -76,27 +74,25 @@ class ThemedButtonGroupTest {
     fun testMultipleSelection() {
         val buttonGroup = createLayout(R.layout.activity_multiple_selection, activityRule)
         val buttons = buttonGroup.buttons
-        //select 1 button
-        buttonGroup.selectButton(buttons[0], 0F, 0F, true).doOnEnd {
+        runOnUiThread {
+            //select 1 button
+            buttonGroup.selectButton(buttons[0], 0F, 0F)
             assertThat(buttons.single { it.isSelected }.name, `is`(buttons[0].name))
             assertThat(buttons[0].cbCardViewHighlight.visibility, `is`(VISIBLE))
             assertThat(buttons[1].cbCardViewHighlight.visibility, `is`(GONE))
             assertThat(buttons[2].cbCardViewHighlight.visibility, `is`(GONE))
-        }
-        //select another button
-        buttonGroup.selectButton(buttons[1], 0F, 0F, true).doOnEnd {
+            //select another button
+            buttonGroup.selectButton(buttons[1], 0F, 0F)
             assertThat(buttons.filter { it.isSelected }, hasItems(buttons[0], buttons[1]))
             assertThat(buttons[0].cbCardViewHighlight.visibility, `is`(VISIBLE))
             assertThat(buttons[1].cbCardViewHighlight.visibility, `is`(VISIBLE))
             assertThat(buttons[2].cbCardViewHighlight.visibility, `is`(GONE))
-        }
-        //select last button
-        buttonGroup.selectButton(buttons[2], 0F, 0F, true).doOnEnd {
+            //select last button
+            buttonGroup.selectButton(buttons[2], 0F, 0F)
             assertThat(buttons.filter { it.isSelected }, hasItems(buttons[1], buttons[2]))
             assertThat(buttons[0].cbCardViewHighlight.visibility, `is`(GONE))
             assertThat(buttons[1].cbCardViewHighlight.visibility, `is`(VISIBLE))
             assertThat(buttons[2].cbCardViewHighlight.visibility, `is`(VISIBLE))
         }
     }
-
 }

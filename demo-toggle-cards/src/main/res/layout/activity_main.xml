@@ -19,9 +19,10 @@
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMultipleChoice"
-            android:layout_width="110dp"
+            android:layout_width="0dp"
             android:layout_height="145dp"
             android:layout_margin="5dp"
+            app:layout_flexGrow="1"
             app:toggle_highLightTextColor="@android:color/white"
             app:toggle_highlightBackgroundColor="@color/denim"
             app:toggle_btnCornerRadius="15dp"
@@ -35,9 +36,10 @@
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnTyped"
-            android:layout_width="110dp"
+            android:layout_width="0dp"
             android:layout_height="145dp"
             android:layout_margin="5dp"
+            app:layout_flexGrow="1"
             app:toggle_highLightTextColor="@android:color/white"
             app:toggle_highlightBackgroundColor="@color/denim"
             app:toggle_btnCornerRadius="15dp"
@@ -51,9 +53,10 @@
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMemory"
-            android:layout_width="110dp"
+            android:layout_width="0dp"
             android:layout_height="145dp"
             android:layout_margin="5dp"
+            app:layout_flexGrow="1"
             app:toggle_highLightTextColor="@android:color/white"
             app:toggle_highlightBackgroundColor="@color/denim"
             app:toggle_btnCornerRadius="15dp"

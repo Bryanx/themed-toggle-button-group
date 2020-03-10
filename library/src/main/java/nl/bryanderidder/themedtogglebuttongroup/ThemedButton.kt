@@ -13,6 +13,9 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
+import nl.bryanderidder.themedtogglebuttongroup.R
+import nl.bryanderidder.themedtogglebuttongroup.color
+import nl.bryanderidder.themedtogglebuttongroup.string
 
 /**
  * A customisable button that can contain an icon and/or text.
@@ -186,8 +189,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         cbIconHighlight.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
         cbText.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
         cbTextHighlight.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
-        getStyledAttributes(attrs)
-        initialiseViews()
         cbCardView.cardElevation = 0F
         cbCardView.preventCornerOverlap = false
         cbCardView.useCompatPadding = false
@@ -210,6 +211,9 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
 
         cbCardViewHighlight.addView(cbIconHighlight)
         cbCardViewHighlight.addView(cbTextHighlight)
+
+        getStyledAttributes(attrs)
+        initialiseViews()
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
@@ -258,5 +262,16 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         setPadding(0,0,0,0)
         btnBackgroundColor = defaultBgColor
         textColor = defaultTextColor
+    }
+
+    private var selectListener: ((ThemedButton, Boolean) -> Unit)? = null
+
+    override fun setSelected(selected: Boolean) {
+        super.setSelected(selected)
+        selectListener?.invoke(this, selected)
+    }
+
+    fun setOnSelectListener(listener: (ThemedButton, Boolean) -> Unit) {
+        this.selectListener = listener
     }
 }

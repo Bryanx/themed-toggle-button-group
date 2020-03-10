@@ -2,6 +2,7 @@ package nl.bryanderidder.themedtogglebuttongroup
 
 import android.animation.Animator
 import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
@@ -27,13 +28,12 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
 
     private var selectListener: ((ThemedButton) -> Unit)? = null
     var buttons = listOf<ThemedButton>()
-    var animator: Animator = AnimatorSet()
+    var selectAnimator: Animator = AnimatorSet()
+    var deselectAnimator: Animator = AnimatorSet()
     var selectableAmount: Int = 1
     var selectedButtons = mutableListOf<ThemedButton>()
 
     init {
-        styleSelectedBtns()
-        styleDeSelectedBtns()
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButtonGroup)
         styledAttrs.getInt(R.styleable.ThemedButtonGroup_toggle_selectableAmount, -1).also {
             if (it != -1) this.selectableAmount = it
@@ -42,42 +42,51 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun addListener(btn: ThemedButton) {
+    private fun addClickListeners(btn: ThemedButton) {
+        buttons.forEach { it.bounceOnClick() }
         btn.cbCardView.setOnTouchListener { _, event ->
-            if (animator.isRunning) return@setOnTouchListener false
-            var animators = listOf<Animator>()
-            if (!btn.isSelected) {
-                selectListener?.invoke(btn)
-                animators += selectButton(btn, event.x, event.y, true)
-                styleSelected(btn)
-                selectedButtons.enqueue(btn)
-            }
-            if (buttons.count { it.isSelected } > selectableAmount)
-            {
-                val dequeuedBtn = selectedButtons.dequeue()!!
-                animators += selectButton(dequeuedBtn, (dequeuedBtn.width/2).toFloat(), (dequeuedBtn.height/2).toFloat(), false)
-
-            }
-            if (animators.size > 1) animators[1].duration = animators[0].duration / 2
-            val set = AnimatorSet()
-            set.playTogether(animators)
-            set.start()
+            selectAnimator.cancel()
+            deselectAnimator.cancel()
+            if (!btn.isSelected) selectButton(btn, event.x, event.y)
+            startAnimations()
             if (event.action == MotionEvent.ACTION_UP) btn.performClick()
             event.action == MotionEvent.ACTION_UP
         }
+    }
+
+    private fun startAnimations() {
+        try {
+            deselectAnimator.duration = selectAnimator.duration / 2
+            val set = AnimatorSet()
+            set.playTogether(selectAnimator, deselectAnimator)
+            set.start()
+        } catch (e: Exception) { /* catch exceptions caused by unfinished animations */ }
     }
 
     override fun addView(child: View?, params: ViewGroup.LayoutParams?) {
         super.addView(child, params)
         if (child != null && child is ThemedButton) {
             buttons += child
-            addListener(child)
         }
     }
 
-    fun selectButton(btn: ThemedButton, x: Float, y: Float, selected: Boolean): Animator {
-        val size = (btn.btnWidth.coerceAtLeast(btn.btnHeight) * 1.2).toFloat()
+    fun selectButton(btn: ThemedButton, x: Float, y: Float) {
+        btn.isSelected = true
+        selectedButtons.enqueue(btn)
+        selectAnimator = getSelectionAnimator(btn, x, y, true)
+        if (buttons.count { it.isSelected } > selectableAmount) {
+            val removedBtn = selectedButtons.dequeue()!!
+            buttons.find { it == removedBtn }?.isSelected = false
+            deselectAnimator = getSelectionAnimator(removedBtn, removedBtn.centerX, removedBtn.centerY, false)
+        }
+        btn.cbCardViewHighlight.visibility = VISIBLE
+        selectListener?.invoke(btn)
+    }
+
+    private fun getSelectionAnimator(btn: ThemedButton, x: Float, y: Float, selected: Boolean): Animator {
+        var animator: Animator
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val size = (btn.btnWidth.coerceAtLeast(btn.btnHeight) * 1.2).toFloat()
             animator = ViewAnimationUtils.createCircularReveal(
                 btn.cbCardViewHighlight,
                 x.toInt(),
@@ -85,17 +94,13 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
                 if (selected) 0F else size,
                 if (selected) size else 0F
             )
-            animator.interpolator = AccelerateDecelerateInterpolator()
-            if (selected) animator.doOnStart { btn.cbCardViewHighlight.visibility = VISIBLE }
-            if (!selected) {
-                animator.doOnStart { styleDeselected(btn) }
-                animator.doOnEnd { btn.cbCardViewHighlight.visibility = GONE }
-            }
-            btn.isSelected = selected
             animator.duration = 400
+            animator.interpolator = AccelerateDecelerateInterpolator()
         } else {
-            btn.cbCardViewHighlight.visibility = VISIBLE
+            animator = ObjectAnimator.ofFloat(btn.cbCardViewHighlight, "alpha", if (selected) 0f else 1f, if (selected) 1f else 0f)
         }
+        if (selected) animator.doOnStart { btn.cbCardViewHighlight.visibility = VISIBLE }
+        else animator.doOnEnd { btn.cbCardViewHighlight.visibility = GONE }
         return animator
     }
 
@@ -111,10 +116,18 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
         btn.cbCardViewHighlight.setCardBackgroundColor(btn.highlightBgColor)
     }
 
-    fun styleSelectedBtns() = buttons.filter { it.isSelected }.forEach { styleSelected(it) }
-    fun styleDeSelectedBtns() = buttons.filter { !it.isSelected }.forEach { styleDeselected(it) }
-
-    fun onSelect(listener: (ThemedButton) -> Unit) {
+    fun setOnSelectListener(listener: (ThemedButton) -> Unit) {
         this.selectListener = listener
+    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        buttons.forEach { addClickListeners(it) }
+        buttons.forEach { styleSelected(it) }
+        buttons.forEach { styleDeselected(it) }
+        buttons.filter { it.isSelected }.forEach {
+            selectedButtons.enqueue(it)
+            it.cbCardViewHighlight.visibility = VISIBLE
+        }
     }
 }

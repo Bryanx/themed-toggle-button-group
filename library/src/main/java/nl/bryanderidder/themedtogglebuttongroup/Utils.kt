@@ -1,7 +1,9 @@
 package nl.bryanderidder.themedtogglebuttongroup
 
 import android.animation.Animator
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.res.ColorStateList
@@ -9,11 +11,13 @@ import android.content.res.Resources
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.os.Build
-import android.speech.tts.TextToSpeech
 import android.util.TypedValue
-import android.view.*
+import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.animation.Animation
+import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.View
+import android.view.animation.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -21,11 +25,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.cardview.widget.*
+import androidx.cardview.widget.CardView
+import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import java.lang.Integer.parseInt
 import java.util.*
+
 
 /**
  * Contains all extension methods.
@@ -139,6 +145,22 @@ fun EditText.onEnter(action: () -> Boolean) {
     })
 }
 
+fun View.bounceOnClick() {
+    val animScaleDown = ScaleAnimation(1f, 0.9f, 1f, 0.9f, (width/2).toFloat(), (height/2).toFloat()).apply {  }
+    animScaleDown.duration = 200
+    animScaleDown.fillAfter = true
+    animScaleDown.interpolator= DecelerateInterpolator()
+    val animScaleUp = ScaleAnimation(0.9f, 1f, 0.9f, 1f, (width/2).toFloat(), (height/2).toFloat())
+    animScaleUp.duration = 200
+    animScaleUp.startOffset = 100
+    animScaleUp.interpolator= OvershootInterpolator(3f)
+    setOnTouchListener { _, event ->
+        if (event.action == MotionEvent.ACTION_DOWN) startAnimation(animScaleDown)
+        if (event.action == MotionEvent.ACTION_UP) startAnimation(animScaleUp)
+        true
+    }
+}
+
 fun EditText.showKeyboard() {
     post {
         requestFocus()
@@ -177,6 +199,9 @@ val Int.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).to
 
 val Float.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
+val ThemedButton.centerX: Float get() = (width / 2).toFloat()
+val ThemedButton.centerY: Float get() = (height / 2).toFloat()
+
 var CardView.contentPaddingHorizontal: Float
     get() = this.contentPaddingTop.toFloat()
     set(padding) { this.setContentPadding(padding.dp, this.contentPaddingTop, padding.dp, this.contentPaddingBottom) }
@@ -193,5 +218,5 @@ var TextView.paddingVertical: Float
     get() { return this.paddingStart.toFloat() }
     set(padding) { this.setPadding(this.paddingStart, padding.toInt(), this.paddingEnd, padding.toInt()+3) }
 
-fun <T> MutableList<T>.enqueue(item: T) = this.add(this.count(), item)
+fun <T> MutableList<T>.enqueue(item: T) = if (!this.contains(item)) this.add(this.count(), item) else null
 fun <T> MutableList<T>.dequeue(): T? = if (this.count() > 0) this.removeAt(0) else null
