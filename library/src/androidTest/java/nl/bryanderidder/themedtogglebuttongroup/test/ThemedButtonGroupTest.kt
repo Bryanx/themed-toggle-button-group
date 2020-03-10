@@ -2,12 +2,12 @@ package nl.bryanderidder.themedtogglebuttongroup.test
 
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.core.animation.doOnEnd
+import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.filters.MediumTest
-import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import androidx.test.rule.ActivityTestRule
+import androidx.test.rule.UiThreadTestRule
 import junit.framework.Assert.assertNotNull
 import junit.framework.Assert.assertTrue
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -18,6 +18,7 @@ import org.junit.Assert.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
 
 @MediumTest
 @RunWith(AndroidJUnit4::class)
@@ -52,7 +53,7 @@ class ThemedButtonGroupTest {
     fun testSingleSelection() {
         val buttonGroup = createLayout(R.layout.activity_single_selection, activityRule)
         val buttons = buttonGroup.buttons
-        runOnUiThread {
+        activityRule.runOnUiThread {
             buttonGroup.setOnSelectListener { btn ->
                 assertThat(btn.text, `is`(buttons.single { it.isSelected }.text))
             }
@@ -74,25 +75,16 @@ class ThemedButtonGroupTest {
     fun testMultipleSelection() {
         val buttonGroup = createLayout(R.layout.activity_multiple_selection, activityRule)
         val buttons = buttonGroup.buttons
-        runOnUiThread {
+        activityRule.runOnUiThread {
             //select 1 button
             buttonGroup.selectButton(buttons[0], 0F, 0F)
             assertThat(buttons.single { it.isSelected }.name, `is`(buttons[0].name))
-            assertThat(buttons[0].cbCardViewHighlight.visibility, `is`(VISIBLE))
-            assertThat(buttons[1].cbCardViewHighlight.visibility, `is`(GONE))
-            assertThat(buttons[2].cbCardViewHighlight.visibility, `is`(GONE))
             //select another button
             buttonGroup.selectButton(buttons[1], 0F, 0F)
             assertThat(buttons.filter { it.isSelected }, hasItems(buttons[0], buttons[1]))
-            assertThat(buttons[0].cbCardViewHighlight.visibility, `is`(VISIBLE))
-            assertThat(buttons[1].cbCardViewHighlight.visibility, `is`(VISIBLE))
-            assertThat(buttons[2].cbCardViewHighlight.visibility, `is`(GONE))
             //select last button
             buttonGroup.selectButton(buttons[2], 0F, 0F)
             assertThat(buttons.filter { it.isSelected }, hasItems(buttons[1], buttons[2]))
-            assertThat(buttons[0].cbCardViewHighlight.visibility, `is`(GONE))
-            assertThat(buttons[1].cbCardViewHighlight.visibility, `is`(VISIBLE))
-            assertThat(buttons[2].cbCardViewHighlight.visibility, `is`(VISIBLE))
         }
     }
 }

@@ -79,7 +79,6 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
             buttons.find { it == removedBtn }?.isSelected = false
             deselectAnimator = getSelectionAnimator(removedBtn, removedBtn.centerX, removedBtn.centerY, false)
         }
-        btn.cbCardViewHighlight.visibility = VISIBLE
         selectListener?.invoke(btn)
     }
 
@@ -99,7 +98,7 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
         } else {
             animator = ObjectAnimator.ofFloat(btn.cbCardViewHighlight, "alpha", if (selected) 0f else 1f, if (selected) 1f else 0f)
         }
-        if (selected) animator.doOnStart { btn.cbCardViewHighlight.visibility = VISIBLE }
+        if (selected) btn.cbCardViewHighlight.visibility = VISIBLE
         else animator.doOnEnd { btn.cbCardViewHighlight.visibility = GONE }
         return animator
     }

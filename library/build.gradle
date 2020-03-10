@@ -13,6 +13,10 @@ android {
     jvmTarget = JavaVersion.VERSION_1_8.toString()
   }
 
+  testOptions {
+    animationsDisabled = true
+  }
+
   defaultConfig {
     minSdkVersion 14
     targetSdkVersion 29
