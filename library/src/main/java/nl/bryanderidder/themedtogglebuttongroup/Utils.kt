@@ -12,11 +12,8 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.os.Build
 import android.util.TypedValue
-import android.view.KeyEvent
+import android.view.*
 import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
 import android.view.animation.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -143,6 +140,17 @@ fun EditText.onEnter(action: () -> Boolean) {
             return false
         }
     })
+}
+
+fun View.setMargin(leftMargin: Int? = null, topMargin: Int? = null,
+                   rightMargin: Int? = null, bottomMargin: Int? = null) {
+    val params = layoutParams as ViewGroup.MarginLayoutParams
+    params.setMargins(
+        leftMargin ?: params.leftMargin,
+        topMargin ?: params.topMargin,
+        rightMargin ?: params.rightMargin,
+        bottomMargin ?: params.bottomMargin)
+    layoutParams = params
 }
 
 fun View.bounceOnClick() {

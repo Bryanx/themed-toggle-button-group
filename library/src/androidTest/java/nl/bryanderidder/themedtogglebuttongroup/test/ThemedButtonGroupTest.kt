@@ -2,12 +2,10 @@ package nl.bryanderidder.themedtogglebuttongroup.test
 
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.filters.MediumTest
 import androidx.test.rule.ActivityTestRule
-import androidx.test.rule.UiThreadTestRule
 import junit.framework.Assert.assertNotNull
 import junit.framework.Assert.assertTrue
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -40,8 +38,8 @@ class ThemedButtonGroupTest {
         assertThat(buttonGroup.childCount, `is`(3))
         assertThat(button1.text, `is`("5:30PM"))
         assertThat(buttons, hasSize(3))
-        assertTrue(buttons.all { it.btnBackgroundColor == it.defaultBgColor })
-        assertTrue(buttons.all { it.textColor == it.defaultTextColor })
+        assertTrue(buttons.all { it.btnBackgroundColor == it.bgColor })
+        assertTrue(buttons.all { it.cbText.currentTextColor == it.textColor })
         assertTrue(buttons.all { !it.isSelected })
         assertTrue(buttons.all { it.cbCardView.visibility == VISIBLE })
         assertTrue(buttons.all { it.cbCardViewHighlight.visibility == GONE })

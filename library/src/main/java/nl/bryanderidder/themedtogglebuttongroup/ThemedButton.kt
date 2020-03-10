@@ -13,9 +13,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
-import nl.bryanderidder.themedtogglebuttongroup.R
-import nl.bryanderidder.themedtogglebuttongroup.color
-import nl.bryanderidder.themedtogglebuttongroup.string
+import androidx.core.view.marginStart
 
 /**
  * A customisable button that can contain an icon and/or text.
@@ -23,7 +21,6 @@ import nl.bryanderidder.themedtogglebuttongroup.string
  * @author Bryan de Ridder
  */
 class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attrs) {
-    var circularCornerRadius: Boolean = false
     var cbCardView: CardView = CardView(ctx)
     var cbText: TextView = TextView(ctx)
     var cbIcon: ImageView = ImageView(ctx)
@@ -31,89 +28,61 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     var cbTextHighlight: TextView = TextView(ctx)
     var cbIconHighlight: ImageView = ImageView(ctx)
 
-    var defaultBgColor: Int = ctx.color(R.color.lightGray)
-    var highlightBgColor: Int = ctx.color(R.color.colorPrimary)
+    /** Background color when the button is not selected, default is [R.color.lightGray] */
+    var bgColor: Int = ctx.color(R.color.lightGray)
 
-    var defaultTextColor: Int = R.color.darkGray
-    var defaultHighLightTextColor: Int = ctx.color(android.R.color.white)
+    /** Background color when the button is selected, default is [R.color.denim] */
+    var selectedBgColor: Int = ctx.color(R.color.denim)
 
-    var textColor: Int
-        get() = cbText.currentTextColor
-        set(textColor) = cbText.setTextColor(textColor)
+    /** Color of the text when the button is not selected, default is [R.color.darkGray] */
+    var textColor: Int = R.color.darkGray
 
-    var highLightTextColor: Int
-        get() = cbTextHighlight.currentTextColor
-        set(textColor) = cbTextHighlight.setTextColor(textColor)
+    /** Color of the text when the button is not selected, default is [android.R.color.white] */
+    var selectedTextColor: Int = ctx.color(android.R.color.white)
+
+    /** If this property is set to true, the cornerradius is override and made circular, default is false */
+    var circularCornerRadius: Boolean = false
 
     var text: String
         get() = cbText.string
-        set(text) {
-            cbText.text = text
-            cbTextHighlight.text = text
-        }
+        set(text) = applyToText { it.text = text }
 
     var textSize: Float
         get() = cbText.textSize
-        set(size) {
-            cbText.textSize = size.dp.toFloat()
-            cbTextHighlight.textSize = size.dp.toFloat()
-        }
+        set(size) = applyToText { it.textSize = size.dp.toFloat() }
 
     var cornerRadius: Float
         get() = cbCardView.radius
-        set(cornerRadius) {
-            cbCardView.radius = cornerRadius
-            cbCardViewHighlight.radius = cornerRadius
-        }
+        set(cornerRadius) = applyToCards { it.radius = cornerRadius }
 
     var btnHeight: Int
         get() = cbCardView.height
-        set(height) {
-            cbCardView.layoutParams.height = height.dp
-            cbCardViewHighlight.layoutParams.height = height.dp
-        }
+        set(height) = applyToCards { it.layoutParams.height = height.dp }
 
     var btnWidth: Int
         get() = cbCardView.width
-        set(btnWidth) {
-            cbCardView.layoutParams.width = btnWidth
-            cbCardViewHighlight.layoutParams.width = btnWidth
-        }
+        set(width) = applyToCards { it.layoutParams.width = width.dp }
 
     var padding: Float
-        get() = 0F
-        set(padding) {
-            cbCardView.setContentPadding(padding.toInt(),padding.toInt(),padding.toInt(),padding.toInt())
-            cbCardViewHighlight.setContentPadding(padding.toInt(),padding.toInt(),padding.toInt(),padding.toInt())
-        }
+        get() = cbCardView.paddingTop.toFloat()
+        set(padding) = applyToCards { it.setContentPadding(padding.toInt(),padding.toInt(),padding.toInt(),padding.toInt()) }
 
     var textPaddingHorizontal: Float
         get() = cbText.paddingHorizontal
-        set(padding) {
-            cbText.paddingHorizontal = padding
-            cbTextHighlight.paddingHorizontal = padding
-        }
+        set(padding) = applyToText { it.paddingHorizontal = padding }
+
 
     var textPaddingVertical: Float
         get() = cbText.paddingVertical
-        set(padding) {
-            cbText.paddingVertical = padding
-            cbTextHighlight.paddingVertical = padding
-        }
+        set(padding) = applyToText { it.paddingVertical = padding }
 
     var paddingHorizontal: Float
         get() = cbCardView.contentPaddingHorizontal
-        set(padding) {
-            cbCardView.contentPaddingHorizontal = padding
-            cbCardViewHighlight.contentPaddingHorizontal = padding
-        }
+        set(padding) = applyToCards { it.contentPaddingHorizontal = padding }
 
     var paddingVertical: Float
         get() = cbCardView.contentPaddingVertical
-        set(padding) {
-            cbCardView.contentPaddingVertical = padding
-            cbCardViewHighlight.contentPaddingVertical = padding
-        }
+        set(padding) = applyToCards { it.contentPaddingVertical = padding }
 
     var btnBackgroundColor: Int
         get() = cbCardView.cardBackgroundColor.defaultColor
@@ -155,13 +124,8 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
 
     var textGravity: Int
         get() = (cbText.layoutParams as FrameLayout.LayoutParams).gravity
-        set(position) {
-            cbText.layoutParams = FrameLayout.LayoutParams(
-                cbText.layoutParams.width,
-                cbText.layoutParams.height,
-                position
-            )
-            cbTextHighlight.layoutParams = FrameLayout.LayoutParams(
+        set(position) = applyToText {
+            it.layoutParams = FrameLayout.LayoutParams(
                 cbTextHighlight.layoutParams.width,
                 cbTextHighlight.layoutParams.height,
                 position
@@ -172,10 +136,7 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
         get() = cbText.textAlignment
         @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-        set(alignment) {
-            cbText.textAlignment = alignment
-            cbTextHighlight.textAlignment = alignment
-        }
+        set(alignment) = applyToText { it.textAlignment = alignment }
 
     var iconColor: Int
         get() = cbIcon.solidColor
@@ -223,24 +184,24 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
 
     private fun getStyledAttributes(attrs: AttributeSet) {
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButton)
-        this.defaultBgColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_backgroundColor, defaultBgColor)
-        this.highlightBgColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_highlightBackgroundColor, highlightBgColor)
-        this.defaultHighLightTextColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_highLightTextColor, defaultHighLightTextColor)
-        this.defaultTextColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_textColor, defaultTextColor)
-        this.cornerRadius = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_btnCornerRadius, 15F.px)
+        this.bgColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_backgroundColor, bgColor)
+        this.selectedBgColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_highlightBackgroundColor, selectedBgColor)
+        this.selectedTextColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_highLightTextColor, selectedTextColor)
+        this.textColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_textColor, textColor)
+        this.cornerRadius = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_btnCornerRadius, 21F.px)
         this.paddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_paddingHorizontal, 0F)
         this.paddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_paddingVertical, 0F)
-        this.textPaddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingHorizontal, 0F)
+        this.textPaddingHorizontal = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingHorizontal, 14.px.toFloat())
         this.textPaddingVertical = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingVertical, 0F)
         this.iconPadding = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_iconPadding, 0F)
         this.padding = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_padding, 0F)
         styledAttrs.getDrawable(R.styleable.ThemedButton_toggle_icon)?.let { this.icon = it }
-        this.iconColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_iconColor, defaultTextColor)
+        this.iconColor = styledAttrs.getColor(R.styleable.ThemedButton_toggle_iconColor, textColor)
         this.iconGravity = styledAttrs.getInt(R.styleable.ThemedButton_toggle_iconGravity, Gravity.CENTER)
         this.text = styledAttrs.getString(R.styleable.ThemedButton_toggle_text) ?: ""
         this.textSize = styledAttrs.getDimension(R.styleable.ThemedButton_toggle_textSize, 15F.px)
         this.textGravity = styledAttrs.getInt(R.styleable.ThemedButton_toggle_textGravity, Gravity.CENTER)
-        this.textAlign = styledAttrs.getInt(R.styleable.ThemedButton_toggle_textAlignment, View.TEXT_ALIGNMENT_CENTER)
+        this.textAlign = styledAttrs.getInt(R.styleable.ThemedButton_toggle_textAlignment, 4)
         this.circularCornerRadius = styledAttrs.getBoolean(R.styleable.ThemedButton_toggle_circularCornerRadius, false)
         styledAttrs.recycle()
     }
@@ -249,6 +210,7 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         btnHeight = heightMeasureSpec
         btnWidth = widthMeasureSpec
+        setMargin(leftMargin= 4.px, rightMargin= 4.px)
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
@@ -258,20 +220,15 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         }
     }
 
+    private fun applyToCards(func: (CardView) -> Unit) =
+        listOf(cbCardView, cbCardViewHighlight).forEach { func.invoke(it) }
+
+    private fun applyToText(func: (TextView) -> Unit) =
+        listOf(cbText, cbTextHighlight).forEach { func.invoke(it) }
+
     fun initialiseViews() {
         setPadding(0,0,0,0)
-        btnBackgroundColor = defaultBgColor
-        textColor = defaultTextColor
-    }
-
-    private var selectListener: ((ThemedButton, Boolean) -> Unit)? = null
-
-    override fun setSelected(selected: Boolean) {
-        super.setSelected(selected)
-        selectListener?.invoke(this, selected)
-    }
-
-    fun setOnSelectListener(listener: (ThemedButton, Boolean) -> Unit) {
-        this.selectListener = listener
+        btnBackgroundColor = bgColor
+        cbText.setTextColor(textColor)
     }
 }

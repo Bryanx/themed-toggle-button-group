@@ -13,8 +13,8 @@ import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.core.animation.doOnEnd
-import androidx.core.animation.doOnStart
 import com.google.android.flexbox.FlexboxLayout
+import com.google.android.flexbox.JustifyContent
 
 /**
  * A group of customisable [ThemedButton]'s,
@@ -104,15 +104,15 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
     }
 
     private fun styleDeselected(btn: ThemedButton) {
-        btn.textColor = btn.defaultTextColor
-        btn.iconColor = btn.defaultTextColor
-        btn.btnBackgroundColor = btn.defaultBgColor
+        btn.cbText.setTextColor(btn.textColor)
+        btn.iconColor = btn.textColor
+        btn.btnBackgroundColor = btn.bgColor
     }
 
     private fun styleSelected(btn: ThemedButton) {
-        btn.cbTextHighlight.setTextColor(btn.defaultHighLightTextColor)
-        btn.cbIconHighlight.setTintColor(btn.defaultHighLightTextColor)
-        btn.cbCardViewHighlight.setCardBackgroundColor(btn.highlightBgColor)
+        btn.cbTextHighlight.setTextColor(btn.selectedTextColor)
+        btn.cbIconHighlight.setTintColor(btn.selectedTextColor)
+        btn.cbCardViewHighlight.setCardBackgroundColor(btn.selectedBgColor)
     }
 
     fun setOnSelectListener(listener: (ThemedButton) -> Unit) {
