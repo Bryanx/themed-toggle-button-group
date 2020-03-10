@@ -157,6 +157,7 @@ fun View.bounceOnClick() {
     setOnTouchListener { _, event ->
         if (event.action == MotionEvent.ACTION_DOWN) startAnimation(animScaleDown)
         if (event.action == MotionEvent.ACTION_UP) startAnimation(animScaleUp)
+        if (event.action == MotionEvent.ACTION_UP) performClick()
         true
     }
 }
