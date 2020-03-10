@@ -48,7 +48,7 @@ implementation 'com.github.Bryanx:themed-toggle-button-group:0.1.3'
 ```
 
 ## Multiple selection
-![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/labels.gif)
+![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/labels.gif) \
 Declare how many buttons may be selected with `toggle_selectableAmount`.
 ```xml
 <nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
