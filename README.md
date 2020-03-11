@@ -21,7 +21,7 @@ implementation 'com.google.android:flexbox:2.0.1'
 ## Single selection
 ![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/basic.gif)
 ```xml
-<nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
+<nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
     android:id="@+id/time"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -45,14 +45,14 @@ implementation 'com.google.android:flexbox:2.0.1'
           android:layout_height="38dp"
           app:toggle_text="8:00PM" />
 
-</nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
+</nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 ```
 
 ## Multiple selection
 ![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/labels.gif) \
 Declare how many buttons may be selected with `toggle_selectableAmount`.
 ```xml
-<nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
+<nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
     android:id="@+id/tags"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -76,14 +76,14 @@ Declare how many buttons may be selected with `toggle_selectableAmount`.
   
     <!-- ... -->
   
-  </nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
+  </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 ```
 
 ## Text + icon selection
 ![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/togg.gif) \
 Use SVG icons to allow the color to be altered.
 ```xml
-<nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
+<nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
     android:id="@+id/cards"
     android:layout_width="match_parent"
     android:layout_height="155dp"
@@ -107,7 +107,7 @@ Use SVG icons to allow the color to be altered.
 
     <!-- ... -->
 
-</nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
+</nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 ```
 
 ## License
