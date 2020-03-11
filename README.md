@@ -14,7 +14,7 @@ allprojects {
 ```
 Put this your app's build.gradle file:
 ```gradle
-implementation 'com.github.Bryanx:themed-toggle-button-group:0.1.3'
+implementation 'com.github.Bryanx:themed-toggle-button-group:0.1.4'
 implementation 'com.google.android:flexbox:2.0.1'
 ```
 
