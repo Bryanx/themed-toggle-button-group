@@ -29,8 +29,7 @@
             app:toggle_iconPaddingHorizontal="15dp"
             app:toggle_textPaddingBottom="20dp"
             app:toggle_text="Multiple choice"
-            app:toggle_textGravity="bottom|center"
-            app:toggle_textPaddingVertical="13dp" />
+            app:toggle_textGravity="bottom|center" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnTyped"
@@ -45,8 +44,7 @@
             app:toggle_iconPaddingHorizontal="15dp"
             app:toggle_textPaddingBottom="20dp"
             app:toggle_text="Spellcheck mode"
-            app:toggle_textGravity="bottom|center"
-            app:toggle_textPaddingVertical="20dp" />
+            app:toggle_textGravity="bottom|center" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMemory"
@@ -61,9 +59,17 @@
             app:toggle_iconPaddingHorizontal="15dp"
             app:toggle_textPaddingBottom="20dp"
             app:toggle_text="Time challenge"
-            app:toggle_textGravity="bottom|center"
-            app:toggle_textPaddingVertical="13dp" />
+            app:toggle_textGravity="bottom|center" />
 
     </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+    <TextView
+        android:id="@+id/tvText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/denim"
+        android:text=""/>
 
 </LinearLayout>

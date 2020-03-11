@@ -103,8 +103,7 @@ Use SVG icons to allow the color to be altered.
         app:toggle_iconPaddingHorizontal="15dp"
         app:toggle_textPaddingBottom="20dp"
         app:toggle_text="Multiple choice"
-        app:toggle_textGravity="bottom|center"
-        app:toggle_textPaddingVertical="13dp" />
+        app:toggle_textGravity="bottom|center" />
 
     <!-- ... -->
 

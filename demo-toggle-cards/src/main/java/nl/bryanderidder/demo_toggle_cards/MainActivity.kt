@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-import nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
+import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val themedButtonGroup = findViewById<ThemedButtonGroup>(R.id.themedButtonGroup)
+        val themedButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.themedButtonGroup)
         val btnMultipleChoice = findViewById<ThemedButton>(R.id.btnMultipleChoice)
         val tvText = findViewById<TextView>(R.id.tvText)
 
