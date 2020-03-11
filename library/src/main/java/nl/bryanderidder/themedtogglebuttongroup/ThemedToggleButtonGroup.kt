@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.core.animation.doOnEnd
 import com.google.android.flexbox.FlexboxLayout
-import com.google.android.flexbox.JustifyContent
 
 /**
  * A group of customisable [ThemedButton]'s,
@@ -24,18 +23,29 @@ import com.google.android.flexbox.JustifyContent
  *
  * @author Bryan de Ridder
  */
-class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, attrs) {
+class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, attrs) {
 
     private var selectListener: ((ThemedButton) -> Unit)? = null
-    var buttons = listOf<ThemedButton>()
-    var selectAnimator: Animator = AnimatorSet()
-    var deselectAnimator: Animator = AnimatorSet()
+
+    private var selectAnimator: Animator = AnimatorSet()
+
+    private var deselectAnimator: Animator = AnimatorSet()
+
+    /**
+     * The amount of buttons that are allowed to be selected. Default is 1.
+     * Set it equal to the amount of buttons to make it unlimited.
+     */
     var selectableAmount: Int = 1
+
+    /** All buttons that are currently in the toggle group. */
+    var buttons = listOf<ThemedButton>()
+
+    /** All buttons that are currently selected in the toggle group. */
     var selectedButtons = mutableListOf<ThemedButton>()
 
     init {
-        val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButtonGroup)
-        styledAttrs.getInt(R.styleable.ThemedButtonGroup_toggle_selectableAmount, -1).also {
+        val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedToggleButtonGroup)
+        styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_selectableAmount, -1).also {
             if (it != -1) this.selectableAmount = it
         }
         styledAttrs.recycle()
@@ -44,7 +54,7 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
     @SuppressLint("ClickableViewAccessibility")
     private fun addClickListeners(btn: ThemedButton) {
         buttons.forEach { it.bounceOnClick() }
-        btn.cbCardView.setOnTouchListener { _, event ->
+        btn.cvCard.setOnTouchListener { _, event ->
             selectAnimator.cancel()
             deselectAnimator.cancel()
             if (!btn.isSelected) selectButton(btn, event.x, event.y)
@@ -87,7 +97,7 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val size = (btn.btnWidth.coerceAtLeast(btn.btnHeight) * 1.2).toFloat()
             animator = ViewAnimationUtils.createCircularReveal(
-                btn.cbCardViewHighlight,
+                btn.cvSelectedCard,
                 x.toInt(),
                 y.toInt(),
                 if (selected) 0F else size,
@@ -96,23 +106,23 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
             animator.duration = 400
             animator.interpolator = AccelerateDecelerateInterpolator()
         } else {
-            animator = ObjectAnimator.ofFloat(btn.cbCardViewHighlight, "alpha", if (selected) 0f else 1f, if (selected) 1f else 0f)
+            animator = ObjectAnimator.ofFloat(btn.cvSelectedCard, "alpha", if (selected) 0f else 1f, if (selected) 1f else 0f)
         }
-        if (selected) btn.cbCardViewHighlight.visibility = VISIBLE
-        else animator.doOnEnd { btn.cbCardViewHighlight.visibility = GONE }
+        if (selected) btn.cvSelectedCard.visibility = VISIBLE
+        else animator.doOnEnd { btn.cvSelectedCard.visibility = GONE }
         return animator
     }
 
     private fun styleDeselected(btn: ThemedButton) {
-        btn.cbText.setTextColor(btn.textColor)
-        btn.iconColor = btn.textColor
+        btn.tvText.setTextColor(btn.textColor)
+        btn.ivIcon.setTintColor(btn.textColor)
         btn.btnBackgroundColor = btn.bgColor
     }
 
     private fun styleSelected(btn: ThemedButton) {
-        btn.cbTextHighlight.setTextColor(btn.selectedTextColor)
-        btn.cbIconHighlight.setTintColor(btn.selectedTextColor)
-        btn.cbCardViewHighlight.setCardBackgroundColor(btn.selectedBgColor)
+        btn.tvSelectedText.setTextColor(btn.selectedTextColor)
+        btn.ivSelectedIcon.setTintColor(btn.selectedTextColor)
+        btn.cvSelectedCard.setCardBackgroundColor(btn.selectedBgColor)
     }
 
     fun setOnSelectListener(listener: (ThemedButton) -> Unit) {
@@ -126,7 +136,7 @@ class ThemedButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, 
         buttons.forEach { styleDeselected(it) }
         buttons.filter { it.isSelected }.forEach {
             selectedButtons.enqueue(it)
-            it.cbCardViewHighlight.visibility = VISIBLE
+            it.cvSelectedCard.visibility = VISIBLE
         }
     }
 }

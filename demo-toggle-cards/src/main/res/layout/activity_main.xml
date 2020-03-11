@@ -9,27 +9,25 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
         android:id="@+id/themedButtonGroup"
         android:layout_width="match_parent"
         android:layout_height="155dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        app:justifyContent="center">
+        android:layout_marginHorizontal="32dp"
+        app:alignItems="center">
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMultipleChoice"
             android:layout_width="0dp"
             android:layout_height="145dp"
-            android:layout_margin="5dp"
             app:layout_flexGrow="1"
-            app:toggle_highLightTextColor="@android:color/white"
-            app:toggle_highlightBackgroundColor="@color/denim"
-            app:toggle_btnCornerRadius="15dp"
+            app:toggle_selectedTextColor="@android:color/white"
+            app:toggle_selectedBackgroundColor="@color/denim"
             app:toggle_icon="@drawable/ic_check_circle_outline_24px"
             app:toggle_iconGravity="top|center"
-            app:toggle_iconPadding="50dp"
-            app:toggle_padding="10dp"
+            app:toggle_iconPaddingTop="15dp"
+            app:toggle_iconPaddingHorizontal="15dp"
+            app:toggle_textPaddingBottom="20dp"
             app:toggle_text="Multiple choice"
             app:toggle_textGravity="bottom|center"
             app:toggle_textPaddingVertical="13dp" />
@@ -38,45 +36,34 @@
             android:id="@+id/btnTyped"
             android:layout_width="0dp"
             android:layout_height="145dp"
-            android:layout_margin="5dp"
             app:layout_flexGrow="1"
-            app:toggle_highLightTextColor="@android:color/white"
-            app:toggle_highlightBackgroundColor="@color/denim"
-            app:toggle_btnCornerRadius="15dp"
+            app:toggle_selectedTextColor="@android:color/white"
+            app:toggle_selectedBackgroundColor="@color/denim"
             app:toggle_icon="@drawable/ic_spellcheck_24px"
             app:toggle_iconGravity="top|center"
-            app:toggle_iconPadding="50dp"
-            app:toggle_padding="10dp"
+            app:toggle_iconPaddingTop="15dp"
+            app:toggle_iconPaddingHorizontal="15dp"
+            app:toggle_textPaddingBottom="20dp"
             app:toggle_text="Spellcheck mode"
             app:toggle_textGravity="bottom|center"
-            app:toggle_textPaddingVertical="13dp" />
+            app:toggle_textPaddingVertical="20dp" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnMemory"
             android:layout_width="0dp"
             android:layout_height="145dp"
-            android:layout_margin="5dp"
             app:layout_flexGrow="1"
-            app:toggle_highLightTextColor="@android:color/white"
-            app:toggle_highlightBackgroundColor="@color/denim"
-            app:toggle_btnCornerRadius="15dp"
+            app:toggle_selectedTextColor="@android:color/white"
+            app:toggle_selectedBackgroundColor="@color/denim"
             app:toggle_icon="@drawable/ic_query_builder_black_24dp"
             app:toggle_iconGravity="top|center"
-            app:toggle_iconPadding="50dp"
-            app:toggle_padding="10dp"
+            app:toggle_iconPaddingTop="15dp"
+            app:toggle_iconPaddingHorizontal="15dp"
+            app:toggle_textPaddingBottom="20dp"
             app:toggle_text="Time challenge"
             app:toggle_textGravity="bottom|center"
             app:toggle_textPaddingVertical="13dp" />
 
-    </nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
-
-    <TextView
-        android:id="@+id/tvText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:textColor="@color/denim"
-        android:text=""/>
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 
 </LinearLayout>

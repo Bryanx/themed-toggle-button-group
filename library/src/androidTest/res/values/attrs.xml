@@ -60,7 +60,7 @@
             <flag name="viewEnd" value="6" />
         </attr>
     </declare-styleable>
-    <declare-styleable name="ThemedButtonGroup">
+    <declare-styleable name="ThemedToggleButtonGroup">
         <attr name="selectableAmount" format="integer"/>
     </declare-styleable>
 </resources>

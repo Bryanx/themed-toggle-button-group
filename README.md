@@ -15,6 +15,7 @@ allprojects {
 Put this your app's build.gradle file:
 ```gradle
 implementation 'com.github.Bryanx:themed-toggle-button-group:0.1.3'
+implementation 'com.google.android:flexbox:2.0.1'
 ```
 
 ## Single selection
@@ -81,6 +82,34 @@ Declare how many buttons may be selected with `toggle_selectableAmount`.
 ## Text + icon selection
 ![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/togg.gif) \
 Use SVG icons to allow the color to be altered.
+```xml
+<nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
+    android:id="@+id/cards"
+    android:layout_width="match_parent"
+    android:layout_height="155dp"
+    android:layout_marginHorizontal="32dp"
+    app:alignItems="center">
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+        android:id="@+id/card1"
+        android:layout_width="0dp"
+        android:layout_height="145dp"
+        app:layout_flexGrow="1"
+        app:toggle_selectedTextColor="@android:color/white"
+        app:toggle_selectedBackgroundColor="@color/denim"
+        app:toggle_icon="@drawable/replace_with_svg_icon"
+        app:toggle_iconGravity="top|center"
+        app:toggle_iconPaddingTop="15dp"
+        app:toggle_iconPaddingHorizontal="15dp"
+        app:toggle_textPaddingBottom="20dp"
+        app:toggle_text="Multiple choice"
+        app:toggle_textGravity="bottom|center"
+        app:toggle_textPaddingVertical="13dp" />
+
+    <!-- ... -->
+
+</nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup>
+```
 
 ## License
 [License for this library](https://github.com/Bryanx/themed-toggle-button-group/blob/master/LICENSE)\

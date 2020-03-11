@@ -5,19 +5,34 @@
         <attr name="toggle_textSize" format="dimension"/>
         <attr name="toggle_textColor" format="color"/>
         <attr name="toggle_backgroundColor" format="color" />
-        <attr name="toggle_highlightBackgroundColor" format="color" />
-        <attr name="toggle_highLightTextColor" format="color" />
+        <attr name="toggle_selectedBackgroundColor" format="color" />
+        <attr name="toggle_selectedTextColor" format="color" />
         <attr name="toggle_btnCornerRadius" format="dimension" />
         <attr name="toggle_icon" format="reference" />
         <attr name="toggle_circularCornerRadius" format="boolean" />
         <attr name="toggle_iconColor" format="color" />
+        <attr name="toggle_padding" format="dimension" />
         <attr name="toggle_paddingHorizontal" format="dimension" />
         <attr name="toggle_paddingVertical" format="dimension" />
+        <attr name="toggle_paddingRight" format="dimension" />
+        <attr name="toggle_paddingTop" format="dimension" />
+        <attr name="toggle_paddingLeft" format="dimension" />
+        <attr name="toggle_paddingBottom" format="dimension" />
+        <attr name="toggle_textPadding" format="dimension" />
         <attr name="toggle_textPaddingHorizontal" format="dimension" />
         <attr name="toggle_textPaddingVertical" format="dimension" />
+        <attr name="toggle_textPaddingRight" format="dimension" />
+        <attr name="toggle_textPaddingTop" format="dimension" />
+        <attr name="toggle_textPaddingLeft" format="dimension" />
+        <attr name="toggle_textPaddingBottom" format="dimension" />
         <attr name="toggle_iconPadding" format="dimension" />
+        <attr name="toggle_iconPaddingHorizontal" format="dimension" />
+        <attr name="toggle_iconPaddingVertical" format="dimension" />
+        <attr name="toggle_iconPaddingRight" format="dimension" />
+        <attr name="toggle_iconPaddingTop" format="dimension" />
+        <attr name="toggle_iconPaddingLeft" format="dimension" />
+        <attr name="toggle_iconPaddingBottom" format="dimension" />
         <attr name="toggle_iconPosition" format="string" />
-        <attr name="toggle_padding" format="dimension" />
         <attr name="toggle_iconGravity">
             <flag name="bottom" value="80" />
             <flag name="center" value="17" />
@@ -60,7 +75,7 @@
             <flag name="viewEnd" value="6" />
         </attr>
     </declare-styleable>
-    <declare-styleable name="ThemedButtonGroup">
+    <declare-styleable name="ThemedToggleButtonGroup">
         <attr name="toggle_selectableAmount" format="integer"/>
     </declare-styleable>
 </resources>

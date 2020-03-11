@@ -9,7 +9,7 @@ import androidx.test.rule.ActivityTestRule
 import junit.framework.Assert.assertNotNull
 import junit.framework.Assert.assertTrue
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-import nl.bryanderidder.themedtogglebuttongroup.ThemedButtonGroup
+import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import nl.bryanderidder.themedtogglebuttongroup.name
 import org.hamcrest.Matchers.*
 import org.junit.Assert.assertThat
@@ -20,7 +20,7 @@ import org.junit.runner.RunWith
 
 @MediumTest
 @RunWith(AndroidJUnit4::class)
-class ThemedButtonGroupTest {
+class ThemedToggleButtonGroupTest {
 
     @JvmField
     @Rule
@@ -34,15 +34,15 @@ class ThemedButtonGroupTest {
         val button1 = buttonGroup.findViewById<ThemedButton>(R.id.btn1)
         val buttons = buttonGroup.buttons
         assertNotNull(buttonGroup)
-        assertThat(buttonGroup, isA(ThemedButtonGroup::class.java))
+        assertThat(buttonGroup, isA(ThemedToggleButtonGroup::class.java))
         assertThat(buttonGroup.childCount, `is`(3))
         assertThat(button1.text, `is`("5:30PM"))
         assertThat(buttons, hasSize(3))
         assertTrue(buttons.all { it.btnBackgroundColor == it.bgColor })
-        assertTrue(buttons.all { it.cbText.currentTextColor == it.textColor })
+        assertTrue(buttons.all { it.tvText.currentTextColor == it.textColor })
         assertTrue(buttons.all { !it.isSelected })
-        assertTrue(buttons.all { it.cbCardView.visibility == VISIBLE })
-        assertTrue(buttons.all { it.cbCardViewHighlight.visibility == GONE })
+        assertTrue(buttons.all { it.cvCard.visibility == VISIBLE })
+        assertTrue(buttons.all { it.cvSelectedCard.visibility == GONE })
     }
 
     @Test
