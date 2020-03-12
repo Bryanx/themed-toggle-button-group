@@ -87,9 +87,9 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
 
     init {
         layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
-        applyToIcons { it.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT) }
-        applyToTexts { it.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT) }
-        applyToCards { it.layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT) }
+        applyToIcons { it.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT) }
+        applyToTexts { it.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT) }
+        applyToCards { it.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT) }
         applyToCards { it.cardElevation = 0F }
         applyToCards { it.preventCornerOverlap = false }
         applyToCards { it.useCompatPadding = false }
@@ -144,10 +144,8 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         attrs.getDimension(R.styleable.ThemedButton_toggle_iconPaddingBottom, -1F).also { applyToIcons { i -> i.setViewPadding(bottom=it) } }
         attrs.getDrawable(R.styleable.ThemedButton_toggle_icon)?.let { this.icon = it }
         attrs.getColor(R.styleable.ThemedButton_toggle_iconColor, textColor).also { ivIcon.setTintColor(it) }
-        attrs.getColor(R.styleable.ThemedButton_toggle_iconColor, textColor).also { ivIcon.setTintColor(it) }
         attrs.getInt(R.styleable.ThemedButton_toggle_iconGravity, Gravity.CENTER).also { applyToIcons { i -> i.layoutGravity = it } }
         attrs.getDimension(R.styleable.ThemedButton_toggle_textSize, 15F.px).also { applyToTexts { t -> t.textSize = it.dp.toFloat() } }
-        attrs.getInt(R.styleable.ThemedButton_toggle_textGravity, Gravity.CENTER).also { applyToTexts { i -> i.layoutGravity = it } }
         attrs.getInt(R.styleable.ThemedButton_toggle_textGravity, Gravity.CENTER).also { applyToTexts { i -> i.layoutGravity = it } }
         attrs.getInt(R.styleable.ThemedButton_toggle_textAlignment, 4).also { applyToTexts { t -> if (Build.VERSION.SDK_INT >= 17) t.textAlignment = it } }
         attrs.recycle()
