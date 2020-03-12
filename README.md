@@ -51,7 +51,7 @@ implementation 'com.google.android:flexbox:2.0.1'
 
 ## Multiple selection
 ![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/labels.gif) \
-Declare how many buttons **may** be selected with `toggle_selectableAmount`.
+Declare how many buttons **may** be selected with `toggle_selectableAmount`. \
 Declare how many buttons **must** be selected with `toggle_requiredAmount`.
 ```xml
 <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
