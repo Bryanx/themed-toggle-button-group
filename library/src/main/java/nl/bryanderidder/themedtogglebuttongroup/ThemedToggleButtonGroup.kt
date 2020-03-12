@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.core.animation.doOnEnd
 import com.google.android.flexbox.FlexboxLayout
+import java.lang.UnsupportedOperationException
 
 /**
  * A group of customisable [ThemedButton]'s,
@@ -29,13 +30,16 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
 
     private var selectAnimator: Animator = AnimatorSet()
 
-    private var deselectAnimator: Animator = AnimatorSet()
+    private var deselectAnimator: Animator? = AnimatorSet()
 
     /**
      * The amount of buttons that are allowed to be selected. Default is 1.
      * Set it equal to the amount of buttons to make it unlimited.
      */
     var selectableAmount: Int = 1
+
+    /** The amount of buttons that are required to be selected. Default is 1. */
+    var requiredAmount: Int = 1
 
     /** All buttons that are currently in the toggle group. */
     var buttons = listOf<ThemedButton>()
@@ -45,9 +49,9 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
 
     init {
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedToggleButtonGroup)
-        styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_selectableAmount, -1).also {
-            if (it != -1) this.selectableAmount = it
-        }
+        this.selectableAmount = styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_selectableAmount, 1)
+        this.requiredAmount = styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_requiredAmount, 1)
+        if (requiredAmount > selectableAmount) throw UnsupportedOperationException("Required amount must be smaller than or equal to selectable amount.")
         styledAttrs.recycle()
     }
 
@@ -56,8 +60,8 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
         buttons.forEach { it.bounceOnClick() }
         btn.cvCard.setOnTouchListener { _, event ->
             selectAnimator.cancel()
-            deselectAnimator.cancel()
-            if (!btn.isSelected) selectButton(btn, event.x, event.y)
+            deselectAnimator?.cancel()
+            selectButton(btn, event.x, event.y)
             startAnimations()
             if (event.action == MotionEvent.ACTION_UP) btn.performClick()
             event.action == MotionEvent.ACTION_UP
@@ -66,9 +70,10 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
 
     private fun startAnimations() {
         try {
-            deselectAnimator.duration = selectAnimator.duration / 2
+            deselectAnimator?.duration = selectAnimator.duration / 2
             val set = AnimatorSet()
-            set.playTogether(selectAnimator, deselectAnimator)
+            if (deselectAnimator != null) set.playTogether(selectAnimator, deselectAnimator)
+            else set.play(selectAnimator)
             set.start()
         } catch (e: Exception) { /* catch exceptions caused by unfinished animations */ }
     }
@@ -81,13 +86,17 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
     }
 
     fun selectButton(btn: ThemedButton, x: Float, y: Float) {
-        btn.isSelected = true
-        selectedButtons.enqueue(btn)
-        selectAnimator = getSelectionAnimator(btn, x, y, true)
+        if (btn.isSelected && buttons.count { it.isSelected } <= requiredAmount) return
+        btn.isSelected = !btn.isSelected
+        if (btn.isSelected) selectedButtons.enqueue(btn)
+        else selectedButtons.remove(btn)
+        selectAnimator = getSelectionAnimator(btn, x, y, btn.isSelected)
         if (buttons.count { it.isSelected } > selectableAmount) {
             val removedBtn = selectedButtons.dequeue()!!
             buttons.find { it == removedBtn }?.isSelected = false
             deselectAnimator = getSelectionAnimator(removedBtn, removedBtn.centerX, removedBtn.centerY, false)
+        } else {
+            deselectAnimator = null
         }
         selectListener?.invoke(btn)
     }
@@ -95,7 +104,7 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
     private fun getSelectionAnimator(btn: ThemedButton, x: Float, y: Float, selected: Boolean): Animator {
         var animator: Animator
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val size = (btn.btnWidth.coerceAtLeast(btn.btnHeight) * 1.2).toFloat()
+            val size = (btn.btnWidth.coerceAtLeast(btn.btnHeight) * 1.1).toFloat()
             animator = ViewAnimationUtils.createCircularReveal(
                 btn.cvSelectedCard,
                 x.toInt(),
@@ -134,9 +143,20 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
         buttons.forEach { addClickListeners(it) }
         buttons.forEach { styleSelected(it) }
         buttons.forEach { styleDeselected(it) }
-        buttons.filter { it.isSelected }.forEach {
-            selectedButtons.enqueue(it)
-            it.cvSelectedCard.visibility = VISIBLE
-        }
+        setInitialSelection()
+    }
+
+    private fun setInitialSelection() {
+        buttons.filter { it.isSelected }.forEach(this::intiallySelect)
+        val stillRequiredAmount = requiredAmount - buttons.filter { it.isSelected }.count()
+        (0 until stillRequiredAmount)
+            .map { buttons.first { !it.isSelected } }
+            .forEach(this::intiallySelect)
+    }
+
+    private fun intiallySelect(button: ThemedButton) {
+        button.isSelected = true
+        selectedButtons.enqueue(button)
+        button.cvSelectedCard.visibility = VISIBLE
     }
 }

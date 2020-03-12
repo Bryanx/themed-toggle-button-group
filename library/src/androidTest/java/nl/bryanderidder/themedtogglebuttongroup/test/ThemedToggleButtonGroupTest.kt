@@ -38,11 +38,12 @@ class ThemedToggleButtonGroupTest {
         assertThat(buttonGroup.childCount, `is`(3))
         assertThat(button1.text, `is`("5:30PM"))
         assertThat(buttons, hasSize(3))
+        assertThat(buttonGroup.requiredAmount, `is`(2))
+        assertThat(buttonGroup.selectableAmount, `is`(3))
         assertTrue(buttons.all { it.btnBackgroundColor == it.bgColor })
         assertTrue(buttons.all { it.tvText.currentTextColor == it.textColor })
-        assertTrue(buttons.all { !it.isSelected })
         assertTrue(buttons.all { it.cvCard.visibility == VISIBLE })
-        assertTrue(buttons.all { it.cvSelectedCard.visibility == GONE })
+        assertThat(buttons.count { it.cvSelectedCard.visibility == GONE }, `is`(1))
     }
 
     @Test
@@ -80,9 +81,57 @@ class ThemedToggleButtonGroupTest {
             //select another button
             buttonGroup.selectButton(buttons[1], 0F, 0F)
             assertThat(buttons.filter { it.isSelected }, hasItems(buttons[0], buttons[1]))
-            //select last button
+            //select last button, assert that the first button is deselected
             buttonGroup.selectButton(buttons[2], 0F, 0F)
             assertThat(buttons.filter { it.isSelected }, hasItems(buttons[1], buttons[2]))
+        }
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testRequiredAmount() {
+        val buttonGroup = createLayout(R.layout.activity_required_selection, activityRule)
+        val buttons = buttonGroup.buttons
+        // selectableAmount = 3, requiredAmount = 2
+        activityRule.runOnUiThread {
+            // check if required amount is initially set:
+            assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.requiredAmount))
+            assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.requiredAmount))
+            // block deselecting below required amount:
+            buttonGroup.selectButton(buttons.first { it.isSelected }, 0F, 0F)
+            assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.requiredAmount))
+            assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.requiredAmount))
+            // allow selecting 3 buttons:
+            buttonGroup.selectButton(buttons.first { !it.isSelected }, 0F, 0F)
+            assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.selectableAmount))
+            assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.selectableAmount))
+            // allow deselecting when 3 buttons are selected, requiredAmount = 2
+            buttonGroup.selectButton(buttons.first { it.isSelected }, 0F, 0F)
+            assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.requiredAmount))
+            assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.requiredAmount))
+            // don't allow 4 buttons to be selected, selectableAmount = 3
+            buttonGroup.selectButton(buttons.first { !it.isSelected }, 0F, 0F)
+            buttonGroup.selectButton(buttons.first { !it.isSelected }, 0F, 0F)
+            assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.selectableAmount))
+            assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.selectableAmount))
+        }
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testRequiredAmountProgrammatically() {
+        val buttonGroup = createLayout(R.layout.activity_required_selection, activityRule)
+        // selectableAmount = 3, requiredAmount = 2
+        activityRule.runOnUiThread {
+            // select button programmatically
+            buttonGroup.buttons[1].isSelected = true
+            assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.requiredAmount))
+            assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.requiredAmount))
+
+            // check if the initially selected button is still set
+            assertTrue(buttonGroup.buttons[1].isSelected)
         }
     }
 }

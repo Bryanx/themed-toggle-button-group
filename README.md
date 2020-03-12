@@ -1,6 +1,7 @@
 # ThemedToggleButtonGroup
 ![CI](https://github.com/Bryanx/themed-toggle-button-group/workflows/CI/badge.svg)
-![API](https://img.shields.io/static/v1?label=API&message=14%2B&color=blue) \
+![API](https://img.shields.io/static/v1?label=API&message=14%2B&color=blue)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) \
 Customisable toggle buttons inside a [FlexboxLayout](https://github.com/google/flexbox-layout).
 
 ## Installation
@@ -14,7 +15,7 @@ allprojects {
 ```
 Put this your app's build.gradle file:
 ```gradle
-implementation 'com.github.Bryanx:themed-toggle-button-group:0.1.4'
+implementation 'com.github.Bryanx:themed-toggle-button-group:0.2.0'
 implementation 'com.google.android:flexbox:2.0.1'
 ```
 
@@ -50,7 +51,8 @@ implementation 'com.google.android:flexbox:2.0.1'
 
 ## Multiple selection
 ![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/labels.gif) \
-Declare how many buttons may be selected with `toggle_selectableAmount`.
+Declare how many buttons **may** be selected with `toggle_selectableAmount`.
+Declare how many buttons **must** be selected with `toggle_requiredAmount`.
 ```xml
 <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
     android:id="@+id/tags"
@@ -109,6 +111,9 @@ Use SVG icons to allow the color to be altered.
 
 </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 ```
+
+## Contributing
+You can contributing by [opening an issue](https://github.com/Bryanx/themed-toggle-button-group/issues) or forking this repository and creating a pull request.
 
 ## License
 [License for this library](https://github.com/Bryanx/themed-toggle-button-group/blob/master/LICENSE)\

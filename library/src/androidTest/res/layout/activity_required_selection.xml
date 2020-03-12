@@ -4,8 +4,8 @@
     android:id="@+id/themedButtonGroup"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:toggle_requiredAmount="2"
-    app:toggle_selectableAmount="3">
+    app:toggle_selectableAmount="3"
+    app:toggle_requiredAmount="2">
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
         android:id="@+id/btn1"
@@ -24,5 +24,11 @@
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         app:toggle_text="6:30PM"/>
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+        android:id="@+id/btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        app:toggle_text="7:00PM"/>
 
 </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
