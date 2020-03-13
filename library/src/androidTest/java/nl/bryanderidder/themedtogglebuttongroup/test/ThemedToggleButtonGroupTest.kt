@@ -10,6 +10,7 @@ import junit.framework.Assert.assertNotNull
 import junit.framework.Assert.assertTrue
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
 import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+import nl.bryanderidder.themedtogglebuttongroup.color
 import nl.bryanderidder.themedtogglebuttongroup.name
 import org.hamcrest.Matchers.*
 import org.junit.Assert.assertThat
@@ -37,13 +38,46 @@ class ThemedToggleButtonGroupTest {
         assertThat(buttonGroup, isA(ThemedToggleButtonGroup::class.java))
         assertThat(buttonGroup.childCount, `is`(3))
         assertThat(button1.text, `is`("5:30PM"))
+        assertThat(button1.selectedText, `is`("5:30PM"))
         assertThat(buttons, hasSize(3))
         assertThat(buttonGroup.requiredAmount, `is`(2))
         assertThat(buttonGroup.selectableAmount, `is`(3))
-        assertTrue(buttons.all { it.btnBackgroundColor == it.bgColor })
-        assertTrue(buttons.all { it.tvText.currentTextColor == it.textColor })
+        assertTrue(buttons.all { it.bgColor == it.context.color(R.color.lightGray) })
+        assertTrue(buttons.all { it.selectedBgColor == it.context.color(R.color.denim) })
+        assertTrue(buttons.all { it.textColor == it.context.color(R.color.darkGray) })
+        assertTrue(buttons.all { it.selectedTextColor == it.context.color(android.R.color.white) })
         assertTrue(buttons.all { it.cvCard.visibility == VISIBLE })
         assertThat(buttons.count { it.cvSelectedCard.visibility == GONE }, `is`(1))
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testStyleLayoutProgrammatically() {
+        val buttonGroup = createLayout(R.layout.activity_simple, activityRule)
+        val button1 = buttonGroup.findViewById<ThemedButton>(R.id.btn1)
+        activityRule.runOnUiThread {
+            button1.textColor = R.color.lavender
+            assertThat(button1.tvText.currentTextColor, `is`(R.color.lavender))
+            assertThat(button1.textColor, `is`(R.color.lavender))
+            button1.selectedTextColor = R.color.lavender
+            assertThat(button1.tvSelectedText.currentTextColor, `is`(R.color.lavender))
+            assertThat(button1.selectedTextColor, `is`(R.color.lavender))
+            button1.bgColor = R.color.lavender
+            assertThat(button1.cvCard.cardBackgroundColor.defaultColor, `is`(R.color.lavender))
+            assertThat(button1.bgColor, `is`(R.color.lavender))
+            button1.selectedBgColor = R.color.lavender
+            assertThat(button1.cvSelectedCard.cardBackgroundColor.defaultColor, `is`(R.color.lavender))
+            assertThat(button1.selectedBgColor, `is`(R.color.lavender))
+            button1.text = "click"
+            assertThat(button1.tvText.text.toString(), `is`("click"))
+            assertThat(button1.text, `is`("click"))
+            // if only the unselected text is set, assert that the selected text is the same.
+            assertThat(button1.tvSelectedText.text.toString(), `is`("click"))
+            button1.selectedText = "clicked"
+            assertThat(button1.tvSelectedText.text.toString(), `is`("clicked"))
+            assertThat(button1.selectedText, `is`("clicked"))
+        }
     }
 
     @Test
