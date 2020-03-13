@@ -1,7 +1,32 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
+
+ext {
+  bintrayRepo = "themed-toggle-button-group"
+  bintrayName = "nl.bryanderidder.themed-toggle-button-group"
+
+  publishedGroupId = 'nl.bryanderidder'
+  libraryName = 'themed-toggle-button-group'
+  artifact = 'themed-toggle-button-group'
+
+  libraryDescription = 'A customisable toggle button group for Android'
+
+  siteUrl = 'https://github.com/Bryanx/themed-toggle-button-group'
+  gitUrl = 'https://github.com/Bryanx/themed-toggle-button-group.git'
+
+  libraryVersion = '1.0.0'
+
+  developerId = 'Bryanx'
+  developerName = 'Bryan de Ridder'
+  developerEmail = 'br.deridder@gmail.com'
+
+  licenseName = 'MIT License'
+  licenseUrl = 'https://opensource.org/licenses/MIT'
+  allLicenses = ["MIT"]
+}
 
 group = 'com.github.Bryanx'
 
@@ -51,4 +76,14 @@ dependencies {
   androidTestImplementation "androidx.test:rules:${rootProject.androidxTestVersion}"
   androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.androidxEspressoVersion}"
   androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:${rootProject.kotlinVersion}"
+}
+
+repositories {
+  mavenCentral()
+}
+
+// thanks to nuuneoi and wajahatkarim3 :)
+if (project.rootProject.file('local.properties').exists()) {
+  apply from: 'https://raw.githubusercontent.com/wajahatkarim3/JCenter-Gradle-Scripts/master/install.gradle'
+  apply from: 'https://raw.githubusercontent.com/wajahatkarim3/JCenter-Gradle-Scripts/master/bintray.gradle'
 }
