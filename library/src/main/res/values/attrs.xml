@@ -33,7 +33,6 @@
         <attr name="toggle_iconPaddingTop" format="dimension" />
         <attr name="toggle_iconPaddingLeft" format="dimension" />
         <attr name="toggle_iconPaddingBottom" format="dimension" />
-        <attr name="toggle_iconPosition" format="string" />
         <attr name="toggle_iconGravity">
             <flag name="bottom" value="80" />
             <flag name="center" value="17" />
