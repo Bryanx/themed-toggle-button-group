@@ -28,41 +28,65 @@ import androidx.cardview.widget.CardView
 class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attrs) {
 
     /** Default background [CardView] when the button is not selected. */
-    var cvCard: CardView = CardView(ctx)
+    val cvCard: CardView = CardView(ctx)
 
     /** Default [TextView] when the button is not selected. */
-    var tvText: TextView = TextView(ctx)
+    val tvText: TextView = TextView(ctx)
 
     /** Default icon ([ImageView]) when the button is not selected. */
-    var ivIcon: ImageView = ImageView(ctx)
+    val ivIcon: ImageView = ImageView(ctx)
 
     /** When the button is selected this [CardView] is shown. */
-    var cvSelectedCard: CardView = CardView(ctx)
+    val cvSelectedCard: CardView = CardView(ctx)
 
     /** When the button is selected this [TextView] is shown. */
-    var tvSelectedText: TextView = TextView(ctx)
+    val tvSelectedText: TextView = TextView(ctx)
 
     /** When the button is selected this ic on ([ImageView]) is shown. */
-    var ivSelectedIcon: ImageView = ImageView(ctx)
+    val ivSelectedIcon: ImageView = ImageView(ctx)
 
     /** Background color when the button is not selected, default is [R.color.lightGray] */
-    var bgColor: Int = ctx.color(R.color.lightGray)
+    var bgColor: Int
+        get() = cvCard.cardBackgroundColor.defaultColor
+        set(value) = cvCard.setCardBackgroundColor(value)
 
     /** Background color when the button is selected, default is [R.color.denim] */
-    var selectedBgColor: Int = ctx.color(R.color.denim)
+    var selectedBgColor: Int
+        get() = cvSelectedCard.cardBackgroundColor.defaultColor
+        set(value) = cvSelectedCard.setCardBackgroundColor(value)
 
-    /** Color of the text when the button is not selected, default is [R.color.darkGray] */
-    var textColor: Int = R.color.darkGray
+    /**
+     * Color of the text when the button is not selected, default is [R.color.darkGray]
+     * If the unselected icon color is not set, it will be the same as this value.
+     */
+    var textColor: Int
+        get() = tvText.currentTextColor
+        set(value) {
+            tvText.setTextColor(value)
+            ivIcon.setTintColor(value)
+        }
 
-    /** Color of the text when the button is selected, default is [android.R.color.white] */
-    var selectedTextColor: Int = ctx.color(android.R.color.white)
+    /**
+     * Color of the text when the button is selected, default is [android.R.color.white]
+     * If the selected icon color is not set, it will be the same as this value.
+     */
+    var selectedTextColor: Int
+        get() = tvSelectedText.currentTextColor
+        set(value) {
+            tvSelectedText.setTextColor(value)
+            ivSelectedIcon.setTintColor(value)
+        }
 
-    /** If this property is set to true, the cornerradius is overridden and made circular, default is false */
+    /** If this property is set to true, the corner radius is overridden and made circular, default is false */
     var circularCornerRadius: Boolean = false
 
     var text: String
-        get() = tvText.string
-        set(text) = applyToTexts { it.text = text }
+        get() = tvText.text.toString()
+        set(value) = applyToTexts { it.text = value }
+
+    var selectedText: String
+        get() = tvSelectedText.text.toString()
+        set(value) = tvSelectedText.setText(value)
 
     var btnHeight: Int
         get() = cvCard.height
@@ -71,10 +95,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     var btnWidth: Int
         get() = cvCard.width
         set(width) = applyToCards { it.layoutParams.width = width.dp }
-
-    var btnBackgroundColor: Int
-        get() = cvCard.cardBackgroundColor.defaultColor
-        set(btnBackgroundColor) = cvCard.setCardBackgroundColor(btnBackgroundColor)
 
     var icon: Drawable
         get() = ivIcon.background
@@ -104,7 +124,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         cvSelectedCard.addView(ivSelectedIcon)
         cvSelectedCard.addView(tvSelectedText)
         getStyledAttributes(attrs)
-        initialiseViews()
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
@@ -115,10 +134,11 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     private fun getStyledAttributes(attrs: AttributeSet) {
         val attrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButton)
         this.text = attrs.getString(R.styleable.ThemedButton_toggle_text) ?: ""
-        this.textColor = attrs.getColor(R.styleable.ThemedButton_toggle_textColor, textColor)
-        this.bgColor = attrs.getColor(R.styleable.ThemedButton_toggle_backgroundColor, bgColor)
-        this.selectedBgColor = attrs.getColor(R.styleable.ThemedButton_toggle_selectedBackgroundColor, selectedBgColor)
-        this.selectedTextColor = attrs.getColor(R.styleable.ThemedButton_toggle_selectedTextColor, selectedTextColor)
+        this.selectedText = attrs.getString(R.styleable.ThemedButton_toggle_selectedText) ?: this.text
+        this.bgColor = attrs.getColor(R.styleable.ThemedButton_toggle_backgroundColor, context.color(R.color.lightGray))
+        this.selectedBgColor = attrs.getColor(R.styleable.ThemedButton_toggle_selectedBackgroundColor, context.color(R.color.denim))
+        this.textColor = attrs.getColor(R.styleable.ThemedButton_toggle_textColor, context.color(R.color.darkGray))
+        this.selectedTextColor = attrs.getColor(R.styleable.ThemedButton_toggle_selectedTextColor, context.color(android.R.color.white))
         this.circularCornerRadius = attrs.getBoolean(R.styleable.ThemedButton_toggle_circularCornerRadius, false)
         attrs.getDimension(R.styleable.ThemedButton_toggle_btnCornerRadius, 21F.px).also { applyToCards { c -> c.radius = it } }
         attrs.getDimension(R.styleable.ThemedButton_toggle_padding, -1F).also { applyToCards { c -> c.setCardPadding(all=it) } }
@@ -173,9 +193,4 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
 
     private fun applyToIcons(func: (ImageView) -> Unit) =
         listOf(ivIcon, ivSelectedIcon).forEach(func::invoke)
-
-    fun initialiseViews() {
-        btnBackgroundColor = bgColor
-        tvText.setTextColor(textColor)
-    }
 }

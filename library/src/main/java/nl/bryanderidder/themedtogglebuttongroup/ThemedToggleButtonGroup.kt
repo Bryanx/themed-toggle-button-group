@@ -57,7 +57,7 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
 
     @SuppressLint("ClickableViewAccessibility")
     private fun addClickListeners(btn: ThemedButton) {
-        buttons.forEach { it.bounceOnClick() }
+        btn.bounceOnClick()
         btn.cvCard.setOnTouchListener { _, event ->
             selectAnimator.cancel()
             deselectAnimator?.cancel()
@@ -102,7 +102,7 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
     }
 
     private fun getSelectionAnimator(btn: ThemedButton, x: Float, y: Float, selected: Boolean): Animator {
-        var animator: Animator
+        val animator: Animator
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val size = (btn.btnWidth.coerceAtLeast(btn.btnHeight) * 1.1).toFloat()
             animator = ViewAnimationUtils.createCircularReveal(
@@ -122,18 +122,6 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
         return animator
     }
 
-    private fun styleDeselected(btn: ThemedButton) {
-        btn.tvText.setTextColor(btn.textColor)
-        btn.ivIcon.setTintColor(btn.textColor)
-        btn.btnBackgroundColor = btn.bgColor
-    }
-
-    private fun styleSelected(btn: ThemedButton) {
-        btn.tvSelectedText.setTextColor(btn.selectedTextColor)
-        btn.ivSelectedIcon.setTintColor(btn.selectedTextColor)
-        btn.cvSelectedCard.setCardBackgroundColor(btn.selectedBgColor)
-    }
-
     fun setOnSelectListener(listener: (ThemedButton) -> Unit) {
         this.selectListener = listener
     }
@@ -141,8 +129,6 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
         buttons.forEach { addClickListeners(it) }
-        buttons.forEach { styleSelected(it) }
-        buttons.forEach { styleDeselected(it) }
         setInitialSelection()
     }
 
