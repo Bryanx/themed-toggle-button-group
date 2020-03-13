@@ -112,6 +112,33 @@ Use SVG icons to allow the color to be altered.
 </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 ```
 
+## ThemedToggleButtonGroup custom attributes
+Attribute | Default value | Description
+--- | --- | ---
+`app:toggle_selectableAmount` | 1 | The amount of buttons that are allowed to be selected. If the user tries to select more buttons, the button that was last selected will be deselected.
+`app:toggle_requiredAmount` | 1 | The amount of buttons that are required to be selected. If the user tries to deselect a button below the required amount, the selection is blocked. You can programmatically specify which buttons should be selected initially by setting `ThemedButton.isSelected`. Otherwise a random button will be selected initially.
+
+## ThemedButton custom attributes
+Attribute | Default value | Description
+--- | --- | ---
+`app:toggle_text` | Empty string | Text of the button.
+`app:toggle_selectedText` | `app:toggle_text` | Text when the button is selected. If not present the text of `toggle_text` is used.
+`app:toggle_textSize` | 15sp | Size of the text in the button.
+`app:toggle_textAlignment` | center | Alignment of the text.
+`app:toggle_backgroundColor` | ![#EBEBEB](https://placehold.it/15/EBEBEB/000000?text=+) `#EBEBEB` | Background color when the button is not selected.
+`app:toggle_selectedBackgroundColor` | ![#5E6FED](https://placehold.it/15/5E6FED/000000?text=+) `#5E6FED` | Background color when the button is selected.
+`app:toggle_textColor` | ![#5E5E5E](https://placehold.it/15/5E5E5E/000000?text=+) `#5E5E5E` | Text color when the button is not selected. This also sets the color of the icon if it is not set.
+`app:toggle_selectedTextColor` | ![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) `#FFFFFF` |  Text color when the button is selected. This also sets the color of the selected icon if it is not set.
+`app:toggle_icon` | null | Optional icon inside the button.
+`app:toggle_iconColor` | ![#5E5E5E](https://placehold.it/15/5E5E5E/000000?text=+) `#5E5E5E` | Color of the icon when the button is not selected.
+`app:toggle_btnCornerRadius` | 21dp | Curve amount of the button's corners.
+`app:toggle_circularCornerRadius` | false | This makes the button circular.
+`app:toggle_padding` | 0 | Padding of the button.
+`app:toggle_textPadding` | 14dp (horizontal) | Padding of the text.
+`app:toggle_iconPadding` | 0 | Padding of the icon.
+`app:toggle_iconGravity` | top\|start | Position of the icon.
+`app:toggle_textGravity` | top\|start | Position of the text.
+
 ## Contributing
 You can contributing by [opening an issue](https://github.com/Bryanx/themed-toggle-button-group/issues) or forking this repository and creating a pull request.
 
