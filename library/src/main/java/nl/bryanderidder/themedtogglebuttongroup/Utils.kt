@@ -28,18 +28,16 @@ fun ImageView.setTintColor(color: Int, blendMode: PorterDuff.Mode = PorterDuff.M
 }
 
 // Returns a color
-fun Context.color(id: Int): Int {
-    return ContextCompat.getColor(this, id)
-}
+fun Context.color(id: Int): Int = ContextCompat.getColor(this, id)
 
-fun View.addRipple() = with(TypedValue()) {
+fun CardView.addRipple() = with(TypedValue()) {
     context.theme.resolveAttribute(android.R.attr.selectableItemBackground, this, true);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         foreground = getDrawable(context, resourceId)
     }
 }
 
-fun View.setMargin(leftMargin: Int? = null, topMargin: Int? = null,
+fun ThemedButton.setMargin(leftMargin: Int? = null, topMargin: Int? = null,
                    rightMargin: Int? = null, bottomMargin: Int? = null) {
     val params = layoutParams as ViewGroup.MarginLayoutParams
     params.setMargins(
@@ -50,7 +48,7 @@ fun View.setMargin(leftMargin: Int? = null, topMargin: Int? = null,
     layoutParams = params
 }
 
-fun View.bounceOnClick() {
+fun ThemedButton.bounceOnClick() {
     val animScaleDown = ScaleAnimation(1f, 0.9f, 1f, 0.9f, (width/2).toFloat(), (height/2).toFloat()).apply {  }
     animScaleDown.duration = 200
     animScaleDown.fillAfter = true
@@ -124,8 +122,6 @@ fun <T> MutableList<T>.dequeue(): T? = if (this.count() > 0) this.removeAt(0) el
 val View.name: String get() =
     if (this.id == -0x1) "no-id"
     else resources.getResourceEntryName(id) ?: "error-getting-name"
-
-val TextView.string: String get() = this.text.toString()
 
 val Int.px: Int get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
