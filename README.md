@@ -11,6 +11,7 @@ Customisable toggle buttons inside a [FlexboxLayout](https://github.com/google/f
 Put this your app's build.gradle file:
 ```groovy
 implementation 'nl.bryanderidder:themed-toggle-button-group:1.0.0'
+implementation "androidx.cardview:cardview:1.0.0"
 implementation 'com.google.android:flexbox:2.0.1'
 ```
 
