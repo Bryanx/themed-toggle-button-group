@@ -6,7 +6,7 @@
 Customisable toggle buttons inside a [FlexboxLayout](https://github.com/google/flexbox-layout).
 
 ## Installation
-Put this your app's `build.gradle` file:
+Add these dependencies in your app's `build.gradle` file:
 ```groovy
 dependencies {
   implementation 'nl.bryanderidder:themed-toggle-button-group:1.0.2'
