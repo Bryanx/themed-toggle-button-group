@@ -1,5 +1,6 @@
 package nl.bryanderidder.themedtogglebuttongroup.test
 
+import android.graphics.drawable.ColorDrawable
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -64,10 +65,10 @@ class ThemedToggleButtonGroupTest {
             assertThat(button1.tvSelectedText.currentTextColor, `is`(R.color.lavender))
             assertThat(button1.selectedTextColor, `is`(R.color.lavender))
             button1.bgColor = R.color.lavender
-            assertThat(button1.cvCard.cardBackgroundColor.defaultColor, `is`(R.color.lavender))
+            assertThat((button1.cvCard.background as ColorDrawable).color, `is`(R.color.lavender))
             assertThat(button1.bgColor, `is`(R.color.lavender))
             button1.selectedBgColor = R.color.lavender
-            assertThat(button1.cvSelectedCard.cardBackgroundColor.defaultColor, `is`(R.color.lavender))
+            assertThat((button1.cvSelectedCard.background as ColorDrawable).color, `is`(R.color.lavender))
             assertThat(button1.selectedBgColor, `is`(R.color.lavender))
             button1.text = "click"
             assertThat(button1.tvText.text.toString(), `is`("click"))

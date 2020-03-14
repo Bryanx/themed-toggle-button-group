@@ -17,7 +17,7 @@ ext {
   siteUrl = 'https://github.com/Bryanx/themed-toggle-button-group'
   gitUrl = 'https://github.com/Bryanx/themed-toggle-button-group.git'
 
-  libraryVersion = '1.0.1'
+  libraryVersion = '1.0.2'
 
   developerId = 'Bryanx'
   developerName = 'Bryan de Ridder'
@@ -45,8 +45,8 @@ android {
   defaultConfig {
     minSdkVersion 14
     targetSdkVersion 29
-    versionCode 2
-    versionName "1.0.1"
+    versionCode 3
+    versionName "1.0.2"
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
@@ -61,11 +61,9 @@ android {
 
 dependencies {
   implementation 'androidx.core:core-ktx:1.2.0'
-  implementation 'androidx.cardview:cardview:1.0.0'
   implementation 'com.google.android:flexbox:2.0.1'
 
   testImplementation "junit:junit:${rootProject.junitVersion}"
-
   androidTestImplementation "androidx.core:core:${rootProject.androidxCoreVersion}"
   androidTestImplementation "androidx.recyclerview:recyclerview:${rootProject.androidxRecyclerViewVersion}"
   androidTestImplementation "androidx.annotation:annotation:${rootProject.androidxAnnotationVersion}"

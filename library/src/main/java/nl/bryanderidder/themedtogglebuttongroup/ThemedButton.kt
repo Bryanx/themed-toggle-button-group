@@ -1,6 +1,7 @@
 package nl.bryanderidder.themedtogglebuttongroup
 
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
@@ -9,17 +10,17 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
+
 
 /**
  * A customisable button that can contain an icon and/or text.
  *
  * It has the following structure:
  * [ThemedButton] : [RelativeLayout]
- *  [cvCard] : [CardView]
+ *  [cvCard] : [RoundedCornerLayout]
  *   [tvText] : [TextView]
  *   [ivIcon] : [ImageView]
- *  [cvSelectedCard] : [CardView]
+ *  [cvSelectedCard] : [RoundedCornerLayout]
  *   [tvSelectedText] : [TextView]
  *   [ivSelectedIcon] : [ImageView]
  *
@@ -27,8 +28,8 @@ import androidx.cardview.widget.CardView
  */
 class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attrs) {
 
-    /** Default background [CardView] when the button is not selected. */
-    val cvCard: CardView = CardView(ctx)
+    /** Default background [RoundedCornerLayout] when the button is not selected. */
+    val cvCard: RoundedCornerLayout = RoundedCornerLayout(ctx)
 
     /** Default [TextView] when the button is not selected. */
     val tvText: TextView = TextView(ctx)
@@ -36,8 +37,8 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     /** Default icon ([ImageView]) when the button is not selected. */
     val ivIcon: ImageView = ImageView(ctx)
 
-    /** When the button is selected this [CardView] is shown. */
-    val cvSelectedCard: CardView = CardView(ctx)
+    /** When the button is selected this [RoundedCornerLayout] is shown. */
+    val cvSelectedCard: RoundedCornerLayout = RoundedCornerLayout(ctx)
 
     /** When the button is selected this [TextView] is shown. */
     val tvSelectedText: TextView = TextView(ctx)
@@ -47,13 +48,13 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
 
     /** Background color when the button is not selected, default is [R.color.lightGray] */
     var bgColor: Int
-        get() = cvCard.cardBackgroundColor.defaultColor
-        set(value) = cvCard.setCardBackgroundColor(value)
+        get() = (cvCard.background as ColorDrawable).color
+        set(value) = cvCard.setBackgroundColor(value)
 
     /** Background color when the button is selected, default is [R.color.denim] */
     var selectedBgColor: Int
-        get() = cvSelectedCard.cardBackgroundColor.defaultColor
-        set(value) = cvSelectedCard.setCardBackgroundColor(value)
+        get() = (cvSelectedCard.background as ColorDrawable).color
+        set(value) = cvSelectedCard.setBackgroundColor(value)
 
     /**
      * Color of the text when the button is not selected, default is [R.color.darkGray]
@@ -110,9 +111,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         applyToIcons { it.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT) }
         applyToTexts { it.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT) }
         applyToCards { it.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT) }
-        applyToCards { it.cardElevation = 0F }
-        applyToCards { it.preventCornerOverlap = false }
-        applyToCards { it.useCompatPadding = false }
         applyToIcons { it.adjustViewBounds = true }
         applyToIcons { it.scaleType = ImageView.ScaleType.FIT_CENTER }
         cvSelectedCard.visibility = GONE
@@ -139,14 +137,14 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         this.textColor = attrs.getColor(R.styleable.ThemedButton_toggle_textColor, context.color(R.color.darkGray))
         this.selectedTextColor = attrs.getColor(R.styleable.ThemedButton_toggle_selectedTextColor, context.color(android.R.color.white))
         this.circularCornerRadius = attrs.getBoolean(R.styleable.ThemedButton_toggle_circularCornerRadius, false)
-        attrs.getDimension(R.styleable.ThemedButton_toggle_btnCornerRadius, 21F.px).also { applyToCards { c -> c.radius = it } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_padding, -1F).also { applyToCards { c -> c.setCardPadding(all=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingHorizontal, -1F).also { applyToCards { c -> c.setCardPadding(horizontal=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingVertical, -1F).also { applyToCards { c -> c.setCardPadding(vertical=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingRight, -1F).also { applyToCards { c -> c.setCardPadding(right=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingTop, -1F).also { applyToCards { c -> c.setCardPadding(top=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingLeft, -1F).also { applyToCards { c -> c.setCardPadding(left=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingBottom, -1F).also { applyToCards { c -> c.setCardPadding(bottom=it) } }
+        attrs.getDimension(R.styleable.ThemedButton_toggle_btnCornerRadius, 21F.px).also { applyToCards { c -> c.cornerRadius = it } }
+        attrs.getDimension(R.styleable.ThemedButton_toggle_padding, -1F).also { applyToCards { c -> c.setViewPadding(all=it) } }
+        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingHorizontal, -1F).also { applyToCards { c -> c.setViewPadding(horizontal=it) } }
+        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingVertical, -1F).also { applyToCards { c -> c.setViewPadding(vertical=it) } }
+        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingRight, -1F).also { applyToCards { c -> c.setViewPadding(right=it) } }
+        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingTop, -1F).also { applyToCards { c -> c.setViewPadding(top=it) } }
+        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingLeft, -1F).also { applyToCards { c -> c.setViewPadding(left=it) } }
+        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingBottom, -1F).also { applyToCards { c -> c.setViewPadding(bottom=it) } }
         attrs.getDimension(R.styleable.ThemedButton_toggle_textPadding, -1F).also { applyToTexts { c -> c.setViewPadding(all=it) } }
         attrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingHorizontal, 14.pxf).also { applyToTexts { t -> t.setViewPadding(horizontal=it) } }
         attrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingVertical, -1F).also { applyToTexts { t -> t.setViewPadding(vertical=it) } }
@@ -180,11 +178,11 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         super.onLayout(changed, l, t, r, b)
         if (circularCornerRadius) {
-            applyToCards { it.radius = (btnHeight.coerceAtMost(btnWidth) / 2.2).toFloat() }
+            applyToCards { it.cornerRadius = (btnHeight.coerceAtMost(btnWidth) / 2.2).toFloat() }
         }
     }
 
-    private fun applyToCards(func: (CardView) -> Unit) =
+    private fun applyToCards(func: (RoundedCornerLayout) -> Unit) =
         listOf(cvCard, cvSelectedCard).forEach(func::invoke)
 
     private fun applyToTexts(func: (TextView) -> Unit) =

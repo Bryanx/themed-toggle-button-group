@@ -13,7 +13,6 @@ import android.view.animation.OvershootInterpolator
 import android.view.animation.ScaleAnimation
 import android.widget.FrameLayout
 import android.widget.ImageView
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 
 /**
@@ -54,25 +53,6 @@ fun ThemedButton.bounceOnClick() {
         if (event.action == MotionEvent.ACTION_UP) performClick()
         true
     }
-}
-
-fun CardView.setCardPadding(
-    left: Float? = null, top: Float? = null,
-    right: Float? = null, bottom: Float? = null,
-    horizontal: Float? = null, vertical: Float? = null,
-    all: Float? = null
-) {
-    if (listOfNotNull(left, top, right, bottom, horizontal, vertical, all).any { it < 0f }) return
-    all?.let { setContentPadding(it.toInt(), it.toInt(), it.toInt(), it.toInt()) }
-    horizontal?.let { setContentPadding(it.toInt(), contentPaddingTop, it.toInt(), contentPaddingBottom) }
-    vertical?.let { setContentPadding(contentPaddingLeft, it.toInt(), contentPaddingRight, it.toInt()) }
-    if (left != null || top != null || right != null || bottom != null)
-        setContentPadding(
-            left?.toInt() ?: contentPaddingLeft,
-            top?.toInt() ?: contentPaddingTop,
-            right?.toInt() ?: contentPaddingRight,
-            bottom?.toInt() ?: contentPaddingBottom
-        )
 }
 
 fun View.setViewPadding(
