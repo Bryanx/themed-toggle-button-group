@@ -13,11 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val themedButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.themedButtonGroup)
-        val btnMultipleChoice = findViewById<ThemedButton>(R.id.btnMultipleChoice)
         val tvText = findViewById<TextView>(R.id.tvText)
-
-        //optional initial selection
-        btnMultipleChoice.isSelected = true
 
         //selection listener
         themedButtonGroup.setOnSelectListener { button: ThemedButton ->

@@ -13,7 +13,6 @@ import android.view.animation.OvershootInterpolator
 import android.view.animation.ScaleAnimation
 import android.widget.FrameLayout
 import android.widget.ImageView
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 
@@ -28,13 +27,6 @@ fun ImageView.setTintColor(color: Int, blendMode: PorterDuff.Mode = PorterDuff.M
 
 // Returns a color
 fun Context.color(id: Int): Int = ContextCompat.getColor(this, id)
-
-fun CardView.addRipple() = with(TypedValue()) {
-    context.theme.resolveAttribute(android.R.attr.selectableItemBackground, this, true)
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        foreground = getDrawable(context, resourceId)
-    }
-}
 
 fun ThemedButton.setMargin(leftMargin: Int? = null, topMargin: Int? = null,
                    rightMargin: Int? = null, bottomMargin: Int? = null) {

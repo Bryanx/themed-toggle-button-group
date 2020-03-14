@@ -116,7 +116,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         applyToIcons { it.adjustViewBounds = true }
         applyToIcons { it.scaleType = ImageView.ScaleType.FIT_CENTER }
         cvSelectedCard.visibility = GONE
-        cvCard.addRipple()
         addView(cvCard)
         addView(cvSelectedCard)
         cvCard.addView(ivIcon)
@@ -131,8 +130,8 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         cvCard.performClick()
     }
 
-    private fun getStyledAttributes(attrs: AttributeSet) {
-        val attrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedButton)
+    private fun getStyledAttributes(attributeSet: AttributeSet) {
+        val attrs = context.obtainStyledAttributes(attributeSet, R.styleable.ThemedButton)
         this.text = attrs.getString(R.styleable.ThemedButton_toggle_text) ?: ""
         this.selectedText = attrs.getString(R.styleable.ThemedButton_toggle_selectedText) ?: this.text
         this.bgColor = attrs.getColor(R.styleable.ThemedButton_toggle_backgroundColor, context.color(R.color.lightGray))
