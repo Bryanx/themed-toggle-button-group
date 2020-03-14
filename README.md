@@ -5,8 +5,6 @@
 ![Download](https://api.bintray.com/packages/bryanx/themed-toggle-button-group/nl.bryanderidder.themed-toggle-button-group/images/download.svg) \
 Customisable toggle buttons inside a [FlexboxLayout](https://github.com/google/flexbox-layout).
 
-![Download](https://api.github.com/repos/bryanx/themed-toggle-button-group/releases/latest)
-
 ## Installation
 Put this your app's build.gradle file:
 ```groovy
