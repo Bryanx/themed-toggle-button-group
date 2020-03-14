@@ -131,6 +131,7 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     private fun getStyledAttributes(attributeSet: AttributeSet) {
         val attrs = context.obtainStyledAttributes(attributeSet, R.styleable.ThemedButton)
         this.text = attrs.getString(R.styleable.ThemedButton_toggle_text) ?: ""
+        this.text = attrs.getString(R.styleable.ThemedButton_android_text) ?: this.text
         this.selectedText = attrs.getString(R.styleable.ThemedButton_toggle_selectedText) ?: this.text
         this.bgColor = attrs.getColor(R.styleable.ThemedButton_toggle_backgroundColor, context.color(R.color.lightGray))
         this.selectedBgColor = attrs.getColor(R.styleable.ThemedButton_toggle_selectedBackgroundColor, context.color(R.color.denim))

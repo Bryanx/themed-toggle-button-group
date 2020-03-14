@@ -11,18 +11,20 @@
         android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        app:toggle_text="5:30PM"/>
+        app:toggle_text="5:30PM"
+        app:toggle_selectedText="selectedText"/>
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
         android:id="@+id/btn2"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        app:toggle_text="6:00PM"/>
+        android:text="6:00PM"
+        app:toggle_text="this text should be overridden"/>
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
         android:id="@+id/btn3"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        app:toggle_text="6:30PM"/>
+        android:text="6:30PM"/>
 
 </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>

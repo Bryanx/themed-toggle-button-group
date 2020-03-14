@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="ThemedButton">
         <attr name="toggle_text" format="string"/>
+        <attr name="android:text" format="string"/>
         <attr name="toggle_selectedText" format="string"/>
         <attr name="toggle_textSize" format="dimension"/>
         <attr name="toggle_textColor" format="color"/>

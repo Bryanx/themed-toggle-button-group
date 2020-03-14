@@ -33,13 +33,10 @@ class ThemedToggleButtonGroupTest {
     @Throws(Throwable::class)
     fun testLoadFromLayoutXml() {
         val buttonGroup = createLayout(R.layout.activity_simple, activityRule)
-        val button1 = buttonGroup.findViewById<ThemedButton>(R.id.btn1)
         val buttons = buttonGroup.buttons
         assertNotNull(buttonGroup)
         assertThat(buttonGroup, isA(ThemedToggleButtonGroup::class.java))
         assertThat(buttonGroup.childCount, `is`(3))
-        assertThat(button1.text, `is`("5:30PM"))
-        assertThat(button1.selectedText, `is`("5:30PM"))
         assertThat(buttons, hasSize(3))
         assertThat(buttonGroup.requiredAmount, `is`(2))
         assertThat(buttonGroup.selectableAmount, `is`(3))
@@ -49,6 +46,22 @@ class ThemedToggleButtonGroupTest {
         assertTrue(buttons.all { it.selectedTextColor == it.context.color(android.R.color.white) })
         assertTrue(buttons.all { it.cvCard.visibility == VISIBLE })
         assertThat(buttons.count { it.cvSelectedCard.visibility == GONE }, `is`(1))
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testLoadTextFromXml() {
+        val buttonGroup = createLayout(R.layout.activity_simple, activityRule)
+        val button1 = buttonGroup.findViewById<ThemedButton>(R.id.btn1)
+        val button2 = buttonGroup.findViewById<ThemedButton>(R.id.btn2)
+        val button3 = buttonGroup.findViewById<ThemedButton>(R.id.btn3)
+        assertThat(button1.text, `is`("5:30PM"))
+        assertThat(button1.selectedText, `is`("selectedText"))
+        assertThat(button2.text, `is`("6:00PM"))
+        assertThat(button2.selectedText, `is`("6:00PM"))
+        assertThat(button3.text, `is`("6:30PM"))
+        assertThat(button3.selectedText, `is`("6:30PM"))
     }
 
     @Test
