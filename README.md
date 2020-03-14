@@ -1,21 +1,16 @@
 # ThemedToggleButtonGroup
 ![CI](https://github.com/Bryanx/themed-toggle-button-group/workflows/CI/badge.svg)
 ![API](https://img.shields.io/static/v1?label=API&message=14%2B&color=blue)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) \
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) 
+![Download](https://api.bintray.com/packages/bryanx/themed-toggle-button-group/nl.bryanderidder.themed-toggle-button-group/images/download.svg) \
 Customisable toggle buttons inside a [FlexboxLayout](https://github.com/google/flexbox-layout).
 
+![Download](https://api.github.com/repos/bryanx/themed-toggle-button-group/releases/latest)
+
 ## Installation
-Put this in your project's build.gradle file
-```gradle
-allprojects {
-    repositories {
-        maven { url "https://jitpack.io" }
-    }
-}
-```
 Put this your app's build.gradle file:
-```gradle
-implementation 'com.github.Bryanx:themed-toggle-button-group:0.2.0'
+```groovy
+implementation 'nl.bryanderidder:themed-toggle-button-group:1.0.0'
 implementation 'com.google.android:flexbox:2.0.1'
 ```
 
