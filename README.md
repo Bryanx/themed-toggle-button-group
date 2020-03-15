@@ -2,8 +2,13 @@
 ![CI](https://github.com/Bryanx/themed-toggle-button-group/workflows/CI/badge.svg)
 ![API](https://img.shields.io/static/v1?label=API&message=14%2B&color=blue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) 
-![Download](https://api.bintray.com/packages/bryanx/themed-toggle-button-group/nl.bryanderidder.themed-toggle-button-group/images/download.svg) \
+![Download](https://api.bintray.com/packages/bryanx/themed-toggle-button-group/nl.bryanderidder.themed-toggle-button-group/images/download.svg) 
+
 Customisable toggle buttons inside a [FlexboxLayout](https://github.com/google/flexbox-layout).
+
+ThemedToggleButtonGroup is a highly modular lightweight toggle button library for Android. It can be configured for single selection or multi selection. For multi selection the minimum/maximum amount of buttons that are required/enabled can be specified. Icon's can be added. Selection includes a fun press and circular reveal animation.
+
+The main class [ThemedToggleButtonGroup.kt](https://github.com/Bryanx/themed-toggle-button-group/blob/master/library/src/main/java/nl/bryanderidder/themedtogglebuttongroup/ThemedToggleButtonGroup.kt) extends Google's [FlexboxLayout](https://github.com/google/flexbox-layout). Allowing you to use styling similar to [CSS Flexbox](https://www.w3schools.com/css/css3_flexbox.asp) for the button's inside the toggle group.
 
 ## Installation
 Add these dependencies in your app's `build.gradle` file:
@@ -15,7 +20,7 @@ dependencies {
 ```
 
 ## Single selection
-![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/basic.gif)
+![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/basic.gif)
 ```xml
 <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
     android:id="@+id/time"
@@ -45,7 +50,7 @@ dependencies {
 ```
 
 ## Multiple selection
-![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/labels.gif) \
+![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/labels.gif) \
 Declare how many buttons **may** be selected with `toggle_selectableAmount`. \
 Declare how many buttons **must** be selected with `toggle_requiredAmount`.
 ```xml
@@ -77,8 +82,8 @@ Declare how many buttons **must** be selected with `toggle_requiredAmount`.
 ```
 
 ## Text + icon selection
-![demo](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/togg.gif) \
-Use SVG icons to allow the color to be altered.
+![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/togg.gif) \
+A demo for this example can be found here: [demo-toggle-cards](https://github.com/Bryanx/themed-toggle-button-group/tree/master/demo-toggle-cards). You need to use SVG icons to allow the color to be altered. 
 ```xml
 <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
     android:id="@+id/cards"
@@ -106,7 +111,8 @@ Use SVG icons to allow the color to be altered.
 
 </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 ```
-
+# Customization
+These lists include all custom attributes from this library. Please take a look [FlexboxLayout](https://github.com/google/flexbox-layout) to see all custom attributes that can also be applied to these Views.
 ## ThemedToggleButtonGroup custom attributes
 Attribute | Default value | Description
 --- | --- | ---
@@ -114,6 +120,8 @@ Attribute | Default value | Description
 `app:toggle_requiredAmount` | 1 | The amount of buttons that are required to be selected. If the user tries to deselect a button below the required amount, the selection is blocked. You can programmatically specify which buttons should be selected initially by setting `ThemedButton.isSelected`. Otherwise a random button will be selected initially.
 
 ## ThemedButton custom attributes
+![Color_customisation](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/dark.gif?raw=true) \
+You can fully customise colors, positioning, font size, etc. with these attributes.
 Attribute | Default value | Description
 --- | --- | ---
 `app:toggle_text` | Empty string | Text of the button.
@@ -127,7 +135,7 @@ Attribute | Default value | Description
 `app:toggle_icon` | null | Optional icon inside the button.
 `app:toggle_iconColor` | ![#5E5E5E](https://placehold.it/15/5E5E5E/000000?text=+) `#5E5E5E` | Color of the icon when the button is not selected.
 `app:toggle_btnCornerRadius` | 21dp | Curve amount of the button's corners.
-`app:toggle_circularCornerRadius` | false | This makes the button circular.
+`app:toggle_circularCornerRadius` | false | This makes the button circular. This overrides the corner radius.
 `app:toggle_padding` | 0 | Padding of the button.
 `app:toggle_textPadding` | 14dp (horizontal) | Padding of the text.
 `app:toggle_iconPadding` | 0 | Padding of the icon.
