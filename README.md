@@ -122,6 +122,7 @@ Attribute | Default value | Description
 ## ThemedButton custom attributes
 ![Color_customisation](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/dark.gif?raw=true) \
 You can fully customise colors, positioning, font size, etc. with these attributes.
+
 Attribute | Default value | Description
 --- | --- | ---
 `app:toggle_text` | Empty string | Text of the button.
