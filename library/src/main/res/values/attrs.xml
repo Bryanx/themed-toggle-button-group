@@ -9,8 +9,13 @@
         <attr name="toggle_backgroundColor" format="color" />
         <attr name="toggle_selectedBackgroundColor" format="color" />
         <attr name="toggle_selectedTextColor" format="color" />
+        <attr name="toggle_borderWidth" format="dimension" />
+        <attr name="toggle_borderColor" format="color" />
+        <attr name="toggle_selectedBorderWidth" format="dimension" />
+        <attr name="toggle_selectedBorderColor" format="color" />
         <attr name="toggle_btnCornerRadius" format="dimension" />
         <attr name="toggle_icon" format="reference" />
+        <attr name="toggle_selectedIcon" format="reference" />
         <attr name="toggle_circularCornerRadius" format="boolean" />
         <attr name="toggle_iconColor" format="color" />
         <attr name="toggle_padding" format="dimension" />

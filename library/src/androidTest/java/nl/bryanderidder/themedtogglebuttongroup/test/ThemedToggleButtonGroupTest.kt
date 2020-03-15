@@ -34,10 +34,7 @@ import androidx.test.filters.MediumTest
 import androidx.test.rule.ActivityTestRule
 import junit.framework.Assert.assertNotNull
 import junit.framework.Assert.assertTrue
-import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
-import nl.bryanderidder.themedtogglebuttongroup.color
-import nl.bryanderidder.themedtogglebuttongroup.name
+import nl.bryanderidder.themedtogglebuttongroup.*
 import org.hamcrest.Matchers.*
 import org.junit.Assert.assertThat
 import org.junit.Rule
@@ -205,6 +202,57 @@ class ThemedToggleButtonGroupTest {
 
             // check if the initially selected button is still set
             assertTrue(buttonGroup.buttons[1].isSelected)
+        }
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testStyleBordersFromLayout() {
+        val buttonGroup = createLayout(R.layout.activity_borders, activityRule)
+        val buttons = buttonGroup.buttons
+        val ctx = buttonGroup.context
+        activityRule.runOnUiThread {
+            //Check button borders when none are set:
+            assertThat(buttons[0].borderWidth, `is`(0F))
+            assertThat(buttons[0].selectedBorderWidth, `is`(0F))
+            assertThat(buttons[0].borderColor, `is`(ctx.color(R.color.darkGray)))
+            assertThat(buttons[0].selectedBorderColor, `is`(ctx.color(R.color.darkGray)))
+            //Check button borders when only unselected borders are set:
+            assertThat(buttons[1].borderWidth, `is`(5.pxf))
+            assertThat(buttons[1].selectedBorderWidth, `is`(5.pxf))
+            assertThat(buttons[1].borderColor, `is`(ctx.color(R.color.lavender)))
+            assertThat(buttons[1].selectedBorderColor, `is`(ctx.color(R.color.lavender)))
+            //Check button borders when selected and unselected borders are set:
+            assertThat(buttons[2].borderWidth, `is`(5.pxf))
+            assertThat(buttons[2].selectedBorderWidth, `is`(20.pxf))
+            assertThat(buttons[2].borderColor, `is`(ctx.color(R.color.lavender)))
+            assertThat(buttons[2].selectedBorderColor, `is`(ctx.color(R.color.sapphire)))
+        }
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testStyleBordersProgrammatically() {
+        val buttonGroup = createLayout(R.layout.activity_borders, activityRule)
+        val ctx = buttonGroup.context
+        val button1 = buttonGroup.findViewById<ThemedButton>(R.id.btn1)
+        activityRule.runOnUiThread {
+            //Check button borders when only unselected borders are set:
+            button1.borderColor = ctx.color(R.color.sapphire)
+            button1.borderWidth = 20.pxf
+            assertThat(button1.cvCard.borderWidth, `is`(20.pxf))
+            assertThat(button1.cvSelectedCard.borderWidth, `is`(0.pxf))
+            assertThat(button1.cvCard.borderColor, `is`(ctx.color(R.color.sapphire)))
+            assertThat(button1.cvSelectedCard.borderColor, `is`(ctx.color(R.color.darkGray)))
+            //Check button borders when selected and unselected borders are set:
+            button1.selectedBorderColor = ctx.color(R.color.lavender)
+            button1.selectedBorderWidth = 10.pxf
+            assertThat(button1.cvCard.borderWidth, `is`(20.pxf))
+            assertThat(button1.cvSelectedCard.borderWidth, `is`(10.pxf))
+            assertThat(button1.cvCard.borderColor, `is`(ctx.color(R.color.sapphire)))
+            assertThat(button1.cvSelectedCard.borderColor, `is`(ctx.color(R.color.lavender)))
         }
     }
 }
