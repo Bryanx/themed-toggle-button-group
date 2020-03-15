@@ -14,7 +14,7 @@ The main class [ThemedToggleButtonGroup.kt](https://github.com/Bryanx/themed-tog
 Add these dependencies in your app's `build.gradle` file:
 ```groovy
 dependencies {
-  implementation 'nl.bryanderidder:themed-toggle-button-group:1.0.2'
+  implementation 'nl.bryanderidder:themed-toggle-button-group:1.1.0'
   implementation 'com.google.android:flexbox:2.0.1'
 }
 ```

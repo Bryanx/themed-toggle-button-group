@@ -17,7 +17,7 @@ ext {
   siteUrl = 'https://github.com/Bryanx/themed-toggle-button-group'
   gitUrl = 'https://github.com/Bryanx/themed-toggle-button-group.git'
 
-  libraryVersion = '1.0.2'
+  libraryVersion = '1.1.0'
 
   developerId = 'Bryanx'
   developerName = 'Bryan de Ridder'
@@ -45,8 +45,8 @@ android {
   defaultConfig {
     minSdkVersion 14
     targetSdkVersion 29
-    versionCode 3
-    versionName "1.0.2"
+    versionCode 4
+    versionName "1.1.0"
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
