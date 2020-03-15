@@ -1,10 +1,34 @@
+/**
+ *
+ * ThemedToggleButtonGroup
+ *
+ * Created by Bryan de Ridder on 15/3/20.
+ * Copyright (c) 2020 Bryan de Ridder (br.deridder@gmail.com)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 package nl.bryanderidder.themedtogglebuttongroup
 
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.PorterDuff
-import android.os.Build
-import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -20,14 +44,13 @@ import androidx.core.content.ContextCompat
  * @author Bryan de Ridder
  */
 
-fun ImageView.setTintColor(color: Int, blendMode: PorterDuff.Mode = PorterDuff.Mode.SRC_IN) {
+internal fun ImageView.setTintColor(color: Int, blendMode: PorterDuff.Mode = PorterDuff.Mode.SRC_IN) {
     this.setColorFilter(color, blendMode)
 }
 
-// Returns a color
-fun Context.color(id: Int): Int = ContextCompat.getColor(this, id)
+internal fun Context.color(id: Int): Int = ContextCompat.getColor(this, id)
 
-fun ThemedButton.setMargin(leftMargin: Int? = null, topMargin: Int? = null,
+internal fun ThemedButton.setMargin(leftMargin: Int? = null, topMargin: Int? = null,
                    rightMargin: Int? = null, bottomMargin: Int? = null) {
     val params = layoutParams as ViewGroup.MarginLayoutParams
     params.setMargins(
@@ -38,7 +61,7 @@ fun ThemedButton.setMargin(leftMargin: Int? = null, topMargin: Int? = null,
     layoutParams = params
 }
 
-fun ThemedButton.bounceOnClick() {
+internal fun ThemedButton.bounceOnClick() {
     val animScaleDown = ScaleAnimation(1f, 0.9f, 1f, 0.9f, (width/2).toFloat(), (height/2).toFloat()).apply {  }
     animScaleDown.duration = 200
     animScaleDown.fillAfter = true
@@ -55,7 +78,7 @@ fun ThemedButton.bounceOnClick() {
     }
 }
 
-fun View.setViewPadding(
+internal fun View.setViewPadding(
     left: Float? = null, top: Float? = null,
     right: Float? = null, bottom: Float? = null,
     horizontal: Float? = null, vertical: Float? = null,
@@ -74,9 +97,7 @@ fun View.setViewPadding(
         )
 }
 
-// property extensions
-
-var View.layoutGravity
+internal var View.layoutGravity
     get() = (layoutParams as FrameLayout.LayoutParams).gravity
     set(value) {
         layoutParams = FrameLayout.LayoutParams(
@@ -86,24 +107,24 @@ var View.layoutGravity
         )
     }
 
-fun <T> MutableList<T>.enqueue(item: T) = if (!this.contains(item)) this.add(this.count(), item) else null
+internal fun <T> MutableList<T>.enqueue(item: T) = if (!this.contains(item)) this.add(this.count(), item) else null
 
-fun <T> MutableList<T>.dequeue(): T? = if (this.count() > 0) this.removeAt(0) else null
+internal fun <T> MutableList<T>.dequeue(): T? = if (this.count() > 0) this.removeAt(0) else null
 
-val View.name: String get() =
+internal val View.name: String get() =
     if (this.id == -0x1) "no-id"
     else resources.getResourceEntryName(id) ?: "error-getting-name"
 
-val Int.px: Int get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+internal val Int.px: Int get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
-val Int.pxf: Float get() = (this * Resources.getSystem().displayMetrics.density)
+internal val Int.pxf: Float get() = (this * Resources.getSystem().displayMetrics.density)
 
-val Float.px: Float get() = this * Resources.getSystem().displayMetrics.density
+internal val Float.px: Float get() = this * Resources.getSystem().displayMetrics.density
 
-val Int.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+internal val Int.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
-val Float.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+internal val Float.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
-val ThemedButton.centerX: Float get() = (width / 2).toFloat()
+internal val ThemedButton.centerX: Float get() = (width / 2).toFloat()
 
-val ThemedButton.centerY: Float get() = (height / 2).toFloat()
+internal val ThemedButton.centerY: Float get() = (height / 2).toFloat()
