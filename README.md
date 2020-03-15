@@ -81,6 +81,38 @@ Declare how many buttons **must** be selected with `toggle_requiredAmount`.
   </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 ```
 
+## Icon selection
+![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/iconsonly.gif) \
+It is possible to add icons to the buttons and show a different icon when the button is selected. This example also shows how to add borders.
+```xml
+<nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+    android:id="@+id/toggleGroup"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    app:alignItems="center"
+    app:justifyContent="center"
+    app:toggle_requiredAmount="0"
+    app:toggle_selectableAmount="3">
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+        android:id="@+id/btnMic"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:toggle_btnCornerRadius="50dp"
+        app:toggle_borderWidth="5dp"
+        app:toggle_borderColor="#C6C6C6"
+        app:toggle_selectedBorderColor="#5e6fed"
+        app:toggle_icon="@drawable/ic_mic_off_black_24dp"
+        app:toggle_iconColor="#C6C6C6"
+        app:toggle_selectedIcon="@drawable/ic_mic_black_24dp"
+        app:toggle_backgroundColor="@android:color/white"
+        app:toggle_iconPadding="18dp" />
+
+    <!-- ... -->
+
+</nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+```
+
 ## Text + icon selection
 ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/togg.gif) \
 A demo for this example can be found here: [demo-toggle-cards](https://github.com/Bryanx/themed-toggle-button-group/tree/master/demo-toggle-cards). You need to use SVG icons to allow the color to be altered. 
@@ -98,7 +130,7 @@ A demo for this example can be found here: [demo-toggle-cards](https://github.co
         android:layout_height="145dp"
         app:layout_flexGrow="1"
         app:toggle_selectedTextColor="@android:color/white"
-        app:toggle_selectedBackgroundColor="@color/denim"
+        app:toggle_selectedBackgroundColor="#5e6fed"
         app:toggle_icon="@drawable/replace_with_svg_icon"
         app:toggle_iconGravity="top|center"
         app:toggle_iconPaddingTop="15dp"
@@ -111,6 +143,7 @@ A demo for this example can be found here: [demo-toggle-cards](https://github.co
 
 </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 ```
+
 # Customization
 These lists include all custom attributes from this library. Please take a look [FlexboxLayout](https://github.com/google/flexbox-layout) to see all custom attributes that can also be applied to these Views.
 ## ThemedToggleButtonGroup custom attributes
@@ -134,12 +167,17 @@ Attribute | Default value | Description
 `app:toggle_textColor` | ![#5E5E5E](https://placehold.it/15/5E5E5E/000000?text=+) `#5E5E5E` | Text color when the button is not selected. This also sets the color of the icon if it is not set.
 `app:toggle_selectedTextColor` | ![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) `#FFFFFF` |  Text color when the button is selected. This also sets the color of the selected icon if it is not set.
 `app:toggle_icon` | null | Optional icon inside the button.
+`app:toggle_selectedIcon` | `app:toggle_icon` | Icon when the button is selected. By default the icon of `app:toggle_icon` is used.
 `app:toggle_iconColor` | ![#5E5E5E](https://placehold.it/15/5E5E5E/000000?text=+) `#5E5E5E` | Color of the icon when the button is not selected.
 `app:toggle_btnCornerRadius` | 21dp | Curve amount of the button's corners.
 `app:toggle_circularCornerRadius` | false | This makes the button circular. This overrides the corner radius.
-`app:toggle_padding` | 0 | Padding of the button.
+`app:toggle_borderWidth` | 0dp | The width of the border.
+`app:toggle_selectedBorderWidth` | `app:toggle_borderWidth` | The width of the border when the button is selected. By default the width of `toggle_borderWidth` is used.
+`app:toggle_borderColor` | ![#5E5E5E](https://placehold.it/15/5E5E5E/000000?text=+) `#5E5E5E` | The color of the border.
+`app:toggle_selectedBorderColor` | `app:toggle_borderColor` | The color of the border when the button is selected.. By default the color of `app:toggle_borderColor` is used.
+`app:toggle_padding` | 0dp | Padding of the button.
 `app:toggle_textPadding` | 14dp (horizontal) | Padding of the text.
-`app:toggle_iconPadding` | 0 | Padding of the icon.
+`app:toggle_iconPadding` | 0dp | Padding of the icon.
 `app:toggle_iconGravity` | top\|start | Position of the icon.
 `app:toggle_textGravity` | top\|start | Position of the text.
 
