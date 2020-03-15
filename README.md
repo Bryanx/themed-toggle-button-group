@@ -82,7 +82,7 @@ Declare how many buttons **must** be selected with `toggle_requiredAmount`.
 ```
 
 ## Icon selection
-![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/iconsonly.gif) \
+![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/icontoggle.gif) \
 It is possible to add icons to the buttons and show a different icon when the button is selected. This example also shows how to add borders.
 ```xml
 <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
