@@ -72,7 +72,8 @@ internal fun ThemedButton.bounceOnClick() {
     animScaleUp.interpolator= OvershootInterpolator(3f)
     setOnTouchListener { _, event ->
         if (event.action == MotionEvent.ACTION_DOWN) startAnimation(animScaleDown)
-        if (event.action == MotionEvent.ACTION_UP) startAnimation(animScaleUp)
+        if (event.action == MotionEvent.ACTION_UP ||
+            event.action == MotionEvent.ACTION_CANCEL) startAnimation(animScaleUp)
         if (event.action == MotionEvent.ACTION_UP) performClick()
         true
     }
