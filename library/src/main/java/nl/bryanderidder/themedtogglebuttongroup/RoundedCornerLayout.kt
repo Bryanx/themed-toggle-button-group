@@ -32,7 +32,6 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.drawable.ColorDrawable
-import android.view.View
 import android.widget.FrameLayout
 
 
@@ -45,7 +44,7 @@ class RoundedCornerLayout(context: Context) : FrameLayout(context) {
     private var paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG)
     var cornerRadius = 0f
     var borderWidth = 0f
-    var borderColor = context.color(R.color.darkGray)
+    var borderColor = darkGray
 
     override fun draw(canvas: Canvas) {
         val halfBorderWidth = borderWidth / 2

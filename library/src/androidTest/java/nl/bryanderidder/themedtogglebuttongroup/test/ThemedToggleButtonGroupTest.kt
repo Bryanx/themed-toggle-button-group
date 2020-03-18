@@ -28,6 +28,9 @@ package nl.bryanderidder.themedtogglebuttongroup.test
 import android.graphics.drawable.ColorDrawable
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.core.view.marginEnd
+import androidx.core.view.marginRight
+import androidx.core.view.marginStart
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.filters.MediumTest
@@ -253,6 +256,28 @@ class ThemedToggleButtonGroupTest {
             assertThat(button1.cvSelectedCard.borderWidth, `is`(10.pxf))
             assertThat(button1.cvCard.borderColor, `is`(ctx.color(R.color.sapphire)))
             assertThat(button1.cvSelectedCard.borderColor, `is`(ctx.color(R.color.lavender)))
+        }
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testHorizontalSpacing() {
+        val buttonGroup = createLayout(R.layout.activity_simple, activityRule)
+        val buttons = buttonGroup.buttons
+        activityRule.runOnUiThread {
+            // Assert that initial spacing is 10dp
+            assertThat(buttonGroup.horizontalSpacing, `is`(10.px))
+            // Check that front and end don't have margin
+            assertThat(buttons.first().marginStart, `is`(0))
+            assertThat(buttons.last().marginEnd, `is`(0))
+            assertTrue(buttons.subList(0, buttons.lastIndex).all { it.marginEnd == 10.px })
+            // Change spacing programmatically to 20dp
+            buttonGroup.horizontalSpacing = 20.px
+            assertThat(buttonGroup.horizontalSpacing, `is`(20.px))
+            assertThat(buttons.first().marginStart, `is`(0))
+            assertThat(buttons.last().marginEnd, `is`(0))
+            assertTrue(buttons.subList(0, buttons.lastIndex).all { it.marginEnd == 20.px })
         }
     }
 }

@@ -22,7 +22,7 @@
             android:layout_height="145dp"
             app:layout_flexGrow="1"
             app:toggle_selectedTextColor="@android:color/white"
-            app:toggle_selectedBackgroundColor="@color/denim"
+            app:toggle_selectedBackgroundColor="#5e6fed"
             app:toggle_icon="@drawable/ic_check_circle_outline_24px"
             app:toggle_iconGravity="top|center"
             app:toggle_iconPaddingTop="15dp"
@@ -37,7 +37,7 @@
             android:layout_height="145dp"
             app:layout_flexGrow="1"
             app:toggle_selectedTextColor="@android:color/white"
-            app:toggle_selectedBackgroundColor="@color/denim"
+            app:toggle_selectedBackgroundColor="#5e6fed"
             app:toggle_icon="@drawable/ic_spellcheck_24px"
             app:toggle_iconGravity="top|center"
             app:toggle_iconPaddingTop="15dp"
@@ -52,7 +52,7 @@
             android:layout_height="145dp"
             app:layout_flexGrow="1"
             app:toggle_selectedTextColor="@android:color/white"
-            app:toggle_selectedBackgroundColor="@color/denim"
+            app:toggle_selectedBackgroundColor="#5e6fed"
             app:toggle_icon="@drawable/ic_query_builder_black_24dp"
             app:toggle_iconGravity="top|center"
             app:toggle_iconPaddingTop="15dp"
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textAlignment="center"
-        android:textColor="@color/denim"
+        android:textColor="#5e6fed"
         android:text=""/>
 
 </LinearLayout>

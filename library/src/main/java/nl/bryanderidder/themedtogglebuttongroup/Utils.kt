@@ -28,6 +28,7 @@ package nl.bryanderidder.themedtogglebuttongroup
 
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.MotionEvent
 import android.view.View
@@ -129,3 +130,9 @@ internal val Float.dp: Int get() = (this / Resources.getSystem().displayMetrics.
 internal val ThemedButton.centerX: Float get() = (width / 2).toFloat()
 
 internal val ThemedButton.centerY: Float get() = (height / 2).toFloat()
+
+internal val lightGray: Int = Color.parseColor("#ebebeb")
+
+internal val darkGray: Int = Color.parseColor("#5e5e5e")
+
+internal val denim: Int = Color.parseColor("#5e6fed")

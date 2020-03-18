@@ -71,18 +71,18 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     /** When the button is selected this ic on ([ImageView]) is shown. */
     val ivSelectedIcon: ImageView = ImageView(ctx)
 
-    /** Background color when the button is not selected, default is [R.color.lightGray] */
+    /** Background color when the button is not selected, default is [lightGray] */
     var bgColor: Int
         get() = (cvCard.background as ColorDrawable).color
         set(value) = cvCard.setBackgroundColor(value)
 
-    /** Background color when the button is selected, default is [R.color.denim] */
+    /** Background color when the button is selected, default is [denim] */
     var selectedBgColor: Int
         get() = (cvSelectedCard.background as ColorDrawable).color
         set(value) = cvSelectedCard.setBackgroundColor(value)
 
     /**
-     * Color of the text when the button is not selected, default is [R.color.darkGray]
+     * Color of the text when the button is not selected, default is [darkGray]
      * If the unselected icon color is not set, it will be the same as this value.
      */
     var textColor: Int
@@ -116,11 +116,11 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
 
     var btnHeight: Int
         get() = cvCard.height
-        set(height) = applyToCards { it.layoutParams.height = height.dp }
+        set(height) = applyToCards { it.layoutParams.height = height }
 
     var btnWidth: Int
         get() = cvCard.width
-        set(width) = applyToCards { it.layoutParams.width = width.dp }
+        set(width) = applyToCards { it.layoutParams.width = width }
 
     var icon: Drawable
         get() = ivIcon.background
@@ -179,9 +179,9 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         this.text = attrs.getString(R.styleable.ThemedButton_toggle_text) ?: ""
         this.text = attrs.getString(R.styleable.ThemedButton_android_text) ?: this.text
         this.selectedText = attrs.getString(R.styleable.ThemedButton_toggle_selectedText) ?: this.text
-        attrs.getColor(R.styleable.ThemedButton_toggle_backgroundColor, context.color(R.color.lightGray)).also { this.bgColor = it }
-        attrs.getColor(R.styleable.ThemedButton_toggle_selectedBackgroundColor, context.color(R.color.denim)).also { this.selectedBgColor = it }
-        attrs.getColor(R.styleable.ThemedButton_toggle_textColor, context.color(R.color.darkGray)).also { this.textColor = it }
+        attrs.getColor(R.styleable.ThemedButton_toggle_backgroundColor, lightGray).also { this.bgColor = it }
+        attrs.getColor(R.styleable.ThemedButton_toggle_selectedBackgroundColor, denim).also { this.selectedBgColor = it }
+        attrs.getColor(R.styleable.ThemedButton_toggle_textColor, darkGray).also { this.textColor = it }
         attrs.getColor(R.styleable.ThemedButton_toggle_selectedTextColor, context.color(android.R.color.white)).also { this.selectedTextColor = it }
         attrs.getBoolean(R.styleable.ThemedButton_toggle_circularCornerRadius, false).also { this.circularCornerRadius = it }
         attrs.getDimension(R.styleable.ThemedButton_toggle_borderWidth, 0F).also { this.borderWidth = it; this.selectedBorderWidth = it }
@@ -223,8 +223,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         btnHeight = heightMeasureSpec
-        btnWidth = widthMeasureSpec
-        setMargin(leftMargin = 4.px, rightMargin = 4.px)
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {

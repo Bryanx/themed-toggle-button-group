@@ -58,6 +58,15 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
 
     private var deselectAnimator: Animator? = AnimatorSet()
 
+    private var defaultHorizontalSpacing = 10.px
+    var horizontalSpacing: Int
+        get() = defaultHorizontalSpacing
+        set(value) {
+            this.defaultHorizontalSpacing = value
+            buttons.subList(0, buttons.lastIndex)
+                .forEach { it.setMargin(rightMargin = value) }
+        }
+
     /**
      * The amount of buttons that are allowed to be selected. Default is 1.
      * Set it equal to the amount of buttons to make it unlimited.
@@ -77,6 +86,7 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedToggleButtonGroup)
         this.selectableAmount = styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_selectableAmount, 1)
         this.requiredAmount = styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_requiredAmount, 1)
+        this.defaultHorizontalSpacing = styledAttrs.getDimension(R.styleable.ThemedToggleButtonGroup_toggle_horizontalSpacing, defaultHorizontalSpacing.toFloat()).toInt()
         if (requiredAmount > selectableAmount) throw UnsupportedOperationException("Required amount must be smaller than or equal to selectable amount.")
         styledAttrs.recycle()
     }
@@ -154,6 +164,7 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
+        horizontalSpacing = defaultHorizontalSpacing
         buttons.forEach { addClickListeners(it) }
         setInitialSelection()
     }

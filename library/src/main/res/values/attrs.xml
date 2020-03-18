@@ -108,5 +108,6 @@
     <declare-styleable name="ThemedToggleButtonGroup">
         <attr name="toggle_selectableAmount" format="integer"/>
         <attr name="toggle_requiredAmount" format="integer"/>
+        <attr name="toggle_horizontalSpacing" format="dimension"/>
     </declare-styleable>
 </resources>
