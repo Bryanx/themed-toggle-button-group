@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:fillViewport="true"
+        android:layout_centerVertical="true"
+        android:scrollbars="none">
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:paddingHorizontal="20dp"
+            app:alignItems="center">
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn1"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:layout_flexShrink="0"
+                app:toggle_text="5:30PM" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn2"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:layout_flexShrink="0"
+                app:toggle_text="6:00PM" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn3"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:layout_flexShrink="0"
+                app:toggle_text="6:30PM" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn4"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:layout_flexShrink="0"
+                app:toggle_text="7:00PM" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn5"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:layout_flexShrink="0"
+                app:toggle_text="7:30PM" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn6"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:layout_flexShrink="0"
+                app:toggle_text="8:00PM" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn7"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:layout_flexShrink="0"
+                app:toggle_text="8:30PM" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn8"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:layout_flexShrink="0"
+                app:toggle_text="9:00PM" />
+
+        </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+    </HorizontalScrollView>
+
+</RelativeLayout>

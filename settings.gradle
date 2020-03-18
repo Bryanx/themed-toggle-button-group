@@ -1,3 +1,4 @@
 rootProject.name='ThemedToggleButtonGroup'
 include ':library'
 include ':demo-toggle-cards'
+include ':demo-horizontal-scroll'
