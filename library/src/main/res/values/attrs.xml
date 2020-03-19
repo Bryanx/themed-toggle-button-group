@@ -30,6 +30,7 @@
         <attr name="toggle_selectedText" format="string"/>
         <attr name="toggle_textSize" format="dimension"/>
         <attr name="toggle_textColor" format="color"/>
+        <attr name="toggle_fontFamily" format="string"/>
         <attr name="toggle_backgroundColor" format="color" />
         <attr name="toggle_selectedBackgroundColor" format="color" />
         <attr name="toggle_selectedTextColor" format="color" />

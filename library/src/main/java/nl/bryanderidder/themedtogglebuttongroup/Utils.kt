@@ -107,6 +107,12 @@ internal var View.layoutGravity
         )
     }
 
+internal fun <K, V> MutableMap<K, V>.addIfAbsent(key: K, value: V): V? {
+    var v: V? = get(key)
+    if (v == null) v = put(key, value)
+    return v
+}
+
 internal fun <T> MutableList<T>.enqueue(item: T) = if (!this.contains(item)) this.add(this.count(), item) else null
 
 internal fun <T> MutableList<T>.dequeue(): T? = if (this.count() > 0) this.removeAt(0) else null

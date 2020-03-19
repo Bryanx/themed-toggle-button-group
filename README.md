@@ -161,7 +161,8 @@ Attribute | Default value | Description
 `app:toggle_text` | Empty string | Text of the button.
 `app:toggle_selectedText` | `app:toggle_text` | Text when the button is selected. If not present the text of `toggle_text` is used.
 `app:toggle_textSize` | 15sp | Size of the text in the button.
-`app:toggle_textAlignment` | center | Alignment of the text.
+`app:toggle_textAlignment` | center | Alignment of the text. (API 17+)
+`app:toggle_fontFamily` | Roboto (Android default) | The font of the text. Put your font file in `/src/main/assets`. And enter the the rest of the path here. For example if your font is in: `/src/main/assets/fonts/arial.ttf` enter this in your layout: `app:toggle_fontFamily="/fonts/arial.ttf"`
 `app:toggle_backgroundColor` | ![#EBEBEB](https://placehold.it/15/EBEBEB/000000?text=+) `#EBEBEB` | Background color when the button is not selected.
 `app:toggle_selectedBackgroundColor` | ![#5E6FED](https://placehold.it/15/5E6FED/000000?text=+) `#5E6FED` | Background color when the button is selected.
 `app:toggle_textColor` | ![#5E5E5E](https://placehold.it/15/5E5E5E/000000?text=+) `#5E5E5E` | Text color when the button is not selected. This also sets the color of the icon if it is not set.

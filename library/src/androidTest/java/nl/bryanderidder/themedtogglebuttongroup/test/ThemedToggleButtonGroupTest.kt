@@ -25,6 +25,7 @@
  */
 package nl.bryanderidder.themedtogglebuttongroup.test
 
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -278,6 +279,29 @@ class ThemedToggleButtonGroupTest {
             assertThat(buttons.first().marginStart, `is`(0))
             assertThat(buttons.last().marginEnd, `is`(0))
             assertTrue(buttons.subList(0, buttons.lastIndex).all { it.marginEnd == 20.px })
+        }
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testCustomFont() {
+        val buttonGroup = createLayout(R.layout.activity_custom_font, activityRule)
+        val buttons = buttonGroup.buttons
+        val font = Typeface.createFromAsset(buttonGroup.context.assets, "fonts/ubuntu_mono.ttf")
+        activityRule.runOnUiThread {
+            buttons[2].fontFamily = "fonts/ubuntu_mono.ttf"
+            // Test poperty
+            assertThat(buttons[0].fontFamily, `is`("Roboto"))
+            assertThat(buttons[1].fontFamily, `is`("fonts/ubuntu_mono.ttf"))
+            assertThat(buttons[2].fontFamily, `is`("fonts/ubuntu_mono.ttf"))
+            // Assert that actual textviews have the correct typeface
+            assertThat(buttons[0].tvText.typeface, `is`(Typeface.DEFAULT))
+            assertThat(buttons[0].tvSelectedText.typeface, `is`(Typeface.DEFAULT))
+            assertThat(buttons[1].tvText.typeface, `is`(font))
+            assertThat(buttons[1].tvSelectedText.typeface, `is`(font))
+            assertThat(buttons[2].tvText.typeface, `is`(font))
+            assertThat(buttons[2].tvSelectedText.typeface, `is`(font))
         }
     }
 }

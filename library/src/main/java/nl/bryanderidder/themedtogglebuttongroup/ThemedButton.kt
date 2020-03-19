@@ -25,6 +25,7 @@
 package nl.bryanderidder.themedtogglebuttongroup
 
 import android.content.Context
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -50,6 +51,8 @@ import android.widget.TextView
  * @author Bryan de Ridder
  */
 class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attrs) {
+
+    val fontCache: MutableMap<String, Typeface> = mutableMapOf()
 
     /** Default background [RoundedCornerLayout] when the button is not selected. */
     val cvCard: RoundedCornerLayout = RoundedCornerLayout(ctx)
@@ -150,6 +153,33 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         get() = cvSelectedCard.borderColor
         set(value) { cvSelectedCard.borderColor = value }
 
+    /** Property to keep track of the active font family (Android default is Roboto) */
+    private var fontFamilyName: String = "Roboto"
+
+    /**
+     * The font of the text
+     * At the moment the font is the same for selected/deselected button.
+     * Put your font file in /src/main/assets and enter the the rest of the path here.
+     * For example if your font is in: /src/main/assets/fonts/arial.ttf
+     * Enter this in your layout: app:toggle_fontFamily="fonts/arial.ttf"
+     *
+     * <code>
+     *   app:toggle_fontFamily="fonts/arial.ttf"
+     * </code>
+     *
+     * Or to update it programmatically:
+     *
+     * <code>
+     *   button.fontFamily = "fonts/arial.ttf"
+     * </code>
+     */
+    var fontFamily: String
+        get() = fontFamilyName
+        set(value) {
+            this.fontFamilyName = value
+            applyToTexts { it.typeface = getTypeFace(value) }
+        }
+
     init {
         layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
         applyToIcons { it.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT) }
@@ -215,7 +245,17 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         attrs.getDimension(R.styleable.ThemedButton_toggle_textSize, 15F.px).also { applyToTexts { t -> t.textSize = it.dp.toFloat() } }
         attrs.getInt(R.styleable.ThemedButton_toggle_textGravity, Gravity.CENTER).also { applyToTexts { i -> i.layoutGravity = it } }
         attrs.getInt(R.styleable.ThemedButton_toggle_textAlignment, 4).also { applyToTexts { t -> if (Build.VERSION.SDK_INT >= 17) t.textAlignment = it } }
+        (attrs.getString(R.styleable.ThemedButton_toggle_fontFamily) ?: "Roboto").also { fontFamilyName = it; fontFamily = it }
         attrs.recycle()
+    }
+
+    private fun getTypeFace(assetPath: String): Typeface? {
+        if (assetPath.isEmpty() || assetPath == "Roboto") return Typeface.DEFAULT
+        var path = assetPath
+        if (path.startsWith("/")) path = path.replaceFirst("/","")
+        val typeface = fontCache[path] ?: Typeface.createFromAsset(context.assets, path)
+        fontCache.addIfAbsent(path, typeface)
+        return typeface
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/themedButtonGroup"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:toggle_requiredAmount="2"
+    app:toggle_selectableAmount="3">
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+        android:id="@+id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        app:toggle_text="5:30PM"/>
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+        android:id="@+id/btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        app:toggle_fontFamily="fonts/ubuntu_mono.ttf"
+        app:toggle_text="5:30PM"/>
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+        android:id="@+id/btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        app:toggle_text="5:30PM"/>
+
+</nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
