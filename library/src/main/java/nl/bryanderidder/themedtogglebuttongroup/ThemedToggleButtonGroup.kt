@@ -56,7 +56,13 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
 
     private var deselectAnimator: Animator? = AnimatorSet()
 
+    /** Property to keep track of current spacing. */
     private var defaultHorizontalSpacing = 10.px
+
+    /**
+     * The amount of space between the [buttons] when they are positioned next to each other.
+     * Default is 10dp.
+     */
     var horizontalSpacing: Int
         get() = defaultHorizontalSpacing
         set(value) {
