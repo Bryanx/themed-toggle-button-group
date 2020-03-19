@@ -56,19 +56,15 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
 
     private var deselectAnimator: Animator? = AnimatorSet()
 
-    /** Property to keep track of current spacing. */
-    private var defaultHorizontalSpacing = 10.px
-
     /**
      * The amount of space between the [buttons] when they are positioned next to each other.
      * Default is 10dp.
      */
-    var horizontalSpacing: Int
-        get() = defaultHorizontalSpacing
+    var horizontalSpacing: Int = 10.px
         set(value) {
-            this.defaultHorizontalSpacing = value
-            buttons.subList(0, buttons.lastIndex)
-                .forEach { it.setMargin(rightMargin = value) }
+            field = value
+            if (buttons.isNotEmpty())
+                buttons.subList(0, buttons.lastIndex).forEach { it.setMargin(rightMargin = value) }
         }
 
     /**
@@ -90,7 +86,7 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedToggleButtonGroup)
         this.selectableAmount = styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_selectableAmount, 1)
         this.requiredAmount = styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_requiredAmount, 1)
-        this.defaultHorizontalSpacing = styledAttrs.getDimension(R.styleable.ThemedToggleButtonGroup_toggle_horizontalSpacing, defaultHorizontalSpacing.toFloat()).toInt()
+        this.horizontalSpacing = styledAttrs.getDimension(R.styleable.ThemedToggleButtonGroup_toggle_horizontalSpacing, 10.pxf).toInt()
         if (requiredAmount > selectableAmount) throw UnsupportedOperationException("Required amount must be smaller than or equal to selectable amount.")
         styledAttrs.recycle()
     }
@@ -168,7 +164,7 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        horizontalSpacing = defaultHorizontalSpacing
+        horizontalSpacing = horizontalSpacing
         buttons.forEach { addClickListeners(it) }
         setInitialSelection()
     }
