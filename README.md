@@ -89,6 +89,7 @@ CIRCULAR_REVEAL | FADE | HORIZONTAL_SLIDE
 VERTICAL_SLIDE | HORIZONTAL_WINDOW | VERTICAL_WINDOW
 --- | --- | ---
 ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/vertical_slide.gif) | ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/horizontal_window.gif) | ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/vertical_window.gif)
+
 To set the animation on your layout add this to the toggle group: `app:toggle_selectAnimation="circular_reveal"`.
 You can also set the animation programmatically:
 ```java
