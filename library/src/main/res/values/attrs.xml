@@ -110,5 +110,14 @@
         <attr name="toggle_selectableAmount" format="integer"/>
         <attr name="toggle_requiredAmount" format="integer"/>
         <attr name="toggle_horizontalSpacing" format="dimension"/>
+        <attr name="toggle_selectAnimation" format="enum">
+            <enum name="none" value="0" />
+            <enum name="circular_reveal" value="1" />
+            <enum name="fade" value="2" />
+            <enum name="horizontal_slide" value="3" />
+            <enum name="vertical_slide" value="4" />
+            <enum name="horizontal_window" value="5" />
+            <enum name="vertical_window" value="6" />
+        </attr>
     </declare-styleable>
 </resources>

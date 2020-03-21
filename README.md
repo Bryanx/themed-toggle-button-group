@@ -81,6 +81,25 @@ Declare how many buttons **must** be selected with `toggle_requiredAmount`.
   </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 ```
 
+## Animations
+CIRCULAR_REVEAL | FADE | HORIZONTAL_SLIDE
+--- | --- | ---
+![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/circular_reveal.gif) | ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/fade.gif) | ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/horizontal_slide.gif)
+
+VERTICAL_SLIDE | HORIZONTAL_WINDOW | VERTICAL_WINDOW
+--- | --- | ---
+![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/vertical_slide.gif) | ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/horizontal_window.gif) | ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/vertical_window.gif)
+To set the animation on your layout add this to the toggle group: `app:toggle_selectAnimation="circular_reveal"`.
+You can also set the animation programmatically:
+```java
+//kotlin:
+val themedToggleButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.themedToggleButtonGroup);
+themedToggleButtonGroup.selectAnimation = SelectAnimation.HORIZONTAL_SLIDE
+//java:
+ThemedToggleButtonGroup themedToggleButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.themedToggleButtonGroup);
+themedToggleButtonGroup.setSelectAnimation(SelectAnimation.HORIZONTAL_SLIDE);
+```
+
 ## Icon selection
 ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/icontoggle.gif) \
 It is possible to add icons to the buttons and show a different icon when the button is selected. This example also shows how to add borders.
@@ -152,6 +171,7 @@ Attribute | Default value | Description
 `app:toggle_selectableAmount` | 1 | The amount of buttons that are allowed to be selected. If the user tries to select more buttons, the button that was last selected will be deselected.
 `app:toggle_requiredAmount` | 1 | The amount of buttons that are required to be selected. If the user tries to deselect a button below the required amount, the selection is blocked. You can programmatically specify which buttons should be selected initially by setting `ThemedButton.isSelected`. Otherwise a random button will be selected initially.
 `app:toggle_horizontalSpacing` | 10dp | The amount of space between the buttons when they are positioned next to each other.
+`app:toggle_selectAnimation` | SelectAnimation.CIRCULAR_REVEAL | The type of animations that occurs upon selecting a button. Some animations require a certain API level. If the API level is not met SelectAnimation.FADE is used instead.
 
 ## ThemedButton custom attributes
 ![Color_customisation](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/dark.gif?raw=true) \

@@ -26,19 +26,15 @@ package nl.bryanderidder.themedtogglebuttongroup
 
 import android.animation.Animator
 import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewAnimationUtils
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.core.animation.doOnEnd
 import com.google.android.flexbox.FlexboxLayout
-import java.lang.UnsupportedOperationException
+import nl.bryanderidder.themedtogglebuttongroup.SelectAnimation.*
+
 
 /**
  * A group of customisable [ThemedButton]'s,
@@ -68,6 +64,13 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
         }
 
     /**
+     * Sets the animation when selecting the button.
+     * Some animations require a certain API, if that requirement is not met
+     * the fade animation will be used.
+     */
+    var selectAnimation: SelectAnimation = CIRCULAR_REVEAL
+
+    /**
      * The amount of buttons that are allowed to be selected. Default is 1.
      * Set it equal to the amount of buttons to make it unlimited.
      */
@@ -86,6 +89,7 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedToggleButtonGroup)
         this.selectableAmount = styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_selectableAmount, 1)
         this.requiredAmount = styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_requiredAmount, 1)
+        this.selectAnimation = SelectAnimation.values()[styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_selectAnimation, 1)]
         this.horizontalSpacing = styledAttrs.getDimension(R.styleable.ThemedToggleButtonGroup_toggle_horizontalSpacing, 10.pxf).toInt()
         if (requiredAmount > selectableAmount) throw UnsupportedOperationException("Required amount must be smaller than or equal to selectable amount.")
         styledAttrs.recycle()
@@ -93,20 +97,13 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
 
     @SuppressLint("ClickableViewAccessibility")
     private fun addClickListeners(btn: ThemedButton) {
-        btn.bounceOnClick()
         btn.cvCard.setOnTouchListener { _, event ->
-            selectAnimator.cancel()
-            deselectAnimator?.cancel()
-            selectButton(btn, event.x, event.y)
-            startAnimations()
-            if (event.action == MotionEvent.ACTION_UP) btn.performClick()
-            event.action == MotionEvent.ACTION_UP
+            selectButtonWithAnimation(btn, event.action, event.x, event.y)
         }
     }
 
     private fun startAnimations() {
         try {
-            deselectAnimator?.duration = selectAnimator.duration / 2
             val set = AnimatorSet()
             if (deselectAnimator != null) set.playTogether(selectAnimator, deselectAnimator)
             else set.play(selectAnimator)
@@ -118,11 +115,24 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
         super.addView(child, params)
         if (child != null && child is ThemedButton) {
             buttons += child
+            horizontalSpacing = horizontalSpacing
+            addClickListeners(child)
+            if (requiredAmount - buttons.count { it.isSelected } > 0)
+                intiallySelect(child)
         }
     }
 
-    fun selectButton(btn: ThemedButton, x: Float, y: Float) {
-        if (btn.isSelected && buttons.count { it.isSelected } <= requiredAmount) return
+    fun selectButtonWithAnimation(btn: ThemedButton, action: Int, x: Float, y: Float): Boolean {
+        if (selectedButtons.isNotEmpty() && selectedButtons.last() != btn) selectAnimator.cancel()
+        deselectAnimator?.cancel()
+        val selected = selectButton(btn, x, y)
+        if (selected) startAnimations()
+        if (action == MotionEvent.ACTION_UP) btn.performClick()
+        return action == MotionEvent.ACTION_UP
+    }
+
+    fun selectButton(btn: ThemedButton, x: Float, y: Float): Boolean {
+        if (btn.isSelected && buttons.count { it.isSelected } <= requiredAmount) return false
         btn.isSelected = !btn.isSelected
         if (btn.isSelected) selectedButtons.enqueue(btn)
         else selectedButtons.remove(btn)
@@ -135,46 +145,28 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
             deselectAnimator = null
         }
         selectListener?.invoke(btn)
+        return true
     }
 
-    private fun getSelectionAnimator(btn: ThemedButton, x: Float, y: Float, selected: Boolean): Animator {
-        val animator: Animator
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val size = (btn.btnWidth.coerceAtLeast(btn.btnHeight) * 1.1).toFloat()
-            animator = ViewAnimationUtils.createCircularReveal(
-                btn.cvSelectedCard,
-                x.toInt(),
-                y.toInt(),
-                if (selected) 0F else size,
-                if (selected) size else 0F
-            )
-            animator.duration = 400
-            animator.interpolator = AccelerateDecelerateInterpolator()
-        } else {
-            animator = ObjectAnimator.ofFloat(btn.cvSelectedCard, "alpha", if (selected) 0f else 1f, if (selected) 1f else 0f)
+    private fun getSelectionAnimator(btn: ThemedButton, x: Float, y: Float, selected: Boolean): Animator =
+        when (selectAnimation) {
+            NONE -> AnimationUtils.createFadeAnimator(btn.cvSelectedCard, selected, 0L)
+            FADE -> AnimationUtils.createFadeAnimator(btn.cvSelectedCard, selected, 400L)
+            VERTICAL_SLIDE -> AnimationUtils.createVericalSlideAnimator(btn.cvCard, btn.cvSelectedCard, selected)
+            HORIZONTAL_SLIDE -> AnimationUtils.createHorizontalSlideAnimator(btn.cvCard, btn.cvSelectedCard, selected)
+            HORIZONTAL_WINDOW -> AnimationUtils.createHorizontalWindowAnimator(btn.cvCard, btn.cvSelectedCard, selected)
+            VERTICAL_WINDOW -> AnimationUtils.createVerticalWindowAnimator(btn.cvCard, btn.cvSelectedCard, selected)
+            else -> AnimationUtils.createCircularReveal(btn.cvSelectedCard, x, y, selected, (btn.btnWidth.coerceAtLeast(btn.btnHeight) * 1.1).toFloat())
         }
-        if (selected) btn.cvSelectedCard.visibility = VISIBLE
-        else animator.doOnEnd { btn.cvSelectedCard.visibility = GONE }
-        return animator
-    }
-
-    fun setOnSelectListener(listener: (ThemedButton) -> Unit) {
-        this.selectListener = listener
-    }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        horizontalSpacing = horizontalSpacing
-        buttons.forEach { addClickListeners(it) }
-        setInitialSelection()
+        buttons.forEach { it.bounceOnClick() }
     }
 
-    private fun setInitialSelection() {
-        buttons.filter { it.isSelected }.forEach(this::intiallySelect)
-        val stillRequiredAmount = requiredAmount - buttons.filter { it.isSelected }.count()
-        (0 until stillRequiredAmount)
-            .map { buttons.first { !it.isSelected } }
-            .forEach(this::intiallySelect)
+    /** Listen on selection changes. Alternatively you can add onclick listeners to the buttons. */
+    fun setOnSelectListener(listener: (ThemedButton) -> Unit) {
+        this.selectListener = listener
     }
 
     private fun intiallySelect(button: ThemedButton) {

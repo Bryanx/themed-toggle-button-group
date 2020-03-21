@@ -43,12 +43,6 @@ import androidx.core.content.ContextCompat
  * @author Bryan de Ridder
  */
 
-internal fun ImageView.setTintColor(color: Int, blendMode: PorterDuff.Mode = PorterDuff.Mode.SRC_IN) {
-    this.setColorFilter(color, blendMode)
-}
-
-internal fun Context.color(id: Int): Int = ContextCompat.getColor(this, id)
-
 internal fun ThemedButton.setMargin(leftMargin: Int? = null, topMargin: Int? = null,
                    rightMargin: Int? = null, bottomMargin: Int? = null) {
     val params = layoutParams as ViewGroup.MarginLayoutParams
@@ -61,21 +55,28 @@ internal fun ThemedButton.setMargin(leftMargin: Int? = null, topMargin: Int? = n
 }
 
 internal fun ThemedButton.bounceOnClick() {
-    val animScaleDown = ScaleAnimation(1f, 0.9f, 1f, 0.9f, (width/2).toFloat(), (height/2).toFloat()).apply {  }
+    setOnTouchListener { _, event ->
+        if (event.action == MotionEvent.ACTION_DOWN) bounceDown()
+        if (event.action == MotionEvent.ACTION_UP ||
+            event.action == MotionEvent.ACTION_CANCEL) bounceUp()
+        if (event.action == MotionEvent.ACTION_UP) performClick()
+        true
+    }
+}
+fun ThemedButton.bounceDown() {
+    val animScaleDown = ScaleAnimation(1f, 0.9f, 1f, 0.9f, (width/2).toFloat(), (height/2).toFloat())
     animScaleDown.duration = 200
     animScaleDown.fillAfter = true
     animScaleDown.interpolator= DecelerateInterpolator()
+    startAnimation(animScaleDown)
+}
+
+fun ThemedButton.bounceUp() {
     val animScaleUp = ScaleAnimation(0.9f, 1f, 0.9f, 1f, (width/2).toFloat(), (height/2).toFloat())
     animScaleUp.duration = 200
     animScaleUp.startOffset = 100
     animScaleUp.interpolator= OvershootInterpolator(3f)
-    setOnTouchListener { _, event ->
-        if (event.action == MotionEvent.ACTION_DOWN) startAnimation(animScaleDown)
-        if (event.action == MotionEvent.ACTION_UP ||
-            event.action == MotionEvent.ACTION_CANCEL) startAnimation(animScaleUp)
-        if (event.action == MotionEvent.ACTION_UP) performClick()
-        true
-    }
+    startAnimation(animScaleUp)
 }
 
 internal fun View.setViewPadding(
@@ -134,9 +135,3 @@ internal val Float.dp: Int get() = (this / Resources.getSystem().displayMetrics.
 internal val ThemedButton.centerX: Float get() = (width / 2).toFloat()
 
 internal val ThemedButton.centerY: Float get() = (height / 2).toFloat()
-
-internal val lightGray: Int = Color.parseColor("#ebebeb")
-
-internal val darkGray: Int = Color.parseColor("#5e5e5e")
-
-internal val denim: Int = Color.parseColor("#5e6fed")
