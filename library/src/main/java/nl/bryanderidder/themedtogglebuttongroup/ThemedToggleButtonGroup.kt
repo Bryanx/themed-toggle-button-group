@@ -32,6 +32,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import com.google.android.flexbox.FlexboxLayout
 import nl.bryanderidder.themedtogglebuttongroup.SelectAnimation.*
 
@@ -98,7 +99,9 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
     @SuppressLint("ClickableViewAccessibility")
     private fun addClickListeners(btn: ThemedButton) {
         btn.cvCard.setOnTouchListener { _, event ->
-            selectButtonWithAnimation(btn, event.action, event.x, event.y)
+            selectButtonWithAnimation(btn, event.x, event.y)
+            if (event.action == MotionEvent.ACTION_UP) btn.performClick()
+            event.action == MotionEvent.ACTION_UP
         }
     }
 
@@ -117,32 +120,72 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
             buttons += child
             horizontalSpacing = horizontalSpacing
             addClickListeners(child)
-            if (requiredAmount - buttons.count { it.isSelected } > 0)
-                intiallySelect(child)
         }
     }
 
-    fun selectButtonWithAnimation(btn: ThemedButton, action: Int, x: Float, y: Float): Boolean {
+    /**
+     * Selects or deselects the passed [ThemedButton]'s id with animation.
+     *
+     * @param id Id of the [ThemedButton]'s view.
+     */
+    fun selectButtonWithAnimation(@IdRes id: Int) = selectButtonWithAnimation(findViewById<ThemedButton>(id))
+
+    /**
+     * Selects or deselects the passed [ThemedButton] with animation. This call if blocked if
+     * this makes the amount of selected buttons fall below the [requiredAmount] of selected buttons.
+     *
+     * @param btn The [ThemedButton] to be selected/deselected.
+     * @param x Horizontal position of the click.
+     * @param y Vertical position of the click.
+     */
+    fun selectButtonWithAnimation(
+        btn: ThemedButton,
+        x: Float = (btn.btnWidth / 2).toFloat(),
+        y: Float = (btn.btnHeight / 2).toFloat()
+    ) {
         if (selectedButtons.isNotEmpty() && selectedButtons.last() != btn) selectAnimator.cancel()
         deselectAnimator?.cancel()
-        val selected = selectButton(btn, x, y)
-        if (selected) startAnimations()
-        if (action == MotionEvent.ACTION_UP) btn.performClick()
-        return action == MotionEvent.ACTION_UP
+        val changed = selectButton(btn, x, y, true)
+        if (changed) startAnimations()
     }
 
-    fun selectButton(btn: ThemedButton, x: Float, y: Float): Boolean {
+    /**
+     * Selects or deselects the passed [ThemedButton]'s id. This call if blocked if this makes the amount of
+     * selected buttons fall below the [requiredAmount] of selected buttons.
+     *
+     * @param id Id of the [ThemedButton]'s view.
+     */
+    fun selectButton(@IdRes id: Int) = selectButton(findViewById<ThemedButton>(id))
+
+    /**
+     * Selects or deselects the passed [ThemedButton]. This call if blocked if this makes the amount of
+     * selected buttons fall below the [requiredAmount] of selected buttons.
+     *
+     * @param btn The [ThemedButton] to be selected/deselected.
+     * @param x Horizontal position of the click.
+     * @param y Vertical position of the click.
+     * @param animate Whether the select should be animated.
+     * @return Whether something changed.
+     */
+    fun selectButton(
+        btn: ThemedButton,
+        x: Float = (btn.btnWidth / 2).toFloat(),
+        y: Float = (btn.btnHeight / 2).toFloat(),
+        animate: Boolean = false
+    ): Boolean {
         if (btn.isSelected && buttons.count { it.isSelected } <= requiredAmount) return false
         btn.isSelected = !btn.isSelected
         if (btn.isSelected) selectedButtons.enqueue(btn)
         else selectedButtons.remove(btn)
-        selectAnimator = getSelectionAnimator(btn, x, y, btn.isSelected)
+        if (animate) selectAnimator = getSelectionAnimator(btn, x, y, btn.isSelected)
+        else btn.cvSelectedCard.visibility = VISIBLE
         if (buttons.count { it.isSelected } > selectableAmount) {
             val removedBtn = selectedButtons.dequeue()!!
             buttons.find { it == removedBtn }?.isSelected = false
-            deselectAnimator = getSelectionAnimator(removedBtn, removedBtn.centerX, removedBtn.centerY, false)
+            if (animate) deselectAnimator = getSelectionAnimator(removedBtn, x, y, false)
+            else removedBtn.cvSelectedCard.visibility = GONE
         } else {
-            deselectAnimator = null
+            if (animate) deselectAnimator = null
         }
         selectListener?.invoke(btn)
         return true
@@ -167,11 +210,5 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
     /** Listen on selection changes. Alternatively you can add onclick listeners to the buttons. */
     fun setOnSelectListener(listener: (ThemedButton) -> Unit) {
         this.selectListener = listener
-    }
-
-    private fun intiallySelect(button: ThemedButton) {
-        button.isSelected = true
-        selectedButtons.enqueue(button)
-        button.cvSelectedCard.visibility = VISIBLE
     }
 }

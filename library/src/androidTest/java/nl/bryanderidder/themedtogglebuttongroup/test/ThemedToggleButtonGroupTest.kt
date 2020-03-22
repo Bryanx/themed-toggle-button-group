@@ -131,13 +131,13 @@ class ThemedToggleButtonGroupTest {
                 assertThat(btn.text, `is`(buttons.single { it.isSelected }.text))
             }
             //select a single button
-            buttonGroup.selectButton(buttons[0], 0F, 0F)
+            buttonGroup.selectButton(buttons[0], 0F, 0F, false)
             assertThat(buttons.single { it.isSelected }.name, `is`(buttons[0].name))
             //select another button
-            buttonGroup.selectButton(buttons[1], 0F, 0F)
+            buttonGroup.selectButton(buttons[1], 0F, 0F, false)
             assertThat(buttons.single { it.isSelected }.name, `is`(buttons[1].name))
             //select last button
-            buttonGroup.selectButton(buttons[2], 0F, 0F)
+            buttonGroup.selectButton(buttons[2], 0F, 0F, false)
             assertThat(buttons.single { it.isSelected }.name, `is`(buttons[2].name))
         }
     }
@@ -150,13 +150,13 @@ class ThemedToggleButtonGroupTest {
         val buttons = buttonGroup.buttons
         activityRule.runOnUiThread {
             //select 1 button
-            buttonGroup.selectButton(buttons[0], 0F, 0F)
+            buttonGroup.selectButton(buttons[0], 0F, 0F, false)
             assertThat(buttons.single { it.isSelected }.name, `is`(buttons[0].name))
             //select another button
-            buttonGroup.selectButton(buttons[1], 0F, 0F)
+            buttonGroup.selectButton(buttons[1], 0F, 0F, false)
             assertThat(buttons.filter { it.isSelected }, hasItems(buttons[0], buttons[1]))
             //select last button, assert that the first button is deselected
-            buttonGroup.selectButton(buttons[2], 0F, 0F)
+            buttonGroup.selectButton(buttons[2], 0F, 0F, false)
             assertThat(buttons.filter { it.isSelected }, hasItems(buttons[1], buttons[2]))
         }
     }
@@ -173,20 +173,20 @@ class ThemedToggleButtonGroupTest {
             assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.requiredAmount))
             assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.requiredAmount))
             // block deselecting below required amount:
-            buttonGroup.selectButton(buttons.first { it.isSelected }, 0F, 0F)
+            buttonGroup.selectButton(buttons.first { it.isSelected }, 0F, 0F, false)
             assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.requiredAmount))
             assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.requiredAmount))
             // allow selecting 3 buttons:
-            buttonGroup.selectButton(buttons.first { !it.isSelected }, 0F, 0F)
+            buttonGroup.selectButton(buttons.first { !it.isSelected }, 0F, 0F, false)
             assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.selectableAmount))
             assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.selectableAmount))
             // allow deselecting when 3 buttons are selected, requiredAmount = 2
-            buttonGroup.selectButton(buttons.first { it.isSelected }, 0F, 0F)
+            buttonGroup.selectButton(buttons.first { it.isSelected }, 0F, 0F, false)
             assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.requiredAmount))
             assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.requiredAmount))
             // don't allow 4 buttons to be selected, selectableAmount = 3
-            buttonGroup.selectButton(buttons.first { !it.isSelected }, 0F, 0F)
-            buttonGroup.selectButton(buttons.first { !it.isSelected }, 0F, 0F)
+            buttonGroup.selectButton(buttons.first { !it.isSelected }, 0F, 0F, false)
+            buttonGroup.selectButton(buttons.first { !it.isSelected }, 0F, 0F, false)
             assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.selectableAmount))
             assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.selectableAmount))
         }
@@ -200,12 +200,20 @@ class ThemedToggleButtonGroupTest {
         // selectableAmount = 3, requiredAmount = 2
         activityRule.runOnUiThread {
             // select button programmatically
-            buttonGroup.buttons[1].isSelected = true
-            assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.requiredAmount))
-            assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.requiredAmount))
+            buttonGroup.selectButton(buttonGroup.buttons[2])
+            buttonGroup.selectButton(buttonGroup.buttons[3])
+            assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.selectableAmount))
+            assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.selectableAmount))
+            assertThat(buttonGroup.buttons[0].cvSelectedCard.visibility, `is`(GONE))
+            assertThat(buttonGroup.buttons[1].cvSelectedCard.visibility, `is`(VISIBLE))
+            assertThat(buttonGroup.buttons[2].cvSelectedCard.visibility, `is`(VISIBLE))
+            assertThat(buttonGroup.buttons[3].cvSelectedCard.visibility, `is`(VISIBLE))
 
             // check if the initially selected button is still set
+            assertTrue(!buttonGroup.buttons[0].isSelected)
             assertTrue(buttonGroup.buttons[1].isSelected)
+            assertTrue(buttonGroup.buttons[2].isSelected)
+            assertTrue(buttonGroup.buttons[3].isSelected)
         }
     }
 

@@ -122,8 +122,13 @@ internal object AnimationUtils {
             return createFadeAnimator(target, reveal, 400L)
         val from = if (reveal) 0F else size
         val to = if (reveal) size else 0F
-        val animator =
-            ViewAnimationUtils.createCircularReveal(target, x.toInt(), y.toInt(), from, to)
+        val animator = ViewAnimationUtils.createCircularReveal(
+            target,
+            if (reveal) x.toInt() else (target.width / 2),
+            if (reveal) y.toInt() else (target.height / 2),
+            from,
+            to
+        )
         animator.duration = if (reveal) 400 else 200
         animator.interpolator = AccelerateDecelerateInterpolator()
         if (reveal) animator.doOnStart { target.visibility = VISIBLE }
