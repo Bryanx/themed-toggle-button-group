@@ -71,7 +71,7 @@ class ThemedToggleButtonGroupTest {
         assertTrue(buttons.all { it.textColor == it.context.color(R.color.darkGray) })
         assertTrue(buttons.all { it.selectedTextColor == it.context.color(android.R.color.white) })
         assertTrue(buttons.all { it.cvCard.visibility == VISIBLE })
-        assertThat(buttons.count { it.cvSelectedCard.visibility == GONE }, `is`(1))
+        assertThat(buttons.count { it.cvSelectedCard.visibility == GONE }, `is`(buttons.size))
     }
 
     @Test
@@ -170,6 +170,8 @@ class ThemedToggleButtonGroupTest {
         // selectableAmount = 3, requiredAmount = 2
         activityRule.runOnUiThread {
             // check if required amount is initially set:
+            buttonGroup.selectButton(R.id.btn1)
+            buttonGroup.selectButton(R.id.btn2)
             assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.requiredAmount))
             assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.requiredAmount))
             // block deselecting below required amount:
@@ -202,18 +204,22 @@ class ThemedToggleButtonGroupTest {
             // select button programmatically
             buttonGroup.selectButton(buttonGroup.buttons[2])
             buttonGroup.selectButton(buttonGroup.buttons[3])
-            assertThat(buttonGroup.selectedButtons.size, `is`(buttonGroup.selectableAmount))
-            assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(buttonGroup.selectableAmount))
+            assertThat(buttonGroup.selectedButtons.size, `is`(2))
+            assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(2))
             assertThat(buttonGroup.buttons[0].cvSelectedCard.visibility, `is`(GONE))
-            assertThat(buttonGroup.buttons[1].cvSelectedCard.visibility, `is`(VISIBLE))
+            assertThat(buttonGroup.buttons[1].cvSelectedCard.visibility, `is`(GONE))
             assertThat(buttonGroup.buttons[2].cvSelectedCard.visibility, `is`(VISIBLE))
             assertThat(buttonGroup.buttons[3].cvSelectedCard.visibility, `is`(VISIBLE))
 
-            // check if the initially selected button is still set
-            assertTrue(!buttonGroup.buttons[0].isSelected)
-            assertTrue(buttonGroup.buttons[1].isSelected)
-            assertTrue(buttonGroup.buttons[2].isSelected)
-            assertTrue(buttonGroup.buttons[3].isSelected)
+            // deselect buttons and check that requiredAmount is not corrupted
+            buttonGroup.selectButton(buttonGroup.buttons[2])
+            buttonGroup.selectButton(buttonGroup.buttons[3])
+            assertThat(buttonGroup.selectedButtons.size, `is`(2))
+            assertThat(buttonGroup.buttons.filter { it.isSelected }.size, `is`(2))
+            assertThat(buttonGroup.buttons[0].cvSelectedCard.visibility, `is`(GONE))
+            assertThat(buttonGroup.buttons[1].cvSelectedCard.visibility, `is`(GONE))
+            assertThat(buttonGroup.buttons[2].cvSelectedCard.visibility, `is`(VISIBLE))
+            assertThat(buttonGroup.buttons[3].cvSelectedCard.visibility, `is`(VISIBLE))
         }
     }
 
