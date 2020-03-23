@@ -45,9 +45,11 @@ import androidx.core.animation.doOnStart
 
 internal object AnimationUtils {
 
+    const val clipBounds = "clipBounds"
+
     @SuppressLint("NewApi")
     private fun createWindowAnimator(target: View, reveal: Boolean): ObjectAnimator {
-        val animator = ObjectAnimator.ofObject(target, "clipBounds", RectEvaluator(), 0, 0)
+        val animator = ObjectAnimator.ofObject(target, clipBounds, RectEvaluator(), 0, 0)
         if (reveal) animator.doOnStart { target.visibility = VISIBLE }
         else animator.doOnEnd { target.visibility = GONE }
         animator.duration = 300
@@ -82,7 +84,7 @@ internal object AnimationUtils {
             return createFadeAnimator(target, reveal, 400L)
         val from = Rect(rect.left, if (reveal) rect.bottom else rect.top, rect.right, rect.bottom)
         val to = Rect(rect.left, rect.top, rect.right, if (reveal) rect.bottom else rect.top)
-        val animator = ObjectAnimator.ofObject(target, "clipBounds", RectEvaluator(), from, to)
+        val animator = ObjectAnimator.ofObject(target, clipBounds, RectEvaluator(), from, to)
         if (reveal) animator.doOnStart { target.visibility = VISIBLE }
         else animator.doOnEnd { target.visibility = GONE }
         animator.duration = 400
@@ -95,7 +97,7 @@ internal object AnimationUtils {
             return createFadeAnimator(target, reveal, 400L)
         val from = Rect(rect.left, rect.top, if (reveal) rect.left else rect.right, rect.bottom)
         val to = Rect(if (reveal) rect.left else rect.right, rect.top, rect.right, rect.bottom)
-        val animator = ObjectAnimator.ofObject(target, "clipBounds", RectEvaluator(), from, to)
+        val animator = ObjectAnimator.ofObject(target, clipBounds, RectEvaluator(), from, to)
         if (reveal) animator.doOnStart { target.visibility = VISIBLE }
         else animator.doOnEnd { target.visibility = GONE }
         animator.duration = 400

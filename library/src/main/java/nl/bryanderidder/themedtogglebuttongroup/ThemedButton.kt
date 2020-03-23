@@ -153,7 +153,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         get() = cvSelectedCard.borderColor
         set(value) { cvSelectedCard.borderColor = value }
 
-    /** Property to keep track of the active font family (Android default is Roboto) */
     private var fontFamilyName: String = "Roboto"
 
     /**

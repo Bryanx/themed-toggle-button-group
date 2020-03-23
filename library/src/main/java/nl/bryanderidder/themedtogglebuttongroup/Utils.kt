@@ -63,6 +63,10 @@ internal fun ThemedButton.bounceOnClick() {
         true
     }
 }
+
+/**
+ * Makes the button scale down slightly.
+ */
 fun ThemedButton.bounceDown() {
     val animScaleDown = ScaleAnimation(1f, 0.9f, 1f, 0.9f, (width/2).toFloat(), (height/2).toFloat())
     animScaleDown.duration = 200
@@ -71,6 +75,10 @@ fun ThemedButton.bounceDown() {
     startAnimation(animScaleDown)
 }
 
+
+/**
+ * Makes the button scale up slightly (with overshoot).
+ */
 fun ThemedButton.bounceUp() {
     val animScaleUp = ScaleAnimation(0.9f, 1f, 0.9f, 1f, (width/2).toFloat(), (height/2).toFloat())
     animScaleUp.duration = 200
@@ -79,6 +87,7 @@ fun ThemedButton.bounceUp() {
     startAnimation(animScaleUp)
 }
 
+/** Utility function for setting the padding */
 internal fun View.setViewPadding(
     left: Float? = null, top: Float? = null,
     right: Float? = null, bottom: Float? = null,
@@ -89,13 +98,12 @@ internal fun View.setViewPadding(
     all?.let { setPadding(it.toInt(), it.toInt(), it.toInt(), it.toInt()) }
     horizontal?.let { setPadding(it.toInt(), paddingTop, it.toInt(), paddingBottom) }
     vertical?.let { setPadding(paddingLeft, it.toInt(), paddingRight, it.toInt()) }
-    if (left != null || top != null || right != null || bottom != null)
-        setPadding(
-            left?.toInt() ?: paddingLeft,
-            top?.toInt() ?: paddingTop,
-            right?.toInt() ?: paddingRight,
-            bottom?.toInt() ?: paddingBottom
-        )
+    setPadding(
+        left?.toInt() ?: paddingLeft,
+        top?.toInt() ?: paddingTop,
+        right?.toInt() ?: paddingRight,
+        bottom?.toInt() ?: paddingBottom
+    )
 }
 
 internal var View.layoutGravity
