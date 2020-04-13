@@ -173,7 +173,7 @@ A demo for this example can be found here: [demo-toggle-cards](https://github.co
 ```
 
 ## Programmatically adding buttons
-A demo project for this can be found here: [programmatically-add-buttons](https://github.com/Bryanx/themed-toggle-button-group/tree/master/demo-programmatically-add-buttons). \ 
+A demo project for this can be found here: [programmatically-add-buttons](https://github.com/Bryanx/themed-toggle-button-group/tree/master/demo-programmatically-add-buttons). \
 Programmatically create a `ThemedToggleButtonGroup`:
 ```kotlin
 val buttonGroup = ThemedToggleButtonGroup(context)
