@@ -35,6 +35,7 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import com.google.android.flexbox.FlexboxLayout
 import nl.bryanderidder.themedtogglebuttongroup.SelectAnimation.*
+import nl.bryanderidder.themedtogglebuttongroup.R.styleable.*
 
 
 /**
@@ -45,7 +46,7 @@ import nl.bryanderidder.themedtogglebuttongroup.SelectAnimation.*
  *
  * @author Bryan de Ridder
  */
-class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout(ctx, attrs) {
+class ThemedToggleButtonGroup : FlexboxLayout {
 
     private var selectListener: ((ThemedButton) -> Unit)? = null
 
@@ -81,17 +82,23 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
     var requiredAmount: Int = 1
 
     /** All buttons that are currently in the toggle group. */
-    var buttons = listOf<ThemedButton>()
+    var buttons: List<ThemedButton> = listOf<ThemedButton>()
 
     /** All buttons that are currently selected in the toggle group. */
-    var selectedButtons = mutableListOf<ThemedButton>()
+    var selectedButtons: MutableList<ThemedButton> = mutableListOf<ThemedButton>()
 
-    init {
-        val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ThemedToggleButtonGroup)
-        this.selectableAmount = styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_selectableAmount, 1)
-        this.requiredAmount = styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_requiredAmount, 1)
-        this.selectAnimation = SelectAnimation.values()[styledAttrs.getInt(R.styleable.ThemedToggleButtonGroup_toggle_selectAnimation, 1)]
-        this.horizontalSpacing = styledAttrs.getDimension(R.styleable.ThemedToggleButtonGroup_toggle_horizontalSpacing, 10.pxf).toInt()
+    constructor(ctx: Context) : super(ctx)
+
+    constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs) {
+        getStyledAttributes(attrs)
+    }
+
+    private fun getStyledAttributes(attrs: AttributeSet) {
+        val styledAttrs = context.obtainStyledAttributes(attrs, ThemedToggleButtonGroup)
+        this.selectableAmount = styledAttrs.getInt(ThemedToggleButtonGroup_toggle_selectableAmount, 1)
+        this.requiredAmount = styledAttrs.getInt(ThemedToggleButtonGroup_toggle_requiredAmount, 1)
+        this.selectAnimation = SelectAnimation.values()[styledAttrs.getInt(ThemedToggleButtonGroup_toggle_selectAnimation, 1)]
+        this.horizontalSpacing = styledAttrs.getDimension(ThemedToggleButtonGroup_toggle_horizontalSpacing, 10.pxf).toInt()
         if (requiredAmount > selectableAmount) throw UnsupportedOperationException("Required amount must be smaller than or equal to selectable amount.")
         styledAttrs.recycle()
     }

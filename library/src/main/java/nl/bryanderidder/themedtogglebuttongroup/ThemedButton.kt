@@ -186,6 +186,7 @@ class ThemedButton : RelativeLayout {
         this.selectedBgColor = denim
         this.selectedTextColor = context.color(android.R.color.white)
         applyToCards { it.cornerRadius = 155f }
+        applyToTexts { it.setPadding(50, 35, 50, 35) }
     }
 
     constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs) {
@@ -282,12 +283,24 @@ class ThemedButton : RelativeLayout {
         }
     }
 
+    /**
+     * Apply a function to [cvCard] and [cvSelectedCard]
+     * This is a convenience method for styling regardless of whether the button is selected.
+     */
     fun applyToCards(func: (RoundedCornerLayout) -> Unit) =
         listOf(cvCard, cvSelectedCard).forEach(func::invoke)
 
+    /**
+     * Apply a function to [tvText] and [tvSelectedText]
+     * This is a convenience method for styling regardless of whether the button is selected.
+     */
     fun applyToTexts(func: (TextView) -> Unit) =
         listOf(tvText, tvSelectedText).forEach(func::invoke)
 
+    /**
+     * Apply a function to [ivIcon] and [ivSelectedIcon]
+     * This is a convenience method for styling regardless of whether the button is selected.
+     */
     fun applyToIcons(func: (ImageView) -> Unit) =
         listOf(ivIcon, ivSelectedIcon).forEach(func::invoke)
 }

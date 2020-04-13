@@ -104,7 +104,7 @@ themedToggleButtonGroup.setSelectAnimation(SelectAnimation.HORIZONTAL_SLIDE);
 </p>
 </details>  
 
-```java
+```kotlin
 val themedToggleButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.themedToggleButtonGroup)
 themedToggleButtonGroup.selectAnimation = SelectAnimation.HORIZONTAL_SLIDE
 ```
@@ -172,6 +172,25 @@ A demo for this example can be found here: [demo-toggle-cards](https://github.co
 </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 ```
 
+## Programmatically adding buttons
+Programmatically create a `ThemedToggleButtonGroup`:
+```java
+val buttonGroup = ThemedToggleButtonGroup(context)
+buttonGroup.justifyContent = JustifyContent.CENTER
+yourRootView.addView(buttonGroup)
+```
+Add a button:
+```kotlin
+val btn1 = ThemedButton(context)
+btn1.text = "Button 1"
+buttonGroup.addView(btn1, 
+        ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+    )
+```
+
 # Customization
 These lists include all custom attributes from this library. Please take a look [FlexboxLayout](https://github.com/google/flexbox-layout) to see all custom attributes that can also be applied to these Views.
 ## ThemedToggleButtonGroup custom attributes
@@ -213,9 +232,9 @@ Attribute | Default value | Description
 `app:toggle_textGravity` | top\|start | Position of the text.
 
 ## Contributing
-You can contributing by [opening an issue](https://github.com/Bryanx/themed-toggle-button-group/issues) or forking this repository and creating a pull request.
+You can contribute by [opening an issue](https://github.com/Bryanx/themed-toggle-button-group/issues) or forking this repository and creating a pull request.
 
 ## License
-[License for this library](https://github.com/Bryanx/themed-toggle-button-group/blob/master/LICENSE)\
-[License for FlexboxLayout](https://github.com/google/flexbox-layout/blob/master/LICENSE)
+[License of this library](https://github.com/Bryanx/themed-toggle-button-group/blob/master/LICENSE)\
+[License of FlexboxLayout](https://github.com/google/flexbox-layout/blob/master/LICENSE)
 
