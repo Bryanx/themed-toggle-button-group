@@ -92,13 +92,21 @@ VERTICAL_SLIDE | HORIZONTAL_WINDOW | VERTICAL_WINDOW
 
 To set the animation on your layout add this to the toggle group: `app:toggle_selectAnimation="circular_reveal"`.
 You can also set the animation programmatically:
+<details>
+<summary>Java</summary>
+<p>
+
 ```java
-//kotlin:
-val themedToggleButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.themedToggleButtonGroup);
-themedToggleButtonGroup.selectAnimation = SelectAnimation.HORIZONTAL_SLIDE
-//java:
 ThemedToggleButtonGroup themedToggleButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.themedToggleButtonGroup);
 themedToggleButtonGroup.setSelectAnimation(SelectAnimation.HORIZONTAL_SLIDE);
+```
+
+</p>
+</details>  
+
+```java
+val themedToggleButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.themedToggleButtonGroup)
+themedToggleButtonGroup.selectAnimation = SelectAnimation.HORIZONTAL_SLIDE
 ```
 
 ## Icon selection
