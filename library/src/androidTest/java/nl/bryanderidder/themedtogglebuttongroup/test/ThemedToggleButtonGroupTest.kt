@@ -29,6 +29,9 @@ import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.core.view.marginEnd
 import androidx.core.view.marginRight
 import androidx.core.view.marginStart
@@ -316,6 +319,33 @@ class ThemedToggleButtonGroupTest {
             assertThat(buttons[1].tvSelectedText.typeface, `is`(font))
             assertThat(buttons[2].tvText.typeface, `is`(font))
             assertThat(buttons[2].tvSelectedText.typeface, `is`(font))
+        }
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testProgrammaticallyAddingButtonsInitialStyling() {
+        val buttonGroup = createLayout(R.layout.activity_empty, activityRule)
+        activityRule.runOnUiThread {
+            val btn1 = ThemedButton(buttonGroup.context)
+            btn1.text = "Button 1"
+            buttonGroup.addView(btn1, ViewGroup.LayoutParams(WRAP_CONTENT, MATCH_PARENT))
+            val btn2 = ThemedButton(buttonGroup.context)
+            btn2.text = "Button 2"
+            buttonGroup.addView(btn2, ViewGroup.LayoutParams(WRAP_CONTENT, MATCH_PARENT))
+            val btn3 = ThemedButton(buttonGroup.context)
+            btn3.text = "Button 3"
+            buttonGroup.addView(btn3, ViewGroup.LayoutParams(WRAP_CONTENT, MATCH_PARENT))
+
+            val buttons = buttonGroup.buttons
+            assertThat(buttons.size, `is`(3))
+            assertThat(buttons[0], `is`(btn1))
+            assertThat(buttons[1], `is`(btn2))
+            assertThat(buttons[2], `is`(btn3))
+            assertThat(buttons[0].selectedTextColor, `is`(btn1.context.color(android.R.color.white)))
+            assertThat(buttons[0].selectedBgColor, `is`(denim))
+            assertThat(buttons[0].bgColor, `is`(lightGray))
         }
     }
 }

@@ -131,7 +131,7 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
     fun selectButtonWithAnimation(@IdRes id: Int) = selectButtonWithAnimation(findViewById<ThemedButton>(id))
 
     /**
-     * Selects or deselects the passed [ThemedButton] with animation. This call if blocked if
+     * Selects or deselects the passed [ThemedButton] with animation. This call is blocked if
      * this makes the amount of selected buttons fall below the [requiredAmount] of selected buttons.
      *
      * @param btn The [ThemedButton] to be selected/deselected.
@@ -150,7 +150,7 @@ class ThemedToggleButtonGroup(ctx: Context, attrs: AttributeSet) : FlexboxLayout
     }
 
     /**
-     * Selects or deselects the passed [ThemedButton]'s id. This call if blocked if this makes the amount of
+     * Selects or deselects the passed [ThemedButton]'s id. This call is blocked if this makes the amount of
      * selected buttons fall below the [requiredAmount] of selected buttons.
      *
      * @param id Id of the [ThemedButton]'s view.

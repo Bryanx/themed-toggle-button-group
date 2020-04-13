@@ -35,6 +35,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import nl.bryanderidder.themedtogglebuttongroup.R.styleable.*
 
 /**
  * A customisable button that can contain an icon and/or text.
@@ -50,27 +51,27 @@ import android.widget.TextView
  *
  * @author Bryan de Ridder
  */
-class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attrs) {
+class ThemedButton : RelativeLayout {
 
     val fontCache: MutableMap<String, Typeface> = mutableMapOf()
 
     /** Default background [RoundedCornerLayout] when the button is not selected. */
-    val cvCard: RoundedCornerLayout = RoundedCornerLayout(ctx)
+    val cvCard: RoundedCornerLayout = RoundedCornerLayout(context)
 
     /** Default [TextView] when the button is not selected. */
-    val tvText: TextView = TextView(ctx)
+    val tvText: TextView = TextView(context)
 
     /** Default icon ([ImageView]) when the button is not selected. */
-    val ivIcon: ImageView = ImageView(ctx)
+    val ivIcon: ImageView = ImageView(context)
 
     /** When the button is selected this [RoundedCornerLayout] is shown. */
-    val cvSelectedCard: RoundedCornerLayout = RoundedCornerLayout(ctx)
+    val cvSelectedCard: RoundedCornerLayout = RoundedCornerLayout(context)
 
     /** When the button is selected this [TextView] is shown. */
-    val tvSelectedText: TextView = TextView(ctx)
+    val tvSelectedText: TextView = TextView(context)
 
     /** When the button is selected this ic on ([ImageView]) is shown. */
-    val ivSelectedIcon: ImageView = ImageView(ctx)
+    val ivSelectedIcon: ImageView = ImageView(context)
 
     /** Background color when the button is not selected, default is [lightGray] */
     var bgColor: Int
@@ -153,8 +154,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         get() = cvSelectedCard.borderColor
         set(value) { cvSelectedCard.borderColor = value }
 
-    private var fontFamilyName: String = "Roboto"
-
     /**
      * The font of the text
      * At the moment the font is the same for selected/deselected button.
@@ -172,15 +171,30 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
      *   button.fontFamily = "fonts/arial.ttf"
      * </code>
      */
-    var fontFamily: String
-        get() = fontFamilyName
+    var fontFamily: String = "Roboto"
         set(value) {
-            this.fontFamilyName = value
+            field = value
             applyToTexts { it.typeface = getTypeFace(value) }
         }
 
-    init {
-        layoutParams = LayoutParams(WRAP_CONTENT,WRAP_CONTENT)
+    /**
+     * Constructor for programmatically creating buttons.
+     */
+    constructor(ctx: Context) : super(ctx) {
+        initialiseViews()
+        this.bgColor = lightGray
+        this.selectedBgColor = denim
+        this.selectedTextColor = context.color(android.R.color.white)
+        applyToCards { it.cornerRadius = 155f }
+    }
+
+    constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs) {
+        initialiseViews()
+        getStyledAttributes(attrs)
+    }
+
+    private fun initialiseViews() {
+        layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
         applyToIcons { it.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT) }
         applyToTexts { it.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT) }
         applyToCards { it.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT) }
@@ -193,7 +207,6 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         cvCard.addView(tvText)
         cvSelectedCard.addView(ivSelectedIcon)
         cvSelectedCard.addView(tvSelectedText)
-        getStyledAttributes(attrs)
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
@@ -202,49 +215,49 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
     }
 
     private fun getStyledAttributes(attributeSet: AttributeSet) {
-        val attrs = context.obtainStyledAttributes(attributeSet, R.styleable.ThemedButton)
-        this.text = attrs.getString(R.styleable.ThemedButton_toggle_text) ?: ""
-        this.text = attrs.getString(R.styleable.ThemedButton_android_text) ?: this.text
-        this.selectedText = attrs.getString(R.styleable.ThemedButton_toggle_selectedText) ?: this.text
-        attrs.getColor(R.styleable.ThemedButton_toggle_backgroundColor, lightGray).also { this.bgColor = it }
-        attrs.getColor(R.styleable.ThemedButton_toggle_selectedBackgroundColor, denim).also { this.selectedBgColor = it }
-        attrs.getColor(R.styleable.ThemedButton_toggle_textColor, darkGray).also { this.textColor = it }
-        attrs.getColor(R.styleable.ThemedButton_toggle_selectedTextColor, context.color(android.R.color.white)).also { this.selectedTextColor = it }
-        attrs.getBoolean(R.styleable.ThemedButton_toggle_circularCornerRadius, false).also { this.circularCornerRadius = it }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_borderWidth, 0F).also { this.borderWidth = it; this.selectedBorderWidth = it }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_selectedBorderWidth, this.borderWidth).also { this.selectedBorderWidth = it }
-        attrs.getColor(R.styleable.ThemedButton_toggle_borderColor, cvCard.borderColor).also { borderColor = it; selectedBorderColor = it }
-        attrs.getColor(R.styleable.ThemedButton_toggle_selectedBorderColor, this.borderColor).also { this.selectedBorderColor = it }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_btnCornerRadius, 21F.px).also { applyToCards { c -> c.cornerRadius = it } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_padding, -1F).also { applyToCards { c -> c.setViewPadding(all=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingHorizontal, -1F).also { applyToCards { c -> c.setViewPadding(horizontal=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingVertical, -1F).also { applyToCards { c -> c.setViewPadding(vertical=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingRight, -1F).also { applyToCards { c -> c.setViewPadding(right=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingTop, -1F).also { applyToCards { c -> c.setViewPadding(top=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingLeft, -1F).also { applyToCards { c -> c.setViewPadding(left=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_paddingBottom, -1F).also { applyToCards { c -> c.setViewPadding(bottom=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_textPadding, -1F).also { applyToTexts { c -> c.setViewPadding(all=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingHorizontal, 14.pxf).also { applyToTexts { t -> t.setViewPadding(horizontal=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingVertical, -1F).also { applyToTexts { t -> t.setViewPadding(vertical=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingRight, -1F).also { applyToTexts { t -> t.setViewPadding(right=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingTop, -1F).also { applyToTexts { t -> t.setViewPadding(top=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingLeft, -1F).also { applyToTexts { t -> t.setViewPadding(left=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_textPaddingBottom, -1F).also { applyToTexts { t -> t.setViewPadding(bottom=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_iconPadding, -1F).also { applyToIcons { c -> c.setViewPadding(all=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_iconPaddingHorizontal, -1F).also { applyToIcons { i -> i.setViewPadding(horizontal=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_iconPaddingVertical, -1F).also { applyToIcons { i -> i.setViewPadding(vertical=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_iconPaddingRight, -1F).also { applyToIcons { i -> i.setViewPadding(right=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_iconPaddingTop, -1F).also { applyToIcons { i -> i.setViewPadding(top=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_iconPaddingLeft, -1F).also { applyToIcons { i -> i.setViewPadding(left=it) } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_iconPaddingBottom, -1F).also { applyToIcons { i -> i.setViewPadding(bottom=it) } }
-        attrs.getDrawable(R.styleable.ThemedButton_toggle_icon)?.let { this.icon = it; this.selectedIcon = it.constantState?.newDrawable()!! }
-        attrs.getDrawable(R.styleable.ThemedButton_toggle_selectedIcon)?.let { this.selectedIcon = it }
-        attrs.getColor(R.styleable.ThemedButton_toggle_iconColor, textColor).also { ivIcon.setTintColor(it) }
-        attrs.getInt(R.styleable.ThemedButton_toggle_iconGravity, Gravity.CENTER).also { applyToIcons { i -> i.layoutGravity = it } }
-        attrs.getDimension(R.styleable.ThemedButton_toggle_textSize, 15F.px).also { applyToTexts { t -> t.textSize = it.dp.toFloat() } }
-        attrs.getInt(R.styleable.ThemedButton_toggle_textGravity, Gravity.CENTER).also { applyToTexts { i -> i.layoutGravity = it } }
-        attrs.getInt(R.styleable.ThemedButton_toggle_textAlignment, 4).also { applyToTexts { t -> if (Build.VERSION.SDK_INT >= 17) t.textAlignment = it } }
-        (attrs.getString(R.styleable.ThemedButton_toggle_fontFamily) ?: "Roboto").also { fontFamilyName = it; fontFamily = it }
+        val attrs = context.obtainStyledAttributes(attributeSet, ThemedButton)
+        this.text = attrs.getString(ThemedButton_toggle_text) ?: ""
+        this.text = attrs.getString(ThemedButton_android_text) ?: this.text
+        this.selectedText = attrs.getString(ThemedButton_toggle_selectedText) ?: this.text
+        attrs.getColor(ThemedButton_toggle_backgroundColor, lightGray).also { this.bgColor = it }
+        attrs.getColor(ThemedButton_toggle_selectedBackgroundColor, denim).also { this.selectedBgColor = it }
+        attrs.getColor(ThemedButton_toggle_textColor, darkGray).also { this.textColor = it }
+        attrs.getColor(ThemedButton_toggle_selectedTextColor, context.color(android.R.color.white)).also { this.selectedTextColor = it }
+        attrs.getBoolean(ThemedButton_toggle_circularCornerRadius, false).also { this.circularCornerRadius = it }
+        attrs.getDimension(ThemedButton_toggle_borderWidth, 0F).also { this.borderWidth = it; this.selectedBorderWidth = it }
+        attrs.getDimension(ThemedButton_toggle_selectedBorderWidth, this.borderWidth).also { this.selectedBorderWidth = it }
+        attrs.getColor(ThemedButton_toggle_borderColor, cvCard.borderColor).also { borderColor = it; selectedBorderColor = it }
+        attrs.getColor(ThemedButton_toggle_selectedBorderColor, this.borderColor).also { this.selectedBorderColor = it }
+        attrs.getDimension(ThemedButton_toggle_btnCornerRadius, 21F.px).also { applyToCards { c -> c.cornerRadius = it } }
+        attrs.getDimension(ThemedButton_toggle_padding, -1F).also { applyToCards { c -> c.setViewPadding(all=it) } }
+        attrs.getDimension(ThemedButton_toggle_paddingHorizontal, -1F).also { applyToCards { c -> c.setViewPadding(horizontal=it) } }
+        attrs.getDimension(ThemedButton_toggle_paddingVertical, -1F).also { applyToCards { c -> c.setViewPadding(vertical=it) } }
+        attrs.getDimension(ThemedButton_toggle_paddingRight, -1F).also { applyToCards { c -> c.setViewPadding(right=it) } }
+        attrs.getDimension(ThemedButton_toggle_paddingTop, -1F).also { applyToCards { c -> c.setViewPadding(top=it) } }
+        attrs.getDimension(ThemedButton_toggle_paddingLeft, -1F).also { applyToCards { c -> c.setViewPadding(left=it) } }
+        attrs.getDimension(ThemedButton_toggle_paddingBottom, -1F).also { applyToCards { c -> c.setViewPadding(bottom=it) } }
+        attrs.getDimension(ThemedButton_toggle_textPadding, -1F).also { applyToTexts { c -> c.setViewPadding(all=it) } }
+        attrs.getDimension(ThemedButton_toggle_textPaddingHorizontal, 14.pxf).also { applyToTexts { t -> t.setViewPadding(horizontal=it) } }
+        attrs.getDimension(ThemedButton_toggle_textPaddingVertical, -1F).also { applyToTexts { t -> t.setViewPadding(vertical=it) } }
+        attrs.getDimension(ThemedButton_toggle_textPaddingRight, -1F).also { applyToTexts { t -> t.setViewPadding(right=it) } }
+        attrs.getDimension(ThemedButton_toggle_textPaddingTop, -1F).also { applyToTexts { t -> t.setViewPadding(top=it) } }
+        attrs.getDimension(ThemedButton_toggle_textPaddingLeft, -1F).also { applyToTexts { t -> t.setViewPadding(left=it) } }
+        attrs.getDimension(ThemedButton_toggle_textPaddingBottom, -1F).also { applyToTexts { t -> t.setViewPadding(bottom=it) } }
+        attrs.getDimension(ThemedButton_toggle_iconPadding, -1F).also { applyToIcons { c -> c.setViewPadding(all=it) } }
+        attrs.getDimension(ThemedButton_toggle_iconPaddingHorizontal, -1F).also { applyToIcons { i -> i.setViewPadding(horizontal=it) } }
+        attrs.getDimension(ThemedButton_toggle_iconPaddingVertical, -1F).also { applyToIcons { i -> i.setViewPadding(vertical=it) } }
+        attrs.getDimension(ThemedButton_toggle_iconPaddingRight, -1F).also { applyToIcons { i -> i.setViewPadding(right=it) } }
+        attrs.getDimension(ThemedButton_toggle_iconPaddingTop, -1F).also { applyToIcons { i -> i.setViewPadding(top=it) } }
+        attrs.getDimension(ThemedButton_toggle_iconPaddingLeft, -1F).also { applyToIcons { i -> i.setViewPadding(left=it) } }
+        attrs.getDimension(ThemedButton_toggle_iconPaddingBottom, -1F).also { applyToIcons { i -> i.setViewPadding(bottom=it) } }
+        attrs.getDrawable(ThemedButton_toggle_icon)?.let { this.icon = it; this.selectedIcon = it.constantState?.newDrawable()!! }
+        attrs.getDrawable(ThemedButton_toggle_selectedIcon)?.let { this.selectedIcon = it }
+        attrs.getColor(ThemedButton_toggle_iconColor, textColor).also { ivIcon.setTintColor(it) }
+        attrs.getInt(ThemedButton_toggle_iconGravity, Gravity.CENTER).also { applyToIcons { i -> i.layoutGravity = it } }
+        attrs.getDimension(ThemedButton_toggle_textSize, 15F.px).also { applyToTexts { t -> t.textSize = it.dp.toFloat() } }
+        attrs.getInt(ThemedButton_toggle_textGravity, Gravity.CENTER).also { applyToTexts { i -> i.layoutGravity = it } }
+        attrs.getInt(ThemedButton_toggle_textAlignment, 4).also { applyToTexts { t -> if (Build.VERSION.SDK_INT >= 17) t.textAlignment = it } }
+        (attrs.getString(ThemedButton_toggle_fontFamily) ?: fontFamily).also { fontFamily = it }
         attrs.recycle()
     }
 
@@ -269,12 +282,12 @@ class ThemedButton(ctx: Context, attrs: AttributeSet) : RelativeLayout(ctx, attr
         }
     }
 
-    private fun applyToCards(func: (RoundedCornerLayout) -> Unit) =
+    fun applyToCards(func: (RoundedCornerLayout) -> Unit) =
         listOf(cvCard, cvSelectedCard).forEach(func::invoke)
 
-    private fun applyToTexts(func: (TextView) -> Unit) =
+    fun applyToTexts(func: (TextView) -> Unit) =
         listOf(tvText, tvSelectedText).forEach(func::invoke)
 
-    private fun applyToIcons(func: (ImageView) -> Unit) =
+    fun applyToIcons(func: (ImageView) -> Unit) =
         listOf(ivIcon, ivSelectedIcon).forEach(func::invoke)
 }
