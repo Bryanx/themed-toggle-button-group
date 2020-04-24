@@ -200,7 +200,7 @@ Attribute | Default value | Description
 `app:toggle_selectableAmount` | 1 | The amount of buttons that are allowed to be selected. If the user tries to select more buttons, the button that was last selected will be deselected.
 `app:toggle_requiredAmount` | 1 | The amount of buttons that are required to be selected. If the user tries to deselect a button below the required amount, the selection is blocked. You can programmatically specify which buttons should be selected initially by setting `ThemedButton.isSelected`. Otherwise a random button will be selected initially.
 `app:toggle_horizontalSpacing` | 10dp | The amount of space between the buttons when they are positioned next to each other.
-`app:toggle_selectAnimation` | SelectAnimation.CIRCULAR_REVEAL | The type of animations that occurs upon selecting a button. Some animations require a certain API level. If the API level is not met SelectAnimation.FADE is used instead.
+`app:toggle_selectAnimation` | SelectAnimation.CIRCULAR_REVEAL | The type of animations that occur upon selecting a button. Some animations require a certain API level. If the API level is not met SelectAnimation.FADE is used instead.
 
 ## ThemedButton custom attributes
 ![Color_customisation](https://github.com/Bryanx/themed-toggle-button-group/blob/master/demo-toggle-cards/assets/dark.gif?raw=true) \
