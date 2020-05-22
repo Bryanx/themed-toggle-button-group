@@ -165,7 +165,7 @@ class ThemedToggleButtonGroup : FlexboxLayout {
     fun selectButton(@IdRes id: Int) = selectButton(findViewById<ThemedButton>(id))
 
     /**
-     * Selects or deselects the passed [ThemedButton]. This call if blocked if this makes the amount of
+     * Selects or deselects the passed [ThemedButton]. This call is blocked if this makes the amount of
      * selected buttons fall below the [requiredAmount] of selected buttons.
      *
      * @param btn The [ThemedButton] to be selected/deselected.
