@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos
+    runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v2
     - name: Run tests
