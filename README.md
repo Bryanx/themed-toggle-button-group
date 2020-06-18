@@ -191,6 +191,12 @@ buttonGroup.addView(btn1,
         )
     )
 ```
+Select a button programmatically:
+You can pass in the ThemedButton itself or its resid.
+```kotlin
+buttonGroup.selectButtonWithAnimation(btn)
+buttonGroup.selectButton(btn)
+```
 
 # Customization
 These lists include all custom attributes from this library. Please take a look [FlexboxLayout](https://github.com/google/flexbox-layout) to see all custom attributes that can also be applied to these Views.
