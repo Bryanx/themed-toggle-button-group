@@ -54,6 +54,8 @@ class ThemedToggleButtonGroup : FlexboxLayout {
 
     private var deselectAnimator: Animator? = AnimatorSet()
 
+    private lateinit var animatorSet: AnimatorSet
+
     /**
      * The amount of space between the [buttons] when they are positioned next to each other.
      * Default is 10dp.
@@ -113,11 +115,13 @@ class ThemedToggleButtonGroup : FlexboxLayout {
     }
 
     private fun startAnimations() {
+        if (this::animatorSet.isInitialized && animatorSet.isRunning) animatorSet.cancel()
         try {
-            val set = AnimatorSet()
-            if (deselectAnimator != null) set.playTogether(selectAnimator, deselectAnimator)
-            else set.play(selectAnimator)
-            set.start()
+            animatorSet = AnimatorSet()
+            animatorSet.startDelay = 5 //small start delay to make sure onStart always happens before onCancel
+            if (deselectAnimator != null) animatorSet.playTogether(selectAnimator, deselectAnimator)
+            else animatorSet.play(selectAnimator)
+            animatorSet.start()
         } catch (e: Exception) { /* catch exceptions caused by unfinished animations */ }
     }
 
