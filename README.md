@@ -172,6 +172,24 @@ A demo for this example can be found here: [demo-toggle-cards](https://github.co
 </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 ```
 
+## Selection listener
+The easiest way to react to selection changes is to use group.setOnSelectListener(() -> {}).
+```kotlin
+val themedButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.idOfYourThemedButtonGroup)
+themedButtonGroup.setOnSelectListener { button: ThemedButton ->
+    // handle selected button
+}
+```
+Once a button is selected its property isSelected will be set to true.
+```kotlin
+// get the selected buttons:
+val selectedButtons = themedButtonGroup.selectedButtons
+// get all buttons
+val allButtons = themedButtonGroup.buttons
+// get all unselected buttons
+val unselectedButtons = allButtons.filter { !it.isSelected }
+```
+
 ## Programmatically adding buttons
 A demo project for this can be found here: [programmatically-add-buttons](https://github.com/Bryanx/themed-toggle-button-group/tree/master/demo-programmatically-add-buttons). \
 Programmatically create a `ThemedToggleButtonGroup`:
