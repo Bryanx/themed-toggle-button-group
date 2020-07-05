@@ -173,7 +173,7 @@ A demo for this example can be found here: [demo-toggle-cards](https://github.co
 ```
 
 ## Selection listener
-The easiest way to react to selection changes is to use group.setOnSelectListener(() -> {}).
+The easiest way to react to selection changes is to use `group.setOnSelectListener(() -> {})`.
 <details>
 <summary>Java</summary>
 <p>
@@ -194,7 +194,7 @@ themedButtonGroup.setOnSelectListener { button: ThemedButton ->
     // handle selected button
 }
 ```
-Once a button is selected its property isSelected will be set to true.
+Once a button is selected its property `isSelected` will be set to true.
 <details>
 <summary>Java</summary>
 <p>
@@ -271,7 +271,7 @@ buttonGroup.addView(btn1,
     )
 ```
 Select a button programmatically:
-You can pass in the ThemedButton itself or its resid.
+You can pass in the `ThemedButton` itself or its resid.
 ```kotlin
 buttonGroup.selectButtonWithAnimation(btn)
 buttonGroup.selectButton(btn)
