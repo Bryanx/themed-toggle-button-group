@@ -179,10 +179,10 @@ The easiest way to react to selection changes is to use group.setOnSelectListene
 <p>
 
 ```java
-ThemedToggleButtonGroup themedButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.idOfYourThemedButtonGroup)
+ThemedToggleButtonGroup themedButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.idOfYourThemedButtonGroup);
 themedButtonGroup.setOnSelectListener((ThemedButton btn) -> {
     // handle selected button
-})
+});
 ```
 
 </p>
