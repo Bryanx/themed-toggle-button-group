@@ -193,9 +193,22 @@ val unselectedButtons = allButtons.filter { !it.isSelected }
 ## Programmatically adding buttons
 A demo project for this can be found here: [programmatically-add-buttons](https://github.com/Bryanx/themed-toggle-button-group/tree/master/demo-programmatically-add-buttons). \
 Programmatically create a `ThemedToggleButtonGroup`:
+<details>
+<summary>Java</summary>
+<p>
+
+```java
+ThemedToggleButtonGroup buttonGroup = ThemedToggleButtonGroup(context)
+buttonGroup.justifyContent = JustifyContent.CENTER
+yourRootView.addView(buttonGroup)
+```
+
+</p>
+</details>
+
 ```kotlin
 val buttonGroup = ThemedToggleButtonGroup(context)
-buttonGroup.justifyContent = JustifyContent.CENTER
+buttonGroup.setJustifyContent(JustifyContent.CENTER)
 yourRootView.addView(buttonGroup)
 ```
 Add a button:
