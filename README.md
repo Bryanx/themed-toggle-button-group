@@ -174,6 +174,20 @@ A demo for this example can be found here: [demo-toggle-cards](https://github.co
 
 ## Selection listener
 The easiest way to react to selection changes is to use group.setOnSelectListener(() -> {}).
+<details>
+<summary>Java</summary>
+<p>
+
+```java
+ThemedToggleButtonGroup themedButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.idOfYourThemedButtonGroup)
+themedButtonGroup.setOnSelectListener((ThemedButton btn) -> {
+    // handle selected button
+})
+```
+
+</p>
+</details>
+
 ```kotlin
 val themedButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.idOfYourThemedButtonGroup)
 themedButtonGroup.setOnSelectListener { button: ThemedButton ->
@@ -181,6 +195,22 @@ themedButtonGroup.setOnSelectListener { button: ThemedButton ->
 }
 ```
 Once a button is selected its property isSelected will be set to true.
+<details>
+<summary>Java</summary>
+<p>
+
+```java
+// get the selected buttons:
+List<ThemedButton> selectedButtons = themedButtonGroup.getSelectedButtons();
+// get all buttons
+List<ThemedButton> allButtons = themedButtonGroup.getButtons();
+// get all unselected buttons
+List<ThemedButton> unselectedButtons = allButtons.stream().filter(btn -> !btn.isSelected()).collect(Collectors.toList());
+```
+
+</p>
+</details>
+
 ```kotlin
 // get the selected buttons:
 val selectedButtons = themedButtonGroup.selectedButtons
@@ -198,20 +228,38 @@ Programmatically create a `ThemedToggleButtonGroup`:
 <p>
 
 ```java
-val buttonGroup = ThemedToggleButtonGroup(context)
-buttonGroup.setJustifyContent(JustifyContent.CENTER)
-yourRootView.addView(buttonGroup)
+ThemedToggleButtonGroup buttonGroup = ThemedToggleButtonGroup(context);
+buttonGroup.setJustifyContent(JustifyContent.CENTER);
+yourRootView.addView(buttonGroup);
 ```
 
 </p>
 </details>
 
 ```kotlin
-ThemedToggleButtonGroup buttonGroup = ThemedToggleButtonGroup(context)
+val buttonGroup = ThemedToggleButtonGroup(context)
 buttonGroup.justifyContent = JustifyContent.CENTER
 yourRootView.addView(buttonGroup)
 ```
 Add a button:
+<details>
+<summary>Java</summary>
+<p>
+
+```java
+ThemedButton btn1 = ThemedButton(context);
+btn1.setText("Button 1");
+buttonGroup.addView(btn1, 
+        ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+    );
+```
+
+</p>
+</details>
+
 ```kotlin
 val btn1 = ThemedButton(context)
 btn1.text = "Button 1"
