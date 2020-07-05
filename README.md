@@ -198,8 +198,8 @@ Programmatically create a `ThemedToggleButtonGroup`:
 <p>
 
 ```java
-ThemedToggleButtonGroup buttonGroup = ThemedToggleButtonGroup(context)
-buttonGroup.justifyContent = JustifyContent.CENTER
+val buttonGroup = ThemedToggleButtonGroup(context)
+buttonGroup.setJustifyContent(JustifyContent.CENTER)
 yourRootView.addView(buttonGroup)
 ```
 
@@ -207,8 +207,8 @@ yourRootView.addView(buttonGroup)
 </details>
 
 ```kotlin
-val buttonGroup = ThemedToggleButtonGroup(context)
-buttonGroup.setJustifyContent(JustifyContent.CENTER)
+ThemedToggleButtonGroup buttonGroup = ThemedToggleButtonGroup(context)
+buttonGroup.justifyContent = JustifyContent.CENTER
 yourRootView.addView(buttonGroup)
 ```
 Add a button:
