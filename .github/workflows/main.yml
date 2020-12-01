@@ -10,11 +10,11 @@ on:
 
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
     - name: Run tests
-      uses: ReactiveCircus/android-emulator-runner@v2.4.0
+      uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 29
         script: ./gradlew connectedCheck
