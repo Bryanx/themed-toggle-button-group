@@ -18,6 +18,7 @@ dependencies {
   implementation 'com.google.android:flexbox:2.0.1'
 }
 ```
+For Java projects you also have to add `implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.20'`
 
 ## Single selection
 ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/basic.gif)
@@ -182,6 +183,7 @@ The easiest way to react to selection changes is to use `group.setOnSelectListen
 ThemedToggleButtonGroup themedButtonGroup = findViewById<ThemedToggleButtonGroup>(R.id.idOfYourThemedButtonGroup);
 themedButtonGroup.setOnSelectListener((ThemedButton btn) -> {
     // handle selected button
+    return kotlin.Unit.INSTANCE;
 });
 ```
 
