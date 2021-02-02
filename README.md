@@ -272,8 +272,8 @@ buttonGroup.addView(btn1,
         )
     )
 ```
-Select a button programmatically:
-You can pass in the `ThemedButton` itself or its resid.
+Select/deselect a button programmatically:
+You can pass in the `ThemedButton` itself or its resId. This will toggle selection. Fire the method a second time to deselect the button.
 ```kotlin
 buttonGroup.selectButtonWithAnimation(btn)
 buttonGroup.selectButton(btn)

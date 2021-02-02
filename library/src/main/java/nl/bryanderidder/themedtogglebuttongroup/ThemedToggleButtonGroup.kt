@@ -172,6 +172,10 @@ class ThemedToggleButtonGroup : FlexboxLayout {
      * Selects or deselects the passed [ThemedButton]. This call is blocked if this makes the amount of
      * selected buttons fall below the [requiredAmount] of selected buttons.
      *
+     * If the button is already selected, firing this method will deselect the button,
+     * unless it will make the amount of selected buttons fall below the 'requiredAmount' of selected buttons,
+     * in that case nothing happens.
+     *
      * @param btn The [ThemedButton] to be selected/deselected.
      * @param x Horizontal position of the click.
      * @param y Vertical position of the click.
@@ -189,7 +193,7 @@ class ThemedToggleButtonGroup : FlexboxLayout {
         if (btn.isSelected) selectedButtons.enqueue(btn)
         else selectedButtons.remove(btn)
         if (animate) selectAnimator = getSelectionAnimator(btn, x, y, btn.isSelected)
-        else btn.cvSelectedCard.visibility = VISIBLE
+        else btn.cvSelectedCard.visibility = if (btn.isSelected) VISIBLE else GONE
         if (buttons.count { it.isSelected } > selectableAmount) {
             val removedBtn = selectedButtons.dequeue()!!
             buttons.find { it == removedBtn }?.isSelected = false

@@ -200,6 +200,25 @@ class ThemedToggleButtonGroupTest {
     @Test
     @FlakyTest
     @Throws(Throwable::class)
+    fun testDeselection() {
+        val buttonGroup = createLayout(R.layout.activity_deselect_button, activityRule)
+        activityRule.runOnUiThread {
+            //select button
+            buttonGroup.selectButton(R.id.btn1)
+            assertThat(buttonGroup.selectedButtons.size, `is`(1))
+            assertThat(buttonGroup.buttons[0].cvSelectedCard.visibility, `is`(VISIBLE))
+            //deselect button
+            buttonGroup.selectButton(R.id.btn1)
+            assertThat(buttonGroup.selectedButtons.size, `is`(0))
+            assertThat(buttonGroup.buttons[0].cvSelectedCard.visibility, `is`(GONE))
+            assertThat(buttonGroup.buttons[1].cvSelectedCard.visibility, `is`(GONE))
+            assertThat(buttonGroup.buttons[2].cvSelectedCard.visibility, `is`(GONE))
+        }
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
     fun testRequiredAmountProgrammatically() {
         val buttonGroup = createLayout(R.layout.activity_required_selection, activityRule)
         // selectableAmount = 3, requiredAmount = 2
