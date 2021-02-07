@@ -10,12 +10,14 @@ ThemedToggleButtonGroup is a highly modular lightweight toggle button library fo
 
 The main class [ThemedToggleButtonGroup.kt](https://github.com/Bryanx/themed-toggle-button-group/blob/master/library/src/main/java/nl/bryanderidder/themedtogglebuttongroup/ThemedToggleButtonGroup.kt) extends Google's [FlexboxLayout](https://github.com/google/flexbox-layout). Allowing you to use styling similar to [CSS Flexbox](https://www.w3schools.com/css/css3_flexbox.asp) for the button's inside the toggle group.
 
+## Notice
+As of version 1.3.2 hosting will be moved from Bintray to MavenCentral. I will move all versions to mavenCentral, but to be safe please use the latest version of this library.
+
 ## Installation
-Add these dependencies in your app's `build.gradle` file:
+Add the dependency in your app's `build.gradle` file:
 ```groovy
 dependencies {
-  implementation 'nl.bryanderidder:themed-toggle-button-group:1.3.1'
-  implementation 'com.google.android:flexbox:2.0.1'
+  implementation 'nl.bryanderidder:themed-toggle-button-group:1.3.2'
 }
 ```
 For Java projects you also have to add `implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.20'`
