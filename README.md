@@ -2,7 +2,7 @@
 ![CI](https://github.com/Bryanx/themed-toggle-button-group/workflows/CI/badge.svg)
 ![API](https://img.shields.io/static/v1?label=API&message=14%2B&color=blue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) 
-[![Download](https://api.bintray.com/packages/bryanx/themed-toggle-button-group/nl.bryanderidder.themed-toggle-button-group/images/download.svg)](https://bintray.com/bryanx/themed-toggle-button-group/nl.bryanderidder.themed-toggle-button-group/_latestVersion)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/nl.bryanderidder/themed-toggle-button-group/badge.svg)](https://maven-badges.herokuapp.com/maven-central/nl.bryanderidder/themed-toggle-button-group/)
 
 Customisable toggle buttons inside a [FlexboxLayout](https://github.com/google/flexbox-layout).
 
