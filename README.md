@@ -20,7 +20,7 @@ dependencies {
   implementation 'nl.bryanderidder:themed-toggle-button-group:1.3.2'
 }
 ```
-For Java projects you also have to add `implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.20'`
+For Java projects you also have to add `implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.30'`
 
 ## Single selection
 ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/basic.gif)
