@@ -74,6 +74,7 @@ internal fun View.setOnBoundedTouchListener(
     ) -> Unit
 ) {
     var rect: Rect? = null
+    var cancelled = false
     setOnTouchListener { v: View?, event: MotionEvent? ->
         performClick()
         val viewLeft = v?.left ?: 0
@@ -82,17 +83,31 @@ internal fun View.setOnBoundedTouchListener(
         val viewBottom = v?.bottom ?: 0
         val eventX = event?.x?.toInt() ?: 0
         val eventY = event?.y?.toInt() ?: 0
-        if (event?.action == MotionEvent.ACTION_DOWN) {
-            callback.invoke(true, false, false, event)
-            rect = Rect(viewLeft, viewTop, viewright, viewBottom)
-        } else if (event?.action == MotionEvent.ACTION_UP) {
-            if (rect?.contains(viewLeft + eventX, viewTop + eventY) == false) {
-                callback.invoke(false, false, true, event)
-            } else {
-                callback.invoke(false, true, false, event)
+        val action = event?.action
+        when {
+            action == MotionEvent.ACTION_DOWN -> {
+                cancelled = false
+                callback.invoke(true, false, false, event)
+                rect = Rect(viewLeft, viewTop, viewright, viewBottom)
             }
-        } else if (event?.action == MotionEvent.ACTION_CANCEL) {
-            callback.invoke(false, false, true, event)
+            action == MotionEvent.ACTION_UP && !cancelled -> {
+                if (rect?.contains(viewLeft + eventX, viewTop + eventY) == false) {
+                    cancelled = true
+                    callback.invoke(false, false, true, event)
+                } else {
+                    callback.invoke(false, true, false, event)
+                }
+            }
+            action == MotionEvent.ACTION_MOVE -> {
+                if (rect?.contains(viewLeft + eventX, viewTop + eventY) == false && !cancelled) {
+                    cancelled = true
+                    callback.invoke(false, false, true, event)
+                }
+            }
+            action == MotionEvent.ACTION_CANCEL && !cancelled -> {
+                cancelled = true
+                callback.invoke(false, false, true, event)
+            }
         }
         true
     }
