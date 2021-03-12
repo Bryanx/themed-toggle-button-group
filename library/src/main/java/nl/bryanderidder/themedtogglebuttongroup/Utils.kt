@@ -24,10 +24,8 @@
 
 package nl.bryanderidder.themedtogglebuttongroup
 
-import android.content.Context
 import android.content.res.Resources
-import android.graphics.Color
-import android.graphics.PorterDuff
+import android.graphics.Rect
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -35,8 +33,6 @@ import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
 import android.view.animation.ScaleAnimation
 import android.widget.FrameLayout
-import android.widget.ImageView
-import androidx.core.content.ContextCompat
 
 /**
  * Contains all extension methods.
@@ -54,16 +50,6 @@ internal fun ThemedButton.setMargin(leftMargin: Int? = null, topMargin: Int? = n
     layoutParams = params
 }
 
-internal fun ThemedButton.bounceOnClick() {
-    setOnTouchListener { _, event ->
-        if (event.action == MotionEvent.ACTION_DOWN) bounceDown()
-        if (event.action == MotionEvent.ACTION_UP ||
-            event.action == MotionEvent.ACTION_CANCEL) bounceUp()
-        if (event.action == MotionEvent.ACTION_UP) performClick()
-        true
-    }
-}
-
 /**
  * Makes the button scale down slightly.
  */
@@ -71,10 +57,46 @@ fun ThemedButton.bounceDown() {
     val animScaleDown = ScaleAnimation(1f, 0.9f, 1f, 0.9f, (width/2).toFloat(), (height/2).toFloat())
     animScaleDown.duration = 200
     animScaleDown.fillAfter = true
-    animScaleDown.interpolator= DecelerateInterpolator()
+    animScaleDown.interpolator = DecelerateInterpolator()
     startAnimation(animScaleDown)
 }
 
+/**
+ * Adds a touch listener that also triggers a cancel event if
+ * action up is triggered outside the touched view
+ */
+internal fun View.setOnBoundedTouchListener(
+    callback: (
+        isActionDown: Boolean,
+        isActionUp: Boolean,
+        isActionCancel: Boolean,
+        event: MotionEvent?
+    ) -> Unit
+) {
+    var rect: Rect? = null
+    setOnTouchListener { v: View?, event: MotionEvent? ->
+        performClick()
+        val viewLeft = v?.left ?: 0
+        val viewTop = v?.top ?: 0
+        val viewright = v?.right ?: 0
+        val viewBottom = v?.bottom ?: 0
+        val eventX = event?.x?.toInt() ?: 0
+        val eventY = event?.y?.toInt() ?: 0
+        if (event?.action == MotionEvent.ACTION_DOWN) {
+            callback.invoke(true, false, false, event)
+            rect = Rect(viewLeft, viewTop, viewright, viewBottom)
+        } else if (event?.action == MotionEvent.ACTION_UP) {
+            if (rect?.contains(viewLeft + eventX, viewTop + eventY) == false) {
+                callback.invoke(false, false, true, event)
+            } else {
+                callback.invoke(false, true, false, event)
+            }
+        } else if (event?.action == MotionEvent.ACTION_CANCEL) {
+            callback.invoke(false, false, true, event)
+        }
+        true
+    }
+}
 
 /**
  * Makes the button scale up slightly (with overshoot).
@@ -83,7 +105,7 @@ fun ThemedButton.bounceUp() {
     val animScaleUp = ScaleAnimation(0.9f, 1f, 0.9f, 1f, (width/2).toFloat(), (height/2).toFloat())
     animScaleUp.duration = 200
     animScaleUp.startOffset = 100
-    animScaleUp.interpolator= OvershootInterpolator(3f)
+    animScaleUp.interpolator = OvershootInterpolator(3f)
     startAnimation(animScaleUp)
 }
 

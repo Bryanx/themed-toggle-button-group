@@ -107,10 +107,11 @@ class ThemedToggleButtonGroup : FlexboxLayout {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun addClickListeners(btn: ThemedButton) {
-        btn.cvCard.setOnTouchListener { _, event ->
-            selectButtonWithAnimation(btn, event.x, event.y)
-            if (event.action == MotionEvent.ACTION_UP) btn.performClick()
-            event.action == MotionEvent.ACTION_UP
+        btn.cvCard.setOnBoundedTouchListener { isActionDown: Boolean, isActionUp: Boolean, isActionCancel: Boolean, event: MotionEvent? ->
+            btn.performClick()
+            if (isActionDown) btn.bounceDown()
+            if (isActionUp) selectButtonWithAnimation(btn, event?.x ?: 0f, event?.y ?: 0f)
+            if (isActionUp || isActionCancel) btn.bounceUp()
         }
     }
 
@@ -216,11 +217,6 @@ class ThemedToggleButtonGroup : FlexboxLayout {
             VERTICAL_WINDOW -> AnimationUtils.createVerticalWindowAnimator(btn.cvCard, btn.cvSelectedCard, selected)
             else -> AnimationUtils.createCircularReveal(btn.cvSelectedCard, x, y, selected, (btn.btnWidth.coerceAtLeast(btn.btnHeight) * 1.1).toFloat())
         }
-
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
-        buttons.forEach { it.bounceOnClick() }
-    }
 
     /** Listen on selection changes. Alternatively you can add onclick listeners to the buttons. */
     fun setOnSelectListener(listener: (ThemedButton) -> Unit) {
