@@ -367,4 +367,30 @@ class ThemedToggleButtonGroupTest {
             assertThat(buttons[0].bgColor, `is`(lightGray))
         }
     }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testClickShouldFailWhenButtonIsDisabled() {
+        val buttonGroup = createLayout(R.layout.activity_single_selection, activityRule)
+        val buttons = buttonGroup.buttons
+        buttons[0].isEnabled = false
+        activityRule.runOnUiThread {
+            buttonGroup.selectButton(buttons[0], 0F, 0F, false)
+            assertTrue(buttons.none { it.isSelected })
+        }
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testClickShouldSucceedWhenButtonIsEnabled() {
+        val buttonGroup = createLayout(R.layout.activity_single_selection, activityRule)
+        val buttons = buttonGroup.buttons
+        buttons.forEach { it.isEnabled = true }
+        activityRule.runOnUiThread {
+            buttonGroup.selectButton(buttons[0], 0F, 0F, false)
+            assertThat(buttons.single { it.isSelected }.name, `is`(buttons[0].name))
+        }
+    }
 }

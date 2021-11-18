@@ -144,7 +144,8 @@ class ThemedToggleButtonGroup : FlexboxLayout {
 
     /**
      * Selects or deselects the passed [ThemedButton] with animation. This call is blocked if
-     * this makes the amount of selected buttons fall below the [requiredAmount] of selected buttons.
+     * this makes the amount of selected buttons fall below the [requiredAmount] of selected buttons
+     * or if the button is not enabled.
      *
      * @param btn The [ThemedButton] to be selected/deselected.
      * @param x Horizontal position of the click.
@@ -163,7 +164,7 @@ class ThemedToggleButtonGroup : FlexboxLayout {
 
     /**
      * Selects or deselects the passed [ThemedButton]'s id. This call is blocked if this makes the amount of
-     * selected buttons fall below the [requiredAmount] of selected buttons.
+     * selected buttons fall below the [requiredAmount] of selected buttons or if the button is not enabled.
      *
      * @param id Id of the [ThemedButton]'s view.
      */
@@ -171,7 +172,7 @@ class ThemedToggleButtonGroup : FlexboxLayout {
 
     /**
      * Selects or deselects the passed [ThemedButton]. This call is blocked if this makes the amount of
-     * selected buttons fall below the [requiredAmount] of selected buttons.
+     * selected buttons fall below the [requiredAmount] of selected buttons or if the button is not enabled.
      *
      * If the button is already selected, firing this method will deselect the button,
      * unless it will make the amount of selected buttons fall below the 'requiredAmount' of selected buttons,
@@ -189,7 +190,8 @@ class ThemedToggleButtonGroup : FlexboxLayout {
         y: Float = (btn.btnHeight / 2).toFloat(),
         animate: Boolean = false
     ): Boolean {
-        if (btn.isSelected && buttons.count { it.isSelected } <= requiredAmount) return false
+        if (!btn.isEnabled || btn.isSelected && buttons.count { it.isSelected } <= requiredAmount)
+            return false
         btn.isSelected = !btn.isSelected
         if (btn.isSelected) selectedButtons.enqueue(btn)
         else selectedButtons.remove(btn)

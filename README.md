@@ -280,6 +280,25 @@ You can pass in the `ThemedButton` itself or its resId. This will toggle selecti
 buttonGroup.selectButtonWithAnimation(btn)
 buttonGroup.selectButton(btn)
 ```
+Enabling/disabling buttons:
+<details>
+<summary>Java</summary>
+<p>
+
+```java
+btn.setEnabled(false);
+// this will fail:
+buttonGroup.selectButton(btn);
+```
+
+</p>
+</details>
+
+```kotlin
+btn.isEnabled = false
+// this will fail:
+buttonGroup.selectButton(btn)
+```
 
 # Customization
 These lists include all custom attributes from this library. Please take a look [FlexboxLayout](https://github.com/google/flexbox-layout) to see all custom attributes that can also be applied to these Views.
