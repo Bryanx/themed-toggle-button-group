@@ -17,10 +17,10 @@ As of version 1.3.2 hosting will be moved from Bintray to MavenCentral. I will m
 Add the dependency in your app's `build.gradle` file:
 ```groovy
 dependencies {
-  implementation 'nl.bryanderidder:themed-toggle-button-group:1.3.4'
+  implementation 'nl.bryanderidder:themed-toggle-button-group:1.4.0'
 }
 ```
-For Java projects you also have to add `implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.30'`
+For Java projects you also have to add `implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'`
 
 ## Single selection
 ![demo](https://raw.githubusercontent.com/Bryanx/themed-toggle-button-group/master/demo-toggle-cards/assets/basic.gif)
