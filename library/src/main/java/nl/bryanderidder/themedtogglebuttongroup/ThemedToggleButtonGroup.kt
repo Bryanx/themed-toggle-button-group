@@ -108,9 +108,13 @@ class ThemedToggleButtonGroup : FlexboxLayout {
     @SuppressLint("ClickableViewAccessibility")
     private fun addClickListeners(btn: ThemedButton) {
         btn.cvCard.setOnBoundedTouchListener { isActionDown: Boolean, isActionUp: Boolean, isActionCancel: Boolean, event: MotionEvent? ->
-            btn.performClick()
             if (isActionDown) btn.bounceDown()
-            if (isActionUp) selectButtonWithAnimation(btn, event?.x ?: 0f, event?.y ?: 0f)
+
+            if (isActionUp) {
+                selectButtonWithAnimation(btn, event?.x ?: 0f, event?.y ?: 0f)
+                btn.performClick()
+            }
+
             if (isActionUp || isActionCancel) btn.bounceUp()
         }
     }
